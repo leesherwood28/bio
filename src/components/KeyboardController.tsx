@@ -18,32 +18,28 @@ const KeyboardController: React.FunctionComponent = () => {
 
   useKeys(
     ['w', 'W', 'ArrowUp'],
-    () => setControls({ backward: true }),
-    () => setControls({ backward: false })
+    () => setControls({ forward: true }),
+    () => setControls({ forward: false })
   );
 
   useKeys(
     ['s', 'S', 'ArrowDown'],
-    () => setControls({ forward: true }),
-    () => setControls({ forward: false })
+    () => setControls({ backward: true }),
+    () => setControls({ backward: false })
   );
 
   return null;
 };
 
-function useKeys(
-  keys: string[],
-  keydownHandler: () => void,
-  keyupHandler: () => void
-) {
+function useKeys(keys: string[], keydown: () => void, keyup: () => void) {
   const keyUpHandler = (event: KeyboardEvent) => {
     if (keys.some((key) => key === event.key)) {
-      keydownHandler();
+      keyup();
     }
   };
   const keyDownHandler = (event: KeyboardEvent) => {
     if (keys.some((key) => key === event.key)) {
-      keyupHandler();
+      keydown();
     }
   };
 

@@ -11,8 +11,8 @@ const convertBooleanToValue = (bool?: Boolean) => (bool ? 1 : 0);
 
 const convertControlsIntoMovementVector = (controls: ControllerState) => {
   return new Vector3(
-    convertBooleanToValue(controls.left) -
-      convertBooleanToValue(controls.right),
+    convertBooleanToValue(controls.right) -
+      convertBooleanToValue(controls.left),
     0,
     convertBooleanToValue(controls.backward) -
       convertBooleanToValue(controls.forward)
@@ -32,7 +32,7 @@ const Player: React.FunctionComponent = () => {
   const { actions } = useAnimations(animations, player);
 
   useLayoutEffect(() => {
-    actions['Root|Walk']?.play();
+    actions['Root|Idle 01 ']?.play();
   }, [actions]);
 
   useFrame(() => {
