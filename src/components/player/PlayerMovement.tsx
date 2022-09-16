@@ -3,7 +3,7 @@ import React from 'react';
 import { Vector3 } from 'three';
 import { ControllerState, useGameStore } from '../../state/game-store';
 
-const PLAYER_MOVE_SPEED = 0.04;
+const PLAYER_MOVE_SPEED = 0.15;
 
 const convertBooleanToValue = (bool?: Boolean) => (bool ? 1 : 0);
 
