@@ -3,7 +3,7 @@ import { useFrame } from '@react-three/fiber';
 import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import { Euler, Group, Matrix4, Vector2, Vector3 } from 'three';
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
-import { ControllerState, useGameStore } from '../state/game-store';
+import { ControllerState, useGameStore } from '../../state/game-store';
 
 const PLAYER_MOVE_SPEED = 0.04;
 
