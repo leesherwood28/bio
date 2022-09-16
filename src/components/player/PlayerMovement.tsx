@@ -1,11 +1,7 @@
-import { useGLTF, useAnimations } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import React, { useEffect, useLayoutEffect, useRef } from 'react';
-import { Euler, Group, Matrix4, Vector2, Vector3 } from 'three';
-import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
-import { ControllerState, useGameStore } from '../state/game-store';
-import PlayerIdle from './player-states/PlayerIdle';
-import PlayerRunning from './player-states/PlayerRunning';
+import React from 'react';
+import { Vector3 } from 'three';
+import { ControllerState, useGameStore } from '../../state/game-store';
 
 const PLAYER_MOVE_SPEED = 0.04;
 
@@ -23,20 +19,10 @@ const convertControlsIntoMovementVector = (controls: ControllerState) => {
     .multiplyScalar(PLAYER_MOVE_SPEED);
 };
 
-const Player: React.FunctionComponent = () => {
+const PlayerMovement: React.FunctionComponent = () => {
   const player = useGameStore((s) => s.player.object);
   const controls = useGameStore((s) => s.controls);
   const set = useGameStore((s) => s.set);
-
-  const { scene, animations } = useGLTF(
-    '/player/scene.gltf',
-    'https://www.gstatic.com/draco/versioned/decoders/1.4.0/'
-  ) as GLTF;
-  const { actions } = useAnimations(animations, player);
-
-  useLayoutEffect(() => {
-    set((s) => ({ player: { ...s.player, animations: actions } }));
-  }, [actions]);
 
   useFrame(() => {
     if (!player.current) {
@@ -44,8 +30,7 @@ const Player: React.FunctionComponent = () => {
     }
     const movementVector = convertControlsIntoMovementVector(controls);
 
-    // TODO Use state machine instead and fix for different
-    // refresh rates
+    // TODO fix for different refresh rates
     if (movementVector.lengthSq() !== 0) {
       set((s) => ({ player: { ...s.player, state: 'running' } }));
       player.current.lookAt(
@@ -62,18 +47,7 @@ const Player: React.FunctionComponent = () => {
     player.current.position.z += movementVector.z;
   });
 
-  return (
-    <group ref={player} position={[0, 3, 5]}>
-      <primitive
-        object={scene}
-        rotation={[0, Math.PI, 0]}
-        scale={[0.01, 0.01, 0.01]}
-      >
-        <PlayerIdle />
-        <PlayerRunning />
-      </primitive>
-    </group>
-  );
+  return null;
 };
 
-export default Player;
+export default PlayerMovement;
