@@ -27,7 +27,10 @@ type PlayerState = 'running' | 'walking' | 'idle';
 interface PlayerData {
   object: RefObject<Group>;
   state: PlayerState;
-  animation: RefObject<AnimationAction>;
+  animation: AnimationAction | null;
+  animations: {
+    [x: string]: AnimationAction | null;
+  } | null;
 }
 
 const useGameStore = create<GameState>((set, get) => {
@@ -37,7 +40,8 @@ const useGameStore = create<GameState>((set, get) => {
     player: {
       object: createRef(),
       state: 'idle',
-      animation: createRef(),
+      animation: null,
+      animations: null,
     },
     controls: {},
   };

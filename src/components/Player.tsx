@@ -4,6 +4,8 @@ import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import { Euler, Group, Matrix4, Vector2, Vector3 } from 'three';
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { ControllerState, useGameStore } from '../state/game-store';
+import PlayerIdle from './player-states/PlayerIdle';
+import PlayerRunning from './player-states/PlayerRunning';
 
 const PLAYER_MOVE_SPEED = 0.04;
 
@@ -24,6 +26,7 @@ const convertControlsIntoMovementVector = (controls: ControllerState) => {
 const Player: React.FunctionComponent = () => {
   const player = useGameStore((s) => s.player.object);
   const controls = useGameStore((s) => s.controls);
+  const set = useGameStore((s) => s.set);
 
   const { scene, animations } = useGLTF(
     '/player/scene.gltf',
@@ -32,7 +35,7 @@ const Player: React.FunctionComponent = () => {
   const { actions } = useAnimations(animations, player);
 
   useLayoutEffect(() => {
-    actions['Root|Idle 01 ']?.play();
+    set((s) => ({ player: { ...s.player, animations: actions } }));
   }, [actions]);
 
   useFrame(() => {
@@ -44,16 +47,14 @@ const Player: React.FunctionComponent = () => {
     // TODO Use state machine instead and fix for different
     // refresh rates
     if (movementVector.lengthSq() !== 0) {
-      actions['Root|Idle 01 ']?.stop();
-      actions['Root|Run  02 ']?.play();
+      set((s) => ({ player: { ...s.player, state: 'running' } }));
       player.current.lookAt(
         player.current.position
           .clone()
           .add(movementVector.clone().multiplyScalar(-1))
       );
     } else {
-      actions['Root|Run  02 ']?.stop();
-      actions['Root|Idle 01 ']?.play();
+      set((s) => ({ player: { ...s.player, state: 'idle' } }));
     }
 
     player.current.position.x += movementVector.x;
@@ -67,7 +68,10 @@ const Player: React.FunctionComponent = () => {
         object={scene}
         rotation={[0, Math.PI, 0]}
         scale={[0.01, 0.01, 0.01]}
-      />
+      >
+        <PlayerIdle />
+        <PlayerRunning />
+      </primitive>
     </group>
   );
 };
