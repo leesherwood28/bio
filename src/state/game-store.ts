@@ -1,12 +1,18 @@
 import create from 'zustand';
 import { createRef, RefObject } from 'react';
-import { Group } from 'three';
+import { AnimationAction, Group } from 'three';
 
 interface GameState {
   camera: RefObject<Group>;
-  player: RefObject<Group>;
+  player: PlayerData;
   controls: ControllerState;
-  setControls: (controls: Partial<ControllerState>) => void;
+  set: (
+    partial:
+      | GameState
+      | Partial<GameState>
+      | ((state: GameState) => GameState | Partial<GameState>),
+    replace?: boolean | undefined
+  ) => void;
 }
 
 export interface ControllerState {
@@ -16,13 +22,24 @@ export interface ControllerState {
   right?: boolean;
 }
 
+type PlayerState = 'running' | 'walking' | 'idle';
+
+interface PlayerData {
+  object: RefObject<Group>;
+  state: PlayerState;
+  animation: RefObject<AnimationAction>;
+}
+
 const useGameStore = create<GameState>((set, get) => {
   return {
+    set,
     camera: createRef(),
-    player: createRef(),
+    player: {
+      object: createRef(),
+      state: 'idle',
+      animation: createRef(),
+    },
     controls: {},
-    setControls: (controls: Partial<ControllerState>) =>
-      set((state) => ({ controls: { ...state.controls, ...controls } })),
   };
 });
 export { useGameStore };

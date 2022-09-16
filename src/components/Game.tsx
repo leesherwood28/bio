@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 import Orbit from './dev/Orbit';
 import Ground from './Ground';
 import KeyboardController from './KeyboardController';
-import Player from './player/Player';
+import Player from './Player';
 
 const Game: React.FunctionComponent = () => {
   return (

@@ -2,30 +2,30 @@ import { useEffect } from 'react';
 import { useGameStore } from '../state/game-store';
 
 const KeyboardController: React.FunctionComponent = () => {
-  const setControls = useGameStore((s) => s.setControls);
+  const set = useGameStore((s) => s.set);
 
   useKeys(
     ['a', 'A', 'ArrowLeft'],
-    () => setControls({ left: true }),
-    () => setControls({ left: false })
+    () => set((s) => ({ controls: { ...s.controls, left: true } })),
+    () => set((s) => ({ controls: { ...s.controls, left: false } }))
   );
 
   useKeys(
     ['d', 'D', 'ArrowRight'],
-    () => setControls({ right: true }),
-    () => setControls({ right: false })
+    () => set((s) => ({ controls: { ...s.controls, right: true } })),
+    () => set((s) => ({ controls: { ...s.controls, right: false } }))
   );
 
   useKeys(
     ['w', 'W', 'ArrowUp'],
-    () => setControls({ forward: true }),
-    () => setControls({ forward: false })
+    () => set((s) => ({ controls: { ...s.controls, forward: true } })),
+    () => set((s) => ({ controls: { ...s.controls, forward: false } }))
   );
 
   useKeys(
     ['s', 'S', 'ArrowDown'],
-    () => setControls({ backward: true }),
-    () => setControls({ backward: false })
+    () => set((s) => ({ controls: { ...s.controls, backward: true } })),
+    () => set((s) => ({ controls: { ...s.controls, backward: false } }))
   );
 
   return null;
