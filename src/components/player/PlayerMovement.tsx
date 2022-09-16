@@ -23,6 +23,10 @@ const PlayerMovement: React.FunctionComponent = () => {
   const player = useGameStore((s) => s.player.object);
   const controls = useGameStore((s) => s.controls);
   const set = useGameStore((s) => s.set);
+  // TODO subscribe to store
+  // instead of getting these console logs running
+  // every render
+  //   console.log('frame');
 
   useFrame(() => {
     if (!player.current) {
