@@ -1,3 +1,4 @@
+import { Physics, Debug } from '@react-three/cannon';
 import { Canvas } from '@react-three/fiber';
 import { Suspense } from 'react';
 import Orbit from './dev/Orbit';
@@ -8,12 +9,16 @@ import Player from './player/Player';
 const Game: React.FunctionComponent = () => {
   return (
     <Canvas camera={{ position: [0, 4, 10] }}>
-      <Ground />
-      <Player />
-      <KeyboardController />
-      <ambientLight intensity={0.5} />
-      {/* Remove */}
-      <Orbit />
+      <Physics>
+        <Debug color='black' scale={1.1}>
+          <Ground />
+          <Player />
+          <KeyboardController />
+          <ambientLight intensity={0.5} />
+          {/* Remove */}
+          <Orbit />
+        </Debug>
+      </Physics>
     </Canvas>
   );
 };
