@@ -1,7 +1,7 @@
 import create from 'zustand';
 import { createRef, RefObject } from 'react';
 import { AnimationAction, Group, Vector, Vector3 } from 'three';
-
+import { PublicApi } from '@react-three/cannon';
 interface GameState {
   camera: RefObject<Group>;
   player: PlayerData;
@@ -25,13 +25,13 @@ export interface ControllerState {
 type PlayerState = 'running' | 'walking' | 'idle';
 
 interface PlayerData {
-  object: RefObject<Group>;
+  ref: RefObject<Group> | null;
+  api: PublicApi | null;
   state: PlayerState;
   animation: AnimationAction | null;
   animations: {
     [x: string]: AnimationAction | null;
   } | null;
-  velocity: Vector;
 }
 
 const useGameStore = create<GameState>((set, get) => {
@@ -39,7 +39,8 @@ const useGameStore = create<GameState>((set, get) => {
     set,
     camera: createRef(),
     player: {
-      object: createRef(),
+      ref: null,
+      api: null,
       state: 'idle',
       animation: null,
       animations: null,

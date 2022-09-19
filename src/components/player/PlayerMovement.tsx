@@ -20,7 +20,6 @@ const convertControlsIntoMovementVector = (controls: ControllerState) => {
 };
 
 const PlayerMovement: React.FunctionComponent = () => {
-  const player = useGameStore((s) => s.player.object);
   const set = useGameStore((s) => s.set);
 
   const controlsRef = useRef(useGameStore.getState().controls);
@@ -29,9 +28,6 @@ const PlayerMovement: React.FunctionComponent = () => {
   );
 
   useFrame(() => {
-    if (!player.current) {
-      return;
-    }
     const movementVector = convertControlsIntoMovementVector(
       controlsRef.current
     );
@@ -39,18 +35,9 @@ const PlayerMovement: React.FunctionComponent = () => {
     // TODO fix for different refresh rates
     if (movementVector.lengthSq() !== 0) {
       set((s) => ({ player: { ...s.player, state: 'running' } }));
-      player.current.lookAt(
-        player.current.position
-          .clone()
-          .add(movementVector.clone().multiplyScalar(-1))
-      );
     } else {
       set((s) => ({ player: { ...s.player, state: 'idle' } }));
     }
-
-    player.current.position.x += movementVector.x;
-    player.current.position.y += movementVector.y;
-    player.current.position.z += movementVector.z;
   });
 
   return null;
