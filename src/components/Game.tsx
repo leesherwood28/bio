@@ -8,7 +8,7 @@ import Player from './player/Player';
 
 const Game: React.FunctionComponent = () => {
   return (
-    <Canvas camera={{ position: [0, 4, 10] }}>
+    <Canvas shadows camera={{ position: [0, 4, 10] }}>
       <Physics>
         <Debug color='black' scale={1.1}>
           <Ground />
