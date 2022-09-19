@@ -1,6 +1,6 @@
 import create from 'zustand';
 import { createRef, RefObject } from 'react';
-import { AnimationAction, Group } from 'three';
+import { AnimationAction, Group, Vector, Vector3 } from 'three';
 
 interface GameState {
   camera: RefObject<Group>;
@@ -31,6 +31,7 @@ interface PlayerData {
   animations: {
     [x: string]: AnimationAction | null;
   } | null;
+  velocity: Vector;
 }
 
 const useGameStore = create<GameState>((set, get) => {
@@ -42,6 +43,7 @@ const useGameStore = create<GameState>((set, get) => {
       state: 'idle',
       animation: null,
       animations: null,
+      velocity: new Vector3(0, 0, 0),
     },
     controls: {},
   };

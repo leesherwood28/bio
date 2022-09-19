@@ -1,5 +1,5 @@
 import { useFrame } from '@react-three/fiber';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Vector3 } from 'three';
 import { ControllerState, useGameStore } from '../../state/game-store';
 
@@ -21,18 +21,20 @@ const convertControlsIntoMovementVector = (controls: ControllerState) => {
 
 const PlayerMovement: React.FunctionComponent = () => {
   const player = useGameStore((s) => s.player.object);
-  const controls = useGameStore((s) => s.controls);
   const set = useGameStore((s) => s.set);
-  // TODO subscribe to store
-  // instead of getting these console logs running
-  // every render
-  //   console.log('frame');
+
+  const controlsRef = useRef(useGameStore.getState().controls);
+  useEffect(() =>
+    useGameStore.subscribe((state) => (controlsRef.current = state.controls))
+  );
 
   useFrame(() => {
     if (!player.current) {
       return;
     }
-    const movementVector = convertControlsIntoMovementVector(controls);
+    const movementVector = convertControlsIntoMovementVector(
+      controlsRef.current
+    );
 
     // TODO fix for different refresh rates
     if (movementVector.lengthSq() !== 0) {
