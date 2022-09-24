@@ -1,25 +1,19 @@
 import { useAnimations, useGLTF } from '@react-three/drei';
-import React, { useLayoutEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
-import { useGameStore } from '../../state/game-store';
 import PlayerIdle from './PlayerIdle';
 import PlayerMovement from './PlayerMovement';
 import PlayerRunning from './PlayerRunning';
-import { useBox } from '@react-three/cannon';
-import { Group } from 'three';
+import { useBox, useSphere, useParticle } from '@react-three/cannon';
+import { Group, Mesh } from 'three';
+import { usePlayerCharacterStates } from '../../hooks/use-player-character-states';
 
 const Player: React.FunctionComponent = () => {
-  const [playerRef, playerApi] = useBox<Group>(() => ({
+  const [playerRef, api] = useSphere<Group>(() => ({
     mass: 1,
-    position: [0, 3, 5],
-    rotation: [0, 0, 0],
+    type: 'Dynamic',
+    position: [0, 1, 0],
   }));
-
-  useLayoutEffect(() => {
-    set((s) => ({ player: { ...s.player, ref: playerRef, api: playerApi } }));
-  }, [playerRef, playerApi]);
-
-  const set = useGameStore((s) => s.set);
 
   const { scene, animations } = useGLTF(
     '/player/scene.gltf',
@@ -27,22 +21,29 @@ const Player: React.FunctionComponent = () => {
   ) as GLTF;
   const { actions } = useAnimations(animations, playerRef);
 
-  useLayoutEffect(() => {
-    set((s) => ({ player: { ...s.player, animations: actions } }));
-  }, [actions]);
+  usePlayerCharacterStates(animations, playerRef);
 
   return (
-    <group ref={playerRef}>
-      <primitive
-        object={scene}
-        rotation={[0, Math.PI, 0]}
-        scale={[0.01, 0.01, 0.01]}
-      >
-        <PlayerIdle />
-        <PlayerRunning />
-        <PlayerMovement />
-      </primitive>
-    </group>
+    <>
+      <group ref={playerRef}>
+        <mesh>
+          <boxGeometry />
+          <meshLambertMaterial color='hotpink' transparent opacity={0.4} />
+        </mesh>
+        <primitive
+          object={scene}
+          rotation={[0, Math.PI, 0]}
+          scale={[0.01, 0.01, 0.01]}
+          position={[-0.05, 1.85, 0.1]}
+          castShadow
+          receiveShadow
+        >
+          <PlayerIdle />
+          <PlayerRunning />
+          <PlayerMovement />
+        </primitive>
+      </group>
+    </>
   );
 };
 

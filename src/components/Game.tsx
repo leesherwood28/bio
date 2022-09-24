@@ -15,6 +15,11 @@ const Game: React.FunctionComponent = () => {
           <Player />
           <KeyboardController />
           <ambientLight intensity={0.5} />
+          <directionalLight
+            position={[10, 10, 10]}
+            castShadow
+            shadow-mapSize={[2048, 2048]}
+          />
           {/* Remove */}
           <Orbit />
         </Debug>
