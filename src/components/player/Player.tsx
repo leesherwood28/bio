@@ -1,12 +1,10 @@
-import { useAnimations, useGLTF } from '@react-three/drei';
-import React, { useEffect, useLayoutEffect } from 'react';
+import { useSphere } from '@react-three/cannon';
+import { useGLTF } from '@react-three/drei';
+import React from 'react';
+import { Group } from 'three';
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
-import PlayerIdle from './PlayerIdle';
-import PlayerMovement from './PlayerMovement';
-import PlayerRunning from './PlayerRunning';
-import { useBox, useSphere, useParticle } from '@react-three/cannon';
-import { Group, Mesh } from 'three';
 import { usePlayerCharacterStates } from '../../hooks/use-player-character-states';
+import { usePlayerMovement } from '../../hooks/use-player-movement';
 
 const Player: React.FunctionComponent = () => {
   const [playerRef, api] = useSphere<Group>(() => ({
@@ -19,9 +17,9 @@ const Player: React.FunctionComponent = () => {
     '/player/scene.gltf',
     'https://www.gstatic.com/draco/versioned/decoders/1.4.0/'
   ) as GLTF;
-  const { actions } = useAnimations(animations, playerRef);
 
   usePlayerCharacterStates(animations, playerRef);
+  usePlayerMovement(api);
 
   return (
     <>
@@ -37,11 +35,7 @@ const Player: React.FunctionComponent = () => {
           position={[-0.05, 1.85, 0.1]}
           castShadow
           receiveShadow
-        >
-          <PlayerIdle />
-          <PlayerRunning />
-          <PlayerMovement />
-        </primitive>
+        ></primitive>
       </group>
     </>
   );
