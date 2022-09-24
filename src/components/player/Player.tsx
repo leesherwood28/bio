@@ -28,6 +28,7 @@ const Player: React.FunctionComponent = () => {
           <boxGeometry />
           <meshLambertMaterial color='hotpink' transparent opacity={0.4} />
         </mesh>
+
         <primitive
           object={scene}
           rotation={[0, Math.PI, 0]}
