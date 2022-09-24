@@ -1,16 +1,17 @@
-import { useSphere } from '@react-three/cannon';
-import { useGLTF } from '@react-three/drei';
+import { useSphere, useRaycastVehicle } from '@react-three/cannon';
+import { PerspectiveCamera, useGLTF } from '@react-three/drei';
 import React from 'react';
 import { Group } from 'three';
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
-import { usePlayerCharacterStates } from '../../hooks/use-player-character-states';
-import { usePlayerMovement } from '../../hooks/use-player-movement';
+import { usePlayerCharacterStates } from '../hooks/use-player-character-states';
+import { usePlayerMovement } from '../hooks/use-player-movement';
 
 const Player: React.FunctionComponent = () => {
   const [playerRef, api] = useSphere<Group>(() => ({
     mass: 1,
     type: 'Dynamic',
     position: [0, 1, 0],
+    angularFactor: [0, 1, 0],
   }));
 
   const { scene, animations } = useGLTF(
@@ -19,7 +20,7 @@ const Player: React.FunctionComponent = () => {
   ) as GLTF;
 
   usePlayerCharacterStates(animations, playerRef);
-  usePlayerMovement(api);
+  usePlayerMovement(api, playerRef);
 
   return (
     <>

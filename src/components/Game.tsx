@@ -1,13 +1,12 @@
 import { Physics, Debug } from '@react-three/cannon';
 import { Canvas } from '@react-three/fiber';
-import { Suspense } from 'react';
 import Orbit from './dev/Orbit';
 import Ground from './Ground';
-import Player from './player/Player';
+import Player from './Player';
 
 const Game: React.FunctionComponent = () => {
   return (
-    <Canvas shadows camera={{ position: [0, 4, 10] }}>
+    <Canvas shadows>
       <Physics>
         <Debug color='black' scale={1.1}>
           <Ground />
