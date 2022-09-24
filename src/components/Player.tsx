@@ -25,11 +25,6 @@ const Player: React.FunctionComponent = () => {
   return (
     <>
       <group ref={playerRef}>
-        <mesh>
-          <boxGeometry />
-          <meshLambertMaterial color='hotpink' transparent opacity={0.4} />
-        </mesh>
-
         <primitive
           object={scene}
           rotation={[0, Math.PI, 0]}

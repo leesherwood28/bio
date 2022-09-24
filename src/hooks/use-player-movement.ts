@@ -39,22 +39,30 @@ export const usePlayerMovement = (
   const setCharacterState = usePlayerData((s) => s.setCharacterState);
 
   const vel = useRef([0, 0, 0]);
+  const rotation = useRef([0, 0, 0]);
 
   useEffect(() => {
     api.velocity.subscribe((v) => (vel.current = v));
   }, [api.velocity]);
 
-  useFrame(() => {
-    const movementVector = convertControlsIntoMovementVector(controllerInput);
+  useEffect(() => {
+    api.rotation.subscribe((v) => (rotation.current = v));
+  }, [api.rotation]);
 
-    if (playerRef.current) {
-      //   console.log(playerRef.current.rotation);
-      //   playerRef.current.rotateX(Math.random() * Math.PI);
-      //   movementVector
-      //     .applyEuler(playerRef.current.rotation)
-      //     .multiply(new Vector3(1, 0, 1));
-    }
-    movementVector.normalize().multiplyScalar(PLAYER_MOVE_SPEED);
+  useFrame(() => {
+    let movementVector = convertControlsIntoMovementVector(controllerInput);
+
+    let [x, y, z] = rotation.current;
+    y -= (movementVector.x * 0.08) % (2 * Math.PI);
+    api.rotation.set(x, y, z);
+    const rotationEuler = new Euler(x, y, z);
+
+    movementVector = movementVector
+      .multiply(new Vector3(0, 0, 1))
+      .applyEuler(rotationEuler)
+      .multiply(new Vector3(1, 0, 1))
+      .normalize()
+      .multiplyScalar(PLAYER_MOVE_SPEED);
 
     if (movementVector.lengthSq() !== 0) {
       setCharacterState('running');
