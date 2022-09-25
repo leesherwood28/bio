@@ -1,5 +1,3 @@
-import { PublicApi } from '@react-three/cannon';
-
 import { useFrame } from '@react-three/fiber';
 import { RefObject } from 'react';
 import { Euler, Object3D, Vector3 } from 'three';

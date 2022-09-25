@@ -1,5 +1,11 @@
 import { useFrame } from '@react-three/fiber';
-import { createRef, MutableRefObject, RefObject, useRef } from 'react';
+import {
+  createRef,
+  MutableRefObject,
+  RefObject,
+  useEffect,
+  useRef,
+} from 'react';
 import { Euler, Object3D, Quaternion, Vector3 } from 'three';
 
 export interface PhysicsApi {
@@ -13,7 +19,7 @@ export const usePhysicsObject: <T extends Object3D>() => [
   MutableRefObject<T>,
   PhysicsApi
 ] = <T extends Object3D>() => {
-  const velocity = useRef<Vector3>(new Vector3());
+  const velocity = useRef<Vector3>(new Vector3(1, 1, 1));
   const angularVelocity = useRef<Vector3>(new Vector3());
 
   const objectRef = useRef<T>(new Object3D() as T);
@@ -25,17 +31,20 @@ export const usePhysicsObject: <T extends Object3D>() => [
     getAngularVelocity: () => angularVelocity.current,
   };
 
+  useEffect(() => {
+    console.log('object ref changed', objectRef);
+  }, [objectRef]);
+
   useFrame((state, elapsedTime) => {
     if (!objectRef.current) {
       return;
     }
-    const timeScaler = elapsedTime / 1000;
 
     objectRef.current.position.add(
-      velocity.current.clone().multiplyScalar(timeScaler)
+      velocity.current.clone().multiplyScalar(elapsedTime)
     );
     const rotationEuler = new Euler(
-      ...angularVelocity.current.clone().multiplyScalar(timeScaler).toArray()
+      ...angularVelocity.current.clone().multiplyScalar(elapsedTime).toArray()
     );
     objectRef.current.applyQuaternion(
       new Quaternion().setFromEuler(rotationEuler)
