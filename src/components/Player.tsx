@@ -24,7 +24,6 @@ const Player: React.FunctionComponent = () => {
   usePlayerCamera(api);
   usePlayerMovement(api);
 
-  console.log('render');
   return (
     <>
       <group ref={playerRef}>
