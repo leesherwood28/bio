@@ -6,14 +6,14 @@ import { PlayerPhysicsData } from '../models/player-physics-data.model';
 import { usePlayerPhysicsRef } from './use-player-physics-ref';
 
 const calculateIdealOffset = (playerPhysics: PlayerPhysicsData) => {
-  const idealOffset = new Vector3(-3, 4, -6);
+  const idealOffset = new Vector3(-1, 1, -2.5);
   idealOffset.applyEuler(new Euler(...playerPhysics.rotation));
   idealOffset.add(new Vector3(...playerPhysics.position));
   return idealOffset;
 };
 
 const calculateIdealLookat = (playerPhysics: PlayerPhysicsData) => {
-  const idealLookat = new Vector3(0, 2, 10);
+  const idealLookat = new Vector3(0, 1, 5);
   idealLookat.applyEuler(new Euler(...playerPhysics.rotation));
   idealLookat.add(new Vector3(...playerPhysics.position));
   return idealLookat;
