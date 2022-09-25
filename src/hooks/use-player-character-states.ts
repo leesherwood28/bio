@@ -9,11 +9,18 @@ const mapStateToAnimation = (
     [x: string]: AnimationAction | null;
   }
 ) => {
-  const characterActionMap: { [key in PlayerCharacterState]: string } = {
-    idle: 'Root|Idle 01 ',
-    running: 'Root|Run  02 ',
-  };
-  return actions[characterActionMap[characterState]] as AnimationAction;
+  if (characterState === 'idle') {
+    return actions['Root|Idle 01 '] as AnimationAction;
+  }
+  if (characterState === 'running') {
+    return actions['Root|Run  02 '] as AnimationAction;
+  }
+  if (characterState === 'walking-backwards') {
+    const animation = actions['Root|Walk'] as AnimationAction;
+    animation.timeScale = -1;
+    return animation;
+  }
+  return actions['Root|Idle 01 '] as AnimationAction;
 };
 
 const usePlayerCharacterStates = (

@@ -8,27 +8,15 @@ import { useKeyboard } from './use-keyboard';
 import { usePlayerData } from './use-player-data';
 
 const PLAYER_MOVE_SPEED = 10;
+const PLAYER_ROTATE_SPEED = 4;
 
-const convertBooleanToValue = (bool?: Boolean) => (bool ? 1 : 0);
-
-const convertControlsIntoMovementVector = (controls: ControllerInput) => {
-  return new Vector3(
-    convertBooleanToValue(controls.moveRight) -
-      convertBooleanToValue(controls.moveLeft),
-    0,
-    convertBooleanToValue(controls.moveBackward) -
-      convertBooleanToValue(controls.moveForward)
-  );
+const SPEED = {
+  forward: 10,
+  backward: 4,
+  rotate: 4,
 };
 
-const getForward = (controls: ControllerInput) => {
-  convertBooleanToValue(controls.moveForward) -
-    convertBooleanToValue(controls.moveBackward);
-};
-const getSideward = (controls: ControllerInput) => {
-  convertBooleanToValue(controls.moveRight) -
-    convertBooleanToValue(controls.moveLeft);
-};
+const toValue = (bool?: Boolean) => (bool ? 1 : 0);
 
 export const usePlayerMovement = (
   api: PublicApi,
@@ -50,27 +38,32 @@ export const usePlayerMovement = (
   }, [api.rotation]);
 
   useFrame(() => {
-    let movementVector = convertControlsIntoMovementVector(controllerInput);
+    const forward =
+      toValue(controllerInput.moveForward) -
+      toValue(controllerInput.moveBackward);
 
-    let [x, y, z] = rotation.current;
-    y -= (movementVector.x * 0.08) % (2 * Math.PI);
-    api.rotation.set(x, y, z);
-    const rotationEuler = new Euler(x, y, z);
+    const sideways =
+      toValue(controllerInput.moveLeft) - toValue(controllerInput.moveRight);
 
-    movementVector = movementVector
-      .multiply(new Vector3(0, 0, 1))
-      .applyEuler(rotationEuler)
-      .multiply(new Vector3(1, 0, 1))
-      .normalize()
-      .multiplyScalar(PLAYER_MOVE_SPEED);
+    api.angularVelocity.set(0, sideways * SPEED.rotate, 0);
 
-    if (movementVector.lengthSq() !== 0) {
-      setCharacterState('running');
+    const forwardSpeed = forward > 0 ? SPEED.forward : SPEED.backward;
+    api.velocity.set(
+      ...new Vector3(0, 0, -forward)
+        .applyEuler(new Euler(...rotation.current))
+        .normalize()
+        .multiplyScalar(forwardSpeed)
+        .toArray()
+    );
+
+    if (forward !== 0) {
+      if (forward > 0) {
+        setCharacterState('running');
+      } else {
+        setCharacterState('walking-backwards');
+      }
     } else {
       setCharacterState('idle');
     }
-
-    api.velocity.set(movementVector.x, vel.current[1], movementVector.z);
   });
 };
-convertControlsIntoMovementVector;

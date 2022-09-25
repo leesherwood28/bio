@@ -8,7 +8,7 @@ interface PlayerData {
   setCharacterState: (state: PlayerCharacterState) => void;
 }
 
-export type PlayerCharacterState = 'running' | 'idle';
+export type PlayerCharacterState = 'running' | 'idle' | 'walking-backwards';
 
 const usePlayerData = create<PlayerData>((set, get) => {
   return {
