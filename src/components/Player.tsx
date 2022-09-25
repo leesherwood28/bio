@@ -1,7 +1,7 @@
 import { useSphere, useRaycastVehicle } from '@react-three/cannon';
 import { PerspectiveCamera, useGLTF } from '@react-three/drei';
 import React from 'react';
-import { Group } from 'three';
+import { BoxGeometry, Group } from 'three';
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { usePhysicsObject } from '../hooks/use-physics-object';
 import { usePlayerCamera } from '../hooks/use-player-camera';
@@ -22,12 +22,12 @@ const Player: React.FunctionComponent = () => {
 
   return (
     <>
-      <group ref={playerRef} position={[0, 1, 0]}>
+      <group ref={playerRef}>
         <primitive
           object={scene}
           rotation={[0, 0, 0]}
           scale={[0.01, 0.01, 0.01]}
-          position={[-0.05, 1.85, 0.1]}
+          position={[-0.05, 2.83, 0.1]}
           castShadow
           receiveShadow
         ></primitive>
