@@ -1,9 +1,7 @@
 import { PublicApi } from '@react-three/cannon';
 
-import { useFrame, useThree } from '@react-three/fiber';
-import { RefObject, useEffect, useRef } from 'react';
-import { Euler, Group, Vector3 } from 'three';
-import { ControllerInput } from '../models/controller-input.model';
+import { useFrame } from '@react-three/fiber';
+import { Euler, Vector3 } from 'three';
 import { useKeyboard } from './use-keyboard';
 import { usePlayerData } from './use-player-data';
 import { usePlayerPhysicsRef } from './use-player-physics-ref';
@@ -16,10 +14,7 @@ const SPEED = {
 
 const toValue = (bool?: Boolean) => (bool ? 1 : 0);
 
-export const usePlayerMovement = (
-  api: PublicApi,
-  playerRef: RefObject<Group>
-) => {
+export const usePlayerMovement = (api: PublicApi) => {
   const controllerInput = useKeyboard();
 
   const setCharacterState = usePlayerData((s) => s.setCharacterState);
@@ -37,7 +32,7 @@ export const usePlayerMovement = (
 
     const forwardSpeed = forward > 0 ? SPEED.forward : SPEED.backward;
     api.velocity.set(
-      ...new Vector3(0, 0, -forward)
+      ...new Vector3(0, 0, forward)
         .applyEuler(new Euler(...playerPhysics.current.rotation))
         .normalize()
         .multiplyScalar(forwardSpeed)

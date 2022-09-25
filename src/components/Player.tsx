@@ -3,6 +3,7 @@ import { PerspectiveCamera, useGLTF } from '@react-three/drei';
 import React from 'react';
 import { Group } from 'three';
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
+import { usePlayerCamera } from '../hooks/use-player-camera';
 import { usePlayerCharacterStates } from '../hooks/use-player-character-states';
 import { usePlayerMovement } from '../hooks/use-player-movement';
 
@@ -20,14 +21,15 @@ const Player: React.FunctionComponent = () => {
   ) as GLTF;
 
   usePlayerCharacterStates(animations, playerRef);
-  usePlayerMovement(api, playerRef);
+  usePlayerCamera(api);
+  usePlayerMovement(api);
 
   return (
     <>
       <group ref={playerRef}>
         <primitive
           object={scene}
-          rotation={[0, Math.PI, 0]}
+          rotation={[0, 0, 0]}
           scale={[0.01, 0.01, 0.01]}
           position={[-0.05, 1.85, 0.1]}
           castShadow
