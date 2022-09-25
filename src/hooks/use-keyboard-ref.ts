@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { ControllerInput } from '../models/controller-input.model';
 
 function actionByKey(key: string) {
@@ -19,8 +19,8 @@ function actionByKey(key: string) {
   return keyActionMap[key];
 }
 
-export const useKeyboard = () => {
-  const [actions, setActions] = useState<ControllerInput>({
+export const useKeyboardRef = () => {
+  const actions = useRef<ControllerInput>({
     moveForward: false,
     moveBackward: false,
     moveLeft: false,
@@ -30,24 +30,20 @@ export const useKeyboard = () => {
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     const action = actionByKey(e.key);
     if (action) {
-      setActions((prev) => {
-        return {
-          ...prev,
-          [action]: true,
-        };
-      });
+      actions.current = {
+        ...actions.current,
+        [action]: true,
+      };
     }
   }, []);
 
   const handleKeyUp = useCallback((e: KeyboardEvent) => {
     const action = actionByKey(e.key);
     if (action) {
-      setActions((prev) => {
-        return {
-          ...prev,
-          [action]: false,
-        };
-      });
+      actions.current = {
+        ...actions.current,
+        [action]: false,
+      };
     }
   }, []);
 

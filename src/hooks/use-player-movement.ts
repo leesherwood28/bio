@@ -2,7 +2,7 @@ import { PublicApi } from '@react-three/cannon';
 
 import { useFrame } from '@react-three/fiber';
 import { Euler, Vector3 } from 'three';
-import { useKeyboard } from './use-keyboard';
+import { useKeyboardRef } from './use-keyboard-ref';
 import { usePlayerData } from './use-player-data';
 import { usePlayerPhysicsRef } from './use-player-physics-ref';
 
@@ -15,18 +15,19 @@ const SPEED = {
 const toValue = (bool?: Boolean) => (bool ? 1 : 0);
 
 export const usePlayerMovement = (api: PublicApi) => {
-  const controllerInput = useKeyboard();
+  const controllerInput = useKeyboardRef();
 
   const setCharacterState = usePlayerData((s) => s.setCharacterState);
   const playerPhysics = usePlayerPhysicsRef(api);
 
   useFrame(() => {
     const forward =
-      toValue(controllerInput.moveForward) -
-      toValue(controllerInput.moveBackward);
+      toValue(controllerInput.current.moveForward) -
+      toValue(controllerInput.current.moveBackward);
 
     const sideways =
-      toValue(controllerInput.moveLeft) - toValue(controllerInput.moveRight);
+      toValue(controllerInput.current.moveLeft) -
+      toValue(controllerInput.current.moveRight);
 
     api.angularVelocity.set(0, sideways * SPEED.rotate, 0);
 
