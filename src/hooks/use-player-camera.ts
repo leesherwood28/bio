@@ -3,7 +3,7 @@ import { RefObject, useRef } from 'react';
 import { Object3D, Vector3 } from 'three';
 
 const calculateIdealOffset = (object: Object3D) => {
-  const idealOffset = new Vector3(-1, 1, -2.5);
+  const idealOffset = new Vector3(-1, 2, -2.5);
   idealOffset.applyQuaternion(object.quaternion);
   idealOffset.add(object.position);
   return idealOffset;
