@@ -26,12 +26,13 @@ export const usePlayerCamera = (api: PublicApi) => {
   const idealLookat = useRef(new Vector3());
   const idealOffset = useRef(new Vector3());
 
-  useFrame(() => {
+  useFrame((state, delta) => {
     const newIdealOffset = calculateIdealOffset(playerPhysics.current);
     const newIdealLookat = calculateIdealLookat(playerPhysics.current);
 
-    idealOffset.current.copy(newIdealOffset);
-    idealLookat.current.copy(newIdealLookat);
+    const lerp = 1.0 - Math.pow(0.001, delta);
+    idealOffset.current.lerp(newIdealOffset, lerp);
+    idealLookat.current.lerp(newIdealLookat, lerp);
 
     camera.position.copy(idealOffset.current);
     camera.lookAt(idealLookat.current);
