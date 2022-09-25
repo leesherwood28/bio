@@ -14,12 +14,6 @@ const SPEED = {
   rotate: 4,
 };
 
-const ACCELERATION = {
-  forward: 2,
-  backward: 2,
-  rotate: 2,
-};
-
 const toValue = (bool?: Boolean) => (bool ? 1 : 0);
 
 export const usePlayerMovement = (
