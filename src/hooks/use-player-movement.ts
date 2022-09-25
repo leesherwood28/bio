@@ -1,10 +1,11 @@
 import { PublicApi } from '@react-three/cannon';
 
 import { useFrame } from '@react-three/fiber';
-import { Euler, Vector3 } from 'three';
+import { RefObject } from 'react';
+import { Euler, Object3D, Vector3 } from 'three';
 import { useKeyboardRef } from './use-keyboard-ref';
+import { PhysicsApi } from './use-physics-object';
 import { usePlayerData } from './use-player-data';
-import { usePlayerPhysicsRef } from './use-player-physics-ref';
 
 const SPEED = {
   forward: 10,
@@ -14,11 +15,13 @@ const SPEED = {
 
 const toValue = (bool?: Boolean) => (bool ? 1 : 0);
 
-export const usePlayerMovement = (api: PublicApi) => {
+export const usePlayerMovement = (
+  api: PhysicsApi,
+  playerRef: RefObject<Object3D>
+) => {
   const controllerInput = useKeyboardRef();
 
   const setCharacterState = usePlayerData((s) => s.setCharacterState);
-  const playerPhysics = usePlayerPhysicsRef(api);
 
   useFrame(() => {
     const forward =
@@ -29,15 +32,14 @@ export const usePlayerMovement = (api: PublicApi) => {
       toValue(controllerInput.current.moveLeft) -
       toValue(controllerInput.current.moveRight);
 
-    api.angularVelocity.set(0, sideways * SPEED.rotate, 0);
+    api.setAngularVelocity(new Vector3(0, sideways * SPEED.rotate, 0));
 
     const forwardSpeed = forward > 0 ? SPEED.forward : SPEED.backward;
-    api.velocity.set(
-      ...new Vector3(0, 0, forward)
-        .applyEuler(new Euler(...playerPhysics.current.rotation))
+    api.setVelocity(
+      new Vector3(0, 0, forward)
+        .applyEuler(playerRef.current?.rotation ?? new Euler())
         .normalize()
         .multiplyScalar(forwardSpeed)
-        .toArray()
     );
 
     if (forward !== 0) {
