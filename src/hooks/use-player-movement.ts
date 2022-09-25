@@ -6,14 +6,18 @@ import { Euler, Group, Vector3 } from 'three';
 import { ControllerInput } from '../models/controller-input.model';
 import { useKeyboard } from './use-keyboard';
 import { usePlayerData } from './use-player-data';
-
-const PLAYER_MOVE_SPEED = 10;
-const PLAYER_ROTATE_SPEED = 4;
+import { usePlayerPhysicsRef } from './use-player-physics-ref';
 
 const SPEED = {
   forward: 10,
   backward: 4,
   rotate: 4,
+};
+
+const ACCELERATION = {
+  forward: 2,
+  backward: 2,
+  rotate: 2,
 };
 
 const toValue = (bool?: Boolean) => (bool ? 1 : 0);
@@ -25,17 +29,7 @@ export const usePlayerMovement = (
   const controllerInput = useKeyboard();
 
   const setCharacterState = usePlayerData((s) => s.setCharacterState);
-
-  const vel = useRef([0, 0, 0]);
-  const rotation = useRef([0, 0, 0]);
-
-  useEffect(() => {
-    api.velocity.subscribe((v) => (vel.current = v));
-  }, [api.velocity]);
-
-  useEffect(() => {
-    api.rotation.subscribe((v) => (rotation.current = v));
-  }, [api.rotation]);
+  const playerPhysics = usePlayerPhysicsRef(api);
 
   useFrame(() => {
     const forward =
@@ -50,7 +44,7 @@ export const usePlayerMovement = (
     const forwardSpeed = forward > 0 ? SPEED.forward : SPEED.backward;
     api.velocity.set(
       ...new Vector3(0, 0, -forward)
-        .applyEuler(new Euler(...rotation.current))
+        .applyEuler(new Euler(...playerPhysics.current.rotation))
         .normalize()
         .multiplyScalar(forwardSpeed)
         .toArray()
