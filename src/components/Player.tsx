@@ -22,7 +22,7 @@ const Player: React.FunctionComponent = () => {
 
   return (
     <>
-      <group ref={playerRef}>
+      <group ref={playerRef} position={[0, 0, 0]}>
         <primitive
           object={scene}
           rotation={[0, 0, 0]}
