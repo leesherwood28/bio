@@ -1,10 +1,10 @@
 import { Physics, Debug, useBox } from '@react-three/cannon';
-import { Stars } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { Mesh } from 'three';
 import Orbit from './dev/Orbit';
 import Ground from './Ground';
 import Player from './Player';
+import { Stars } from './Stars';
 
 const Game: React.FunctionComponent = () => {
   return (
@@ -17,9 +17,9 @@ const Game: React.FunctionComponent = () => {
         castShadow
         shadow-mapSize={[2048, 2048]}
       />
+      <Stars />
       {/* Remove */}
       <Orbit />
-      <Stars />
     </Canvas>
   );
 };

@@ -1,28 +1,51 @@
-import { useRef, useState } from 'react';
-import * as maath from 'maath';
-import { PointMaterial, Points } from '@react-three/drei';
+import { useCubeTexture } from '@react-three/drei';
+import { BackSide, sRGBEncoding } from 'three';
 
-function Stars() {
-  const ref = useRef<any>();
-  const [sphere] = useState(() =>
-    maath.random.inSphere(new Float32Array(5000), { radius: 1.5 })
+const _SKY_VS = `
+varying vec3 vWorldPosition;
+
+void main() {
+  vec4 worldPosition = modelMatrix * vec4( position, 1.0 );
+  vWorldPosition = worldPosition.xyz;
+
+  gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+}`;
+
+const _SKY_FS = `
+uniform samplerCube background;
+
+varying vec3 vWorldPosition;
+
+void main() {
+  vec3 viewDirection = normalize(vWorldPosition - cameraPosition);
+  vec3 stars = textureCube(background, viewDirection).xyz;
+
+  gl_FragColor = vec4(stars, 1.0);
+}`;
+
+export function Stars() {
+  const envMap = useCubeTexture(
+    [
+      'space-posx.jpg',
+      'space-negx.jpg',
+      'space-posy.jpg',
+      'space-negy.jpg',
+      'space-posz.jpg',
+      'space-negz.jpg',
+    ],
+    { path: 'space/' }
   );
+  envMap.encoding = sRGBEncoding;
+
   return (
-    <group rotation={[0, 0, Math.PI / 4]}>
-      <Points
-        ref={ref}
-        positions={sphere as any}
-        stride={3}
-        frustumCulled={false}
-      >
-        <PointMaterial
-          transparent
-          color='#ffa0e0'
-          size={0.005}
-          sizeAttenuation={true}
-          depthWrite={false}
-        />
-      </Points>
-    </group>
+    <mesh>
+      <sphereBufferGeometry args={[5000, 32, 15]} />
+      <shaderMaterial
+        uniforms={{ background: { value: envMap } }}
+        side={BackSide}
+        fragmentShader={_SKY_FS}
+        vertexShader={_SKY_VS}
+      />
+    </mesh>
   );
 }
