@@ -1,5 +1,5 @@
 import { useFrame } from '@react-three/fiber';
-import { useRef } from 'react';
+import { createRef, useRef } from 'react';
 import { FrontSide, DoubleSide, GLSL1, GLSL3, Mesh, Vector3 } from 'three';
 import { isNil } from '../functions/is-nil.fn';
 
@@ -227,7 +227,7 @@ void main() {
 const PLANET_MOVE_SPEED = 0.01;
 
 const Planet: React.FunctionComponent = () => {
-  const planetRef = useRef<Mesh>();
+  const planetRef = createRef<Mesh>();
 
   useFrame((state, time) => {
     if (isNil(planetRef.current)) {
