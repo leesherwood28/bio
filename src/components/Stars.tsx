@@ -39,7 +39,7 @@ export function Stars() {
 
   return (
     <mesh>
-      <sphereBufferGeometry args={[1000, 0, 0]} />
+      <sphereBufferGeometry args={[10000, 0, 0]} />
       <shaderMaterial
         uniforms={{ background: { value: envMap } }}
         side={BackSide}

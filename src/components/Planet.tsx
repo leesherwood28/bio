@@ -1,4 +1,4 @@
-import { FrontSide } from 'three';
+import { FrontSide, DoubleSide, GLSL1, GLSL3 } from 'three';
 
 const _NOISE_GLSL = `
   vec3 mod289(vec3 x)
@@ -223,15 +223,18 @@ void main() {
 
 const Planet: React.FunctionComponent = () => {
   return (
-    <mesh position={[6000, 1000, 0]}>
-      <sphereBufferGeometry args={[5000, 48, 48]} />
-      <shaderMaterial
-        uniforms={{ time: { value: 0.0 } }}
-        side={FrontSide}
-        vertexShader={_PLANET_FS}
-        fragmentShader={_PLANET_FS}
-      />
-    </mesh>
+    <>
+      <mesh position={[6000, -1000, 0]}>
+        <sphereGeometry args={[5000, 48, 48]} />
+
+        <shaderMaterial
+          uniforms={{ time: { value: 0.0 } }}
+          side={FrontSide}
+          vertexShader={_PLANET_VS}
+          fragmentShader={_PLANET_FS}
+        />
+      </mesh>
+    </>
   );
 };
 
