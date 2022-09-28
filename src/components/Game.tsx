@@ -19,7 +19,7 @@ const Game: React.FunctionComponent = () => {
         shadow-mapSize={[2048, 2048]}
       />
       <Stars />
-      <Planet />
+      {/* <Planet /> */}
       {/* Remove */}
       <Orbit />
     </Canvas>
