@@ -224,8 +224,8 @@ void main() {
 const Planet: React.FunctionComponent = () => {
   return (
     <>
-      <mesh position={[6000, -1000, 0]}>
-        <sphereGeometry args={[5000, 48, 48]} />
+      <mesh position={[3000, -100, 0]}>
+        <sphereGeometry args={[2000, 48, 48]} />
 
         <shaderMaterial
           uniforms={{ time: { value: 0.0 } }}
