@@ -1,4 +1,7 @@
-import { FrontSide, DoubleSide, GLSL1, GLSL3 } from 'three';
+import { useFrame } from '@react-three/fiber';
+import { useRef } from 'react';
+import { FrontSide, DoubleSide, GLSL1, GLSL3, Mesh, Vector3 } from 'three';
+import { isNil } from '../functions/is-nil.fn';
 
 const _NOISE_GLSL = `
   vec3 mod289(vec3 x)
@@ -221,10 +224,24 @@ void main() {
   // gl_FragColor = vec4(diffuse * lighting, 1.0);
 }`;
 
+const PLANET_MOVE_SPEED = 0.01;
+
 const Planet: React.FunctionComponent = () => {
+  const planetRef = useRef<Mesh>();
+
+  useFrame((state, time) => {
+    if (isNil(planetRef.current)) {
+      return;
+    }
+    planetRef.current.rotateOnWorldAxis(
+      new Vector3(0, 1, 0),
+      time * PLANET_MOVE_SPEED
+    );
+  });
+
   return (
     <>
-      <mesh position={[3000, -100, 0]}>
+      <mesh ref={planetRef} position={[3000, -100, 0]}>
         <sphereGeometry args={[2000, 48, 48]} />
 
         <shaderMaterial
