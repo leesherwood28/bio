@@ -32,8 +32,8 @@ const Planet: React.FunctionComponent = () => {
 
   return (
     <>
-      <mesh ref={planetRef} position={[1500, -100, 0]}>
-        <sphereGeometry args={[900, 48, 48]} />
+      <mesh ref={planetRef} position={[1500, 200, 0]}>
+        <sphereGeometry args={[500, 96, 96]} />
         <meshLambertMaterial map={planetTexture} />
       </mesh>
     </>
