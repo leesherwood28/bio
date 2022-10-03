@@ -1,3 +1,4 @@
+import { useVideoTexture } from '@react-three/drei';
 import { useFrame, useLoader } from '@react-three/fiber';
 import { createRef, useRef } from 'react';
 import {
@@ -15,10 +16,7 @@ const PLANET_MOVE_SPEED = 0.01;
 
 const Planet: React.FunctionComponent = () => {
   const planetRef = createRef<Mesh>();
-  const planetTexture = useLoader(
-    TextureLoader,
-    'https://i.ibb.co/h94JBXy/saturn3-ljge5g.jpg'
-  );
+  const planetTexture = useLoader(TextureLoader, 'jupiter/jupiter.jpg');
 
   planetTexture.anisotropy = 16;
 
@@ -36,7 +34,7 @@ const Planet: React.FunctionComponent = () => {
     <>
       <mesh ref={planetRef} position={[1500, -100, 0]}>
         <sphereGeometry args={[900, 48, 48]} />
-        <meshLambertMaterial map={planetTexture} fog={false} />
+        <meshLambertMaterial map={planetTexture} />
       </mesh>
     </>
   );
