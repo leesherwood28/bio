@@ -77,6 +77,14 @@ const BlackHole: React.FunctionComponent = () => {
         <sphereGeometry args={[4, 48, 48]} />
         <meshBasicMaterial color={'Black'} />
       </mesh>
+      <mesh scale={1.005}>
+        <sphereGeometry args={[4, 48, 48]} />
+        <meshBasicMaterial
+          blending={AdditiveBlending}
+          color={[1, 0.6, 0]}
+          side={BackSide}
+        ></meshBasicMaterial>
+      </mesh>
       <mesh ref={accretionRef}>
         <ringGeometry args={[10, 5, 64]} />
         <shaderMaterial
