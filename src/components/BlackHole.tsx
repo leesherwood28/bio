@@ -1,56 +1,47 @@
-import { useVideoTexture } from '@react-three/drei';
 import { useFrame, useLoader } from '@react-three/fiber';
-import { createRef, useRef } from 'react';
+import { createRef } from 'react';
 import {
-  FrontSide,
-  DoubleSide,
-  GLSL1,
-  GLSL3,
-  Mesh,
-  Vector3,
-  TextureLoader,
   AdditiveBlending,
   BackSide,
+  DoubleSide,
+  Mesh,
+  TextureLoader,
+  Vector3,
 } from 'three';
 import { isNil } from '../functions/is-nil.fn';
 
-const vertexShader = `
-
-  varying vec3 vertexNormal;
-  varying vec3 vertexPosition;
-  varying vec3 vWorldPosition;
-
-  void main() {
-
-    vertexNormal = normalize(normalMatrix * normal);
-
-    vec4 worldPosition = modelMatrix * vec4( position, 1.0 );
-    vWorldPosition = worldPosition.xyz;
-  
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-    vertexPosition = gl_Position.xyz;
-  }
-
-`;
-
-const fragmentShader = `
-
-  varying vec3 vertexNormal;
-  varying vec3 vertexPosition;
-  varying vec3 vWorldPosition;
-
-  void main() {
-    vec3 viewDirection = normalize(vWorldPosition - cameraPosition);
-
-    float intensity = pow(0.5 - dot(viewDirection, vertexNormal), 2.0);
-
-    // gl_FragColor = vec4(1, 1, 0, 1) * intensity;
-     gl_FragColor =  vec4(viewDirection, 1);
-    
-  }
-`;
-
 const BLACK_HOLE_MOVE_SPEED = 0.01;
+
+const accrectionDiskVectorShader = `
+
+  varying vec3 vertexNormal;
+  varying vec3 vertexPosition;
+
+  varying vec2 vertexUV;
+
+  void main() {
+    vertexUV = uv;
+    vertexPosition = position;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+
+`;
+
+const accretionDiskFragmentShader = `
+
+  varying vec2 vertexUV;
+  varying vec3 vertexPosition;
+  uniform float scaler;
+
+  void main() {
+    float distanceFromCenter = length(vertexPosition);
+    float intensity = (1.0 - scaler * length(vertexPosition));
+    float colorIntensity = intensity * 3.5;
+    float intensityFluctuation = sin(100.0 * intensity) * 0.005 / intensity;
+    float totalIntensity = colorIntensity + intensityFluctuation;
+    gl_FragColor = vec4(1, 0.6, 0, 1) * totalIntensity;
+  }
+`;
 
 const BlackHole: React.FunctionComponent = () => {
   const planetRef = createRef<Mesh>();
@@ -74,13 +65,28 @@ const BlackHole: React.FunctionComponent = () => {
         <sphereGeometry args={[4, 48, 48]} />
         <meshBasicMaterial color={'Black'} />
       </mesh>
-      <mesh scale={1.5}>
-        <sphereGeometry args={[4, 48, 48]} />
+      <mesh>
+        <ringGeometry args={[10, 5, 64]} />
         <shaderMaterial
-          fragmentShader={fragmentShader}
-          vertexShader={vertexShader}
+          fragmentShader={accretionDiskFragmentShader}
+          vertexShader={accrectionDiskVectorShader}
           blending={AdditiveBlending}
-          side={BackSide}
+          side={DoubleSide}
+          uniforms={{
+            scaler: { value: 0.1 },
+          }}
+        />
+      </mesh>
+      <mesh rotation={[Math.PI / 2, 0, 0]}>
+        <ringGeometry args={[10, 5, 64]} />
+        <shaderMaterial
+          fragmentShader={accretionDiskFragmentShader}
+          vertexShader={accrectionDiskVectorShader}
+          blending={AdditiveBlending}
+          side={DoubleSide}
+          uniforms={{
+            scaler: { value: 0.1 },
+          }}
         />
       </mesh>
     </group>
