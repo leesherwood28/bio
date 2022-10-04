@@ -59,9 +59,15 @@ const BlackHole: React.FunctionComponent = () => {
       time * BLACK_HOLE_MOVE_SPEED
     );
   });
+  const scaler = 50;
+  const scale = new Vector3(scaler, scaler, scaler);
 
   return (
-    <group position={[0, 5, 10]}>
+    <group
+      position={[10, 10, 1000]}
+      rotation={[-Math.PI / 20, 0, Math.PI / 7]}
+      scale={scale}
+    >
       <mesh ref={planetRef}>
         <sphereGeometry args={[4, 48, 48]} />
         <meshBasicMaterial color={'Black'} />
