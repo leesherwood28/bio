@@ -64,7 +64,7 @@ const BlackHole: React.FunctionComponent = () => {
 
   return (
     <group
-      position={[10, 10, 1000]}
+      position={[10, 100, 1000]}
       rotation={[-Math.PI / 20, 0, Math.PI / 7]}
       scale={scale}
     >
