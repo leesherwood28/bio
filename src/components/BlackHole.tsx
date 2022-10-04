@@ -13,7 +13,7 @@ import {
 } from 'three';
 import { isNil } from '../functions/is-nil.fn';
 
-const BLACK_HOLE_MOVE_SPEED = 0.01;
+const BLACK_HOLE_MOVE_SPEED = 0.1;
 
 const accrectionDiskVectorShader = `
 
@@ -45,16 +45,21 @@ const accretionDiskFragmentShader = `
 `;
 
 const BlackHole: React.FunctionComponent = () => {
-  const planetRef = createRef<Mesh>();
+  const accretionRef = createRef<Mesh>();
+  const accretionRefTwo = createRef<Mesh>();
   const planetTexture = useLoader(TextureLoader, 'jupiter/jupiter.jpg');
 
   planetTexture.anisotropy = 16;
 
   useFrame((state, time) => {
-    if (isNil(planetRef.current)) {
+    if (isNil(accretionRef.current) || isNil(accretionRefTwo.current)) {
       return;
     }
-    planetRef.current.rotateOnWorldAxis(
+    accretionRef.current.rotateOnWorldAxis(
+      new Vector3(0, 0, 1),
+      time * BLACK_HOLE_MOVE_SPEED
+    );
+    accretionRefTwo.current.rotateOnWorldAxis(
       new Vector3(0, 1, 0),
       time * BLACK_HOLE_MOVE_SPEED
     );
@@ -68,11 +73,11 @@ const BlackHole: React.FunctionComponent = () => {
       rotation={[-Math.PI / 20, 0, Math.PI / 7]}
       scale={scale}
     >
-      <mesh ref={planetRef}>
+      <mesh>
         <sphereGeometry args={[4, 48, 48]} />
         <meshBasicMaterial color={'Black'} />
       </mesh>
-      <mesh>
+      <mesh ref={accretionRef}>
         <ringGeometry args={[10, 5, 64]} />
         <shaderMaterial
           fragmentShader={accretionDiskFragmentShader}
@@ -84,7 +89,7 @@ const BlackHole: React.FunctionComponent = () => {
           }}
         />
       </mesh>
-      <mesh rotation={[Math.PI / 2, 0, 0]}>
+      <mesh ref={accretionRefTwo} rotation={[Math.PI / 2, 0, 0]}>
         <ringGeometry args={[10, 5, 64]} />
         <shaderMaterial
           fragmentShader={accretionDiskFragmentShader}
