@@ -5,6 +5,9 @@ import {
   BackSide,
   DoubleSide,
   Mesh,
+  MultiplyBlending,
+  NormalBlending,
+  SubtractiveBlending,
   TextureLoader,
   Vector3,
 } from 'three';
@@ -14,22 +17,17 @@ const BLACK_HOLE_MOVE_SPEED = 0.01;
 
 const accrectionDiskVectorShader = `
 
-  varying vec3 vertexNormal;
   varying vec3 vertexPosition;
-
-  varying vec2 vertexUV;
+  uniform float scaler;
 
   void main() {
-    vertexUV = uv;
     vertexPosition = position;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
   }
-
 `;
 
 const accretionDiskFragmentShader = `
 
-  varying vec2 vertexUV;
   varying vec3 vertexPosition;
   uniform float scaler;
 
@@ -39,7 +37,10 @@ const accretionDiskFragmentShader = `
     float colorIntensity = intensity * 3.5;
     float intensityFluctuation = sin(100.0 * intensity) * 0.005 / intensity;
     float totalIntensity = colorIntensity + intensityFluctuation;
-    gl_FragColor = vec4(1, 0.6, 0, 1) * totalIntensity;
+    vec4 color = vec4(1, 0.6, 0, 1) * totalIntensity;
+    float randomColorIntensity = sin(50.0 * intensity) * 0.01;
+    vec4 randColorAdd = vec4(randomColorIntensity, randomColorIntensity, 0, 1);
+    gl_FragColor = color + randColorAdd;
   }
 `;
 
