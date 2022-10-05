@@ -1,15 +1,7 @@
-import {
-  MouseEvent,
-  TouchEvent,
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+import { vector2 } from 'maath';
+import { MouseEvent, TouchEvent, useCallback, useEffect, useRef } from 'react';
 import { Vector2 } from 'three';
 import { isNil } from '../functions/is-nil.fn';
-import { Input } from '../models/input.model';
 import { useInputStore } from '../store/input.store';
 
 interface JoystickMovement {
@@ -18,7 +10,7 @@ interface JoystickMovement {
 }
 
 interface State {
-  isDragging: boolean;
+  isMoving: boolean;
   startPosition: JoystickMovement | null;
 }
 
@@ -41,29 +33,36 @@ const isTouchEvent = (
   return !!(event as TouchEvent<HTMLButtonElement>).touches;
 };
 
-const MAX_JOYSTICK_MOVEMENT = 40;
+const MAX_JOYSTICK_DISPLAY_MOVEMENT = 40;
 
-function clampInput(input: number) {
-  if (Math.abs(input) <= MAX_JOYSTICK_MOVEMENT) {
+function clampJoystickDisplayMovement(input: number) {
+  if (Math.abs(input) <= MAX_JOYSTICK_DISPLAY_MOVEMENT) {
     return input;
   }
-  return Math.sign(input) * MAX_JOYSTICK_MOVEMENT;
+  return Math.sign(input) * MAX_JOYSTICK_DISPLAY_MOVEMENT;
 }
+
+const reduceVectorLength = (vector: Vector2): Vector2 => {
+  if (vector.lengthSq() <= 1) {
+    return vector;
+  }
+  return vector.normalize();
+};
 
 const JoystickInput: React.FunctionComponent = () => {
   const setInput = useInputStore((s) => s.setInput);
 
   const joystickRef = useRef<HTMLButtonElement>(null);
-  const stateRef = useRef<State>({ isDragging: false, startPosition: null });
+  const stateRef = useRef<State>({ isMoving: false, startPosition: null });
 
   const handleJoystickStart = useCallback(
     (event: JoystickEvent) => {
-      if (isNil(stateRef.current)) {
+      if (isNil(stateRef.current) || stateRef.current.isMoving) {
         return;
       }
       const position = getJoystickPosition(event);
       stateRef.current = {
-        isDragging: true,
+        isMoving: true,
         startPosition: position,
       };
       updateJoystick({ x: 0, y: 0 });
@@ -76,7 +75,7 @@ const JoystickInput: React.FunctionComponent = () => {
         return;
       }
       stateRef.current = {
-        isDragging: false,
+        isMoving: false,
         startPosition: null,
       };
       updateJoystick({ x: 0, y: 0 });
@@ -89,7 +88,7 @@ const JoystickInput: React.FunctionComponent = () => {
       if (
         isNil(joystickRef.current) ||
         isNil(stateRef.current) ||
-        !stateRef.current.isDragging ||
+        !stateRef.current.isMoving ||
         isNil(stateRef.current.startPosition)
       ) {
         return;
@@ -110,8 +109,8 @@ const JoystickInput: React.FunctionComponent = () => {
         return;
       }
       input = {
-        x: clampInput(input.x),
-        y: clampInput(input.y),
+        x: clampJoystickDisplayMovement(input.x),
+        y: clampJoystickDisplayMovement(input.y),
       };
       joystickRef.current.style.transform = `translate(${input.x}px, ${input.y}px)`;
     },
@@ -121,7 +120,8 @@ const JoystickInput: React.FunctionComponent = () => {
   const updateJoystick = useCallback(
     (input: JoystickMovement) => {
       updateJoystickPosition(input);
-      const inputVector = new Vector2(input.x, input.y).normalize();
+      const inputVector = reduceVectorLength(new Vector2(input.x, input.y));
+
       setInput({ forward: -inputVector.y, sideways: inputVector.x });
     },
     [updateJoystickPosition, setInput]
