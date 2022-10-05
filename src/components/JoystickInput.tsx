@@ -3,6 +3,7 @@ import {
   TouchEvent,
   useCallback,
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
 } from 'react';
@@ -22,6 +23,14 @@ interface State {
 }
 
 type JoystickEvent = MouseEvent<HTMLButtonElement>;
+const MAX_JOYSTICK_MOVEMENT = 40;
+
+function clampInput(input: number) {
+  if (Math.abs(input) <= MAX_JOYSTICK_MOVEMENT) {
+    return input;
+  }
+  return Math.sign(input) * MAX_JOYSTICK_MOVEMENT;
+}
 
 const JoystickInput: React.FunctionComponent = () => {
   const setInput = useInputStore((s) => s.setInput);
@@ -38,7 +47,7 @@ const JoystickInput: React.FunctionComponent = () => {
         isDragging: true,
         startPosition: { x: event.clientX, y: event.clientY },
       };
-      updateJoystickPosition({ x: 0, y: 0 });
+      updateJoystick({ x: 0, y: 0 });
     },
     [joystickRef, stateRef]
   );
@@ -51,7 +60,7 @@ const JoystickInput: React.FunctionComponent = () => {
         isDragging: false,
         startPosition: null,
       };
-      updateJoystickPosition({ x: 0, y: 0 });
+      updateJoystick({ x: 0, y: 0 });
     },
     [joystickRef, stateRef]
   );
@@ -70,7 +79,7 @@ const JoystickInput: React.FunctionComponent = () => {
         x: event.clientX - stateRef.current.startPosition.x,
         y: event.clientY - stateRef.current.startPosition.y,
       };
-      updateJoystickPosition(joystickMovement);
+      updateJoystick(joystickMovement);
     },
     [joystickRef, stateRef]
   );
@@ -80,12 +89,41 @@ const JoystickInput: React.FunctionComponent = () => {
       if (isNil(joystickRef.current)) {
         return;
       }
+      input = {
+        x: clampInput(input.x),
+        y: clampInput(input.y),
+      };
       joystickRef.current.style.transform = `translate(${input.x}px, ${input.y}px)`;
     },
     [joystickRef]
   );
 
-  useEffect(() => {}, [joystickRef]);
+  const updateJoystick = useCallback(
+    (input: JoystickMovement) => {
+      updateJoystickPosition(input);
+      const inputVector = new Vector2(input.x, input.y).normalize();
+      setInput({ forward: -inputVector.y, sideways: inputVector.x });
+    },
+    [updateJoystickPosition, setInput]
+  );
+
+  useEffect(() => {
+    document.addEventListener('mousemove', handleJoystickMove as any);
+    document.addEventListener('touchmove', handleJoystickMove as any);
+    return () => {
+      document.removeEventListener('mousemove', handleJoystickMove as any);
+      document.removeEventListener('touchend', handleJoystickMove as any);
+    };
+  }, [handleJoystickMove]);
+
+  useEffect(() => {
+    document.addEventListener('mouseup', handleJoystickEnd as any);
+    document.addEventListener('touchend', handleJoystickEnd as any);
+    return () => {
+      document.removeEventListener('mouseup', handleJoystickEnd as any);
+      document.removeEventListener('touchend', handleJoystickEnd as any);
+    };
+  }, [handleJoystickEnd]);
 
   return (
     <div className='absolute bottom-8 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full bg-slate-500 opacity-50 flex items-center justify-center'>
@@ -93,7 +131,6 @@ const JoystickInput: React.FunctionComponent = () => {
         ref={joystickRef}
         // onTouchStart={handleTouchStart}
         onMouseDown={handleJoystickStart}
-        onMouseMove={handleJoystickMove}
         // onTouchMove={handleTouchMove}
         onMouseUp={handleJoystickEnd}
         className='bg-black w-16 h-16 rounded-full cursor-move '
