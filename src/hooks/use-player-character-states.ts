@@ -15,6 +15,11 @@ const mapStateToAnimation = (
   if (characterState === 'running') {
     return actions['Root|Run  02 '] as AnimationAction;
   }
+  if (characterState === 'walking') {
+    const animation = actions['Root|Walk'] as AnimationAction;
+    animation.timeScale = 1;
+    return animation;
+  }
   if (characterState === 'walking-backwards') {
     const animation = actions['Root|Walk'] as AnimationAction;
     animation.timeScale = -1;

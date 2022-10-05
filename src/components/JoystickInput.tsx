@@ -47,15 +47,15 @@ const convertJoystickMovementIntoInput = (
   joystickMovement: JoystickMovement
 ): Input => {
   let vector = new Vector2(
-    -joystickMovement.y,
-    joystickMovement.x
+    joystickMovement.x,
+    joystickMovement.y
   ).multiplyScalar(1 / MAX_JOYSTICK_DISPLAY_MOVEMENT);
 
   if (vector.length() > 1) {
     vector = vector.normalize();
   }
   return {
-    forward: vector.y,
+    forward: -vector.y,
     sideways: vector.x,
   };
 };
