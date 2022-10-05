@@ -2,6 +2,7 @@ import { vector2 } from 'maath';
 import { MouseEvent, TouchEvent, useCallback, useEffect, useRef } from 'react';
 import { Vector2 } from 'three';
 import { isNil } from '../functions/is-nil.fn';
+import { Input } from '../models/input.model';
 import { useInputStore } from '../store/input.store';
 
 interface JoystickMovement {
@@ -42,11 +43,21 @@ function clampJoystickDisplayMovement(input: number) {
   return Math.sign(input) * MAX_JOYSTICK_DISPLAY_MOVEMENT;
 }
 
-const reduceVectorLength = (vector: Vector2): Vector2 => {
-  if (vector.lengthSq() <= 1) {
-    return vector;
+const convertJoystickMovementIntoInput = (
+  joystickMovement: JoystickMovement
+): Input => {
+  let vector = new Vector2(
+    -joystickMovement.y,
+    joystickMovement.x
+  ).multiplyScalar(1 / MAX_JOYSTICK_DISPLAY_MOVEMENT);
+
+  if (vector.length() > 1) {
+    vector = vector.normalize();
   }
-  return vector.normalize();
+  return {
+    forward: vector.y,
+    sideways: vector.x,
+  };
 };
 
 const JoystickInput: React.FunctionComponent = () => {
@@ -120,9 +131,8 @@ const JoystickInput: React.FunctionComponent = () => {
   const updateJoystick = useCallback(
     (input: JoystickMovement) => {
       updateJoystickPosition(input);
-      const inputVector = reduceVectorLength(new Vector2(input.x, input.y));
 
-      setInput({ forward: -inputVector.y, sideways: inputVector.x });
+      setInput(convertJoystickMovementIntoInput(input));
     },
     [updateJoystickPosition, setInput]
   );

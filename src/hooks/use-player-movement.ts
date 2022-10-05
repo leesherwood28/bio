@@ -27,6 +27,7 @@ export const usePlayerMovement = (
   );
 
   useFrame(() => {
+    console.log(controllerInput.current);
     const forward = controllerInput.current.forward;
     const sideways = controllerInput.current.sideways;
 
