@@ -1,7 +1,7 @@
 import { useFrame } from '@react-three/fiber';
-import { RefObject } from 'react';
+import { RefObject, useEffect, useRef } from 'react';
 import { Euler, Object3D, Vector3 } from 'three';
-import { useKeyboardRef } from './use-keyboard-ref';
+import { useInputStore } from '../store/input.store';
 import { PhysicsApi } from './use-physics-object';
 import { usePlayerData } from './use-player-data';
 
@@ -11,26 +11,26 @@ const SPEED = {
   rotate: 4,
 };
 
-const toValue = (bool?: Boolean) => (bool ? 1 : 0);
-
 export const usePlayerMovement = (
   api: PhysicsApi,
   playerRef: RefObject<Object3D>
 ) => {
-  const controllerInput = useKeyboardRef();
-
+  const controllerInput = useRef(useInputStore.getState().input);
   const setCharacterState = usePlayerData((s) => s.setCharacterState);
 
+  useEffect(
+    () =>
+      useInputStore.subscribe(
+        (state) => (controllerInput.current = state.input)
+      ),
+    []
+  );
+
   useFrame(() => {
-    const forward =
-      toValue(controllerInput.current.moveForward) -
-      toValue(controllerInput.current.moveBackward);
+    const forward = controllerInput.current.forward;
+    const sideways = controllerInput.current.sideways;
 
-    const sideways =
-      toValue(controllerInput.current.moveLeft) -
-      toValue(controllerInput.current.moveRight);
-
-    api.setAngularVelocity(new Vector3(0, sideways * SPEED.rotate, 0));
+    api.setAngularVelocity(new Vector3(0, -sideways * SPEED.rotate, 0));
 
     const forwardSpeed = forward > 0 ? SPEED.forward : SPEED.backward;
     api.setVelocity(
