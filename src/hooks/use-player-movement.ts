@@ -43,8 +43,6 @@ export const usePlayerMovement = (
 
   const setCharacterState = usePlayerData((s) => s.setCharacterState);
 
-  console.log(controllerInput.current);
-
   useEffect(
     () =>
       useInputStore.subscribe(

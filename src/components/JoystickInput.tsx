@@ -149,7 +149,9 @@ const JoystickInput: React.FunctionComponent = () => {
 
   useEffect(() => {
     document.addEventListener('mousemove', handleJoystickMove as any);
-    document.addEventListener('touchmove', handleJoystickMove as any);
+    document.addEventListener('touchmove', handleJoystickMove as any, {
+      passive: false,
+    });
     return () => {
       document.removeEventListener('mousemove', handleJoystickMove as any);
       document.removeEventListener('touchend', handleJoystickMove as any);
