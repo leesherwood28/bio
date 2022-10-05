@@ -112,6 +112,8 @@ const JoystickInput: React.FunctionComponent = () => {
       ) {
         return;
       }
+      event.preventDefault();
+
       const joystickPosition = getJoystickPosition(event);
       const joystickMovement: JoystickMovement = {
         x: joystickPosition.x - stateRef.current.startPosition.x,
