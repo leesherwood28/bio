@@ -76,7 +76,7 @@ const BlackHole: React.FunctionComponent = () => {
   return (
     <group
       position={[10, 200, 900]}
-      rotation={[-Math.PI / 20, 0, Math.PI / 7]}
+      rotation={[-Math.PI / 10, 0, Math.PI / 7]}
       scale={blackHoleVectorScale}
     >
       <mesh>
