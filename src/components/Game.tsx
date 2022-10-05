@@ -4,6 +4,7 @@ import { Canvas } from '@react-three/fiber';
 import { Mesh } from 'three';
 import BlackHole from './BlackHole';
 import Orbit from './dev/Orbit';
+import { GlassDome } from './GlassDome';
 import Ground from './Ground';
 import Planet from './Planet';
 import Player from './Player';
@@ -21,8 +22,9 @@ const Game: React.FunctionComponent = () => {
         shadow-mapSize={[2048, 2048]}
       />
       <Stars />
-      {/* <Planet /> */}
       <BlackHole />
+      <GlassDome />
+      {/* <Planet /> */}
       {/* Remove */}
       <Stats />
       <Orbit />
