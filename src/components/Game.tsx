@@ -6,7 +6,8 @@ import BlackHole from './BlackHole';
 import Orbit from './dev/Orbit';
 import { GlassDome } from './GlassDome';
 import Ground from './Ground';
-import { KeyboardInput } from './KeyboardInput';
+import JoystickInput from './JoystickInput';
+import KeyboardInput from './KeyboardInput';
 import Planet from './Planet';
 import Player from './Player';
 import { Stars } from './Stars';
@@ -32,6 +33,7 @@ const Game: React.FunctionComponent = () => {
         <Orbit />
       </Canvas>
       <KeyboardInput />
+      <JoystickInput />
     </>
   );
 };

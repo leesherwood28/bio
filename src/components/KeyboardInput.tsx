@@ -21,7 +21,7 @@ function inputByKey(key: string, isKeyUp: boolean): Partial<Input> {
   return keyActionMap[key];
 }
 
-export const KeyboardInput: React.FunctionComponent = () => {
+const KeyboardInput: React.FunctionComponent = () => {
   const setInput = useInputStore((s) => s.setInput);
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
@@ -49,3 +49,5 @@ export const KeyboardInput: React.FunctionComponent = () => {
 
   return null;
 };
+
+export default KeyboardInput;
