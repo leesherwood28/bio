@@ -1,4 +1,3 @@
-import { vector2 } from 'maath';
 import { MouseEvent, TouchEvent, useCallback, useEffect, useRef } from 'react';
 import { Vector2 } from 'three';
 import { isNil } from '../functions/is-nil.fn';
@@ -49,7 +48,7 @@ const convertJoystickMovementIntoInput = (
   let vector = new Vector2(
     joystickMovement.x,
     joystickMovement.y
-  ).multiplyScalar(1 / MAX_JOYSTICK_DISPLAY_MOVEMENT);
+  ).multiplyScalar(2 / MAX_JOYSTICK_DISPLAY_MOVEMENT);
 
   if (vector.length() > 1) {
     vector = vector.normalize();
@@ -156,12 +155,12 @@ const JoystickInput: React.FunctionComponent = () => {
   }, [handleJoystickEnd]);
 
   return (
-    <div className='absolute bottom-8 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full bg-slate-500 opacity-50 flex items-center justify-center'>
+    <div className='absolute bottom-12 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full bg-slate-500 opacity-50 flex items-center justify-center'>
       <button
         ref={joystickRef}
         onTouchStart={handleJoystickStart}
         onMouseDown={handleJoystickStart}
-        className='bg-black w-16 h-16 rounded-full cursor-move '
+        className='bg-black w-16 h-16 rounded-full cursor-move focus:outline-none'
       ></button>
     </div>
   );
