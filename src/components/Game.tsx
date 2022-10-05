@@ -15,7 +15,12 @@ import { Stars } from './Stars';
 const Game: React.FunctionComponent = () => {
   return (
     <>
-      <Canvas camera={{ far: 5000 }} shadows style={{ background: 'black' }}>
+      <Canvas
+        className='w-full h-full'
+        camera={{ far: 5000 }}
+        shadows
+        style={{ background: 'black' }}
+      >
         <Ground />
         <Player />
         <ambientLight intensity={0.5} />
