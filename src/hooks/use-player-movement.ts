@@ -26,7 +26,7 @@ const mapForwardSpeedToplayerState = (speed: number): PlayerCharacterState => {
   return 'walking-backwards';
 };
 
-const MIN_MOVEMENT_AMOUNT = 0.1;
+const MIN_MOVEMENT_AMOUNT = 0.2;
 
 const removeBuffer = (input: number): number => {
   if (Math.abs(input) < MIN_MOVEMENT_AMOUNT) {

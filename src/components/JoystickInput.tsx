@@ -55,8 +55,17 @@ const convertJoystickMovementIntoInput = (
   }
   return {
     forward: -vector.y,
-    sideways: vector.x,
+    sideways: reduceJoystickSidewaysMovement(vector.x),
   };
+};
+
+const MAX_JOYSTICK_SIDE_MOVEMENT = 0.8;
+
+const reduceJoystickSidewaysMovement = (movement: number): number => {
+  if (Math.abs(movement) < MAX_JOYSTICK_SIDE_MOVEMENT) {
+    return movement;
+  }
+  return Math.sign(movement) * MAX_JOYSTICK_SIDE_MOVEMENT;
 };
 
 const JoystickInput: React.FunctionComponent = () => {
