@@ -31,10 +31,6 @@ export const usePhysicsObject: <T extends Object3D>() => [
     getAngularVelocity: () => angularVelocity.current,
   };
 
-  useEffect(() => {
-    console.log('object ref changed', objectRef);
-  }, [objectRef]);
-
   useFrame((state, elapsedTime) => {
     if (!objectRef.current) {
       return;
