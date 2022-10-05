@@ -26,12 +26,24 @@ const mapForwardSpeedToplayerState = (speed: number): PlayerCharacterState => {
   return 'walking-backwards';
 };
 
+const MIN_MOVEMENT_AMOUNT = 0.1;
+
+const removeBuffer = (input: number): number => {
+  if (Math.abs(input) < MIN_MOVEMENT_AMOUNT) {
+    return 0;
+  }
+  return input;
+};
+
 export const usePlayerMovement = (
   api: PhysicsApi,
   playerRef: RefObject<Object3D>
 ) => {
   const controllerInput = useRef(useInputStore.getState().input);
+
   const setCharacterState = usePlayerData((s) => s.setCharacterState);
+
+  console.log(controllerInput.current);
 
   useEffect(
     () =>
@@ -42,8 +54,9 @@ export const usePlayerMovement = (
   );
 
   useFrame(() => {
-    const forward = controllerInput.current.forward;
-    const sideways = controllerInput.current.sideways;
+    let { forward, sideways } = controllerInput.current;
+    forward = removeBuffer(forward);
+    sideways = removeBuffer(sideways);
 
     api.setAngularVelocity(
       new Vector3(0, -sideways * SPEED_MULTIPLIER.rotate, 0)
@@ -53,10 +66,9 @@ export const usePlayerMovement = (
       forward > 0 ? SPEED_MULTIPLIER.forward : SPEED_MULTIPLIER.backward;
     const forwardSpeed = forwardMultiplier * forward;
     api.setVelocity(
-      new Vector3(0, 0, forward)
-        .applyEuler(playerRef.current?.rotation ?? new Euler())
-        .normalize()
-        .multiplyScalar(forwardSpeed)
+      new Vector3(0, 0, forwardSpeed).applyEuler(
+        playerRef.current?.rotation ?? new Euler()
+      )
     );
     setCharacterState(mapForwardSpeedToplayerState(forwardSpeed));
   });
