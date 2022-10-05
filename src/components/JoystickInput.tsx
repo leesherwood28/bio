@@ -33,7 +33,7 @@ const isTouchEvent = (
   return !!(event as TouchEvent<HTMLButtonElement>).touches;
 };
 
-const MAX_JOYSTICK_DISPLAY_MOVEMENT = 40;
+const MAX_JOYSTICK_DISPLAY_MOVEMENT = 50;
 
 function clampJoystickDisplayMovement(input: number) {
   if (Math.abs(input) <= MAX_JOYSTICK_DISPLAY_MOVEMENT) {
@@ -166,7 +166,7 @@ const JoystickInput: React.FunctionComponent = () => {
   }, [handleJoystickEnd]);
 
   return (
-    <div className='absolute bottom-12 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full bg-slate-500 opacity-50 flex items-center justify-center'>
+    <div className='absolute bottom-16 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full bg-slate-500 opacity-50 flex items-center justify-center'>
       <button
         ref={joystickRef}
         onTouchStart={handleJoystickStart}
