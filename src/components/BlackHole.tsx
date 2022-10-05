@@ -66,14 +66,18 @@ const BlackHole: React.FunctionComponent = () => {
       time * BLACK_HOLE_MOVE_SPEED
     );
   });
-  const scaler = 50;
-  const scale = new Vector3(scaler, scaler, scaler);
+  const blackHoleScale = 50;
+  const blackHoleVectorScale = new Vector3(
+    blackHoleScale,
+    blackHoleScale,
+    blackHoleScale
+  );
 
   return (
     <group
       position={[10, 200, 900]}
       rotation={[-Math.PI / 20, 0, Math.PI / 7]}
-      scale={scale}
+      scale={blackHoleVectorScale}
     >
       <mesh>
         <sphereGeometry args={[4, 48, 48]} />
