@@ -22,7 +22,25 @@ interface State {
   startPosition: JoystickMovement | null;
 }
 
-type JoystickEvent = MouseEvent<HTMLButtonElement>;
+type JoystickEvent =
+  | MouseEvent<HTMLButtonElement>
+  | TouchEvent<HTMLButtonElement>;
+
+const getJoystickPosition = (event: JoystickEvent): JoystickMovement => {
+  if (isTouchEvent(event)) {
+    const touch = event.touches.item(0);
+    return { x: touch.clientX, y: touch.clientY };
+  } else {
+    return { x: event.clientX, y: event.clientY };
+  }
+};
+
+const isTouchEvent = (
+  event: JoystickEvent
+): event is TouchEvent<HTMLButtonElement> => {
+  return !!(event as TouchEvent<HTMLButtonElement>).touches;
+};
+
 const MAX_JOYSTICK_MOVEMENT = 40;
 
 function clampInput(input: number) {
@@ -43,9 +61,10 @@ const JoystickInput: React.FunctionComponent = () => {
       if (isNil(stateRef.current)) {
         return;
       }
+      const position = getJoystickPosition(event);
       stateRef.current = {
         isDragging: true,
-        startPosition: { x: event.clientX, y: event.clientY },
+        startPosition: position,
       };
       updateJoystick({ x: 0, y: 0 });
     },
@@ -75,9 +94,10 @@ const JoystickInput: React.FunctionComponent = () => {
       ) {
         return;
       }
+      const joystickPosition = getJoystickPosition(event);
       const joystickMovement: JoystickMovement = {
-        x: event.clientX - stateRef.current.startPosition.x,
-        y: event.clientY - stateRef.current.startPosition.y,
+        x: joystickPosition.x - stateRef.current.startPosition.x,
+        y: joystickPosition.y - stateRef.current.startPosition.y,
       };
       updateJoystick(joystickMovement);
     },
@@ -129,10 +149,8 @@ const JoystickInput: React.FunctionComponent = () => {
     <div className='absolute bottom-8 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full bg-slate-500 opacity-50 flex items-center justify-center'>
       <button
         ref={joystickRef}
-        // onTouchStart={handleTouchStart}
+        onTouchStart={handleJoystickStart}
         onMouseDown={handleJoystickStart}
-        // onTouchMove={handleTouchMove}
-        onMouseUp={handleJoystickEnd}
         className='bg-black w-16 h-16 rounded-full cursor-move '
       ></button>
     </div>
