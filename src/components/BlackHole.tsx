@@ -40,7 +40,9 @@ const accretionDiskFragmentShader = `
     vec4 color = vec4(1, 0.6, 0, 1) * totalIntensity;
     float randomColorIntensity = sin(50.0 * intensity) * 0.01;
     vec4 randColorAdd = vec4(randomColorIntensity, randomColorIntensity, 0, 1);
-    gl_FragColor = color + randColorAdd;
+    vec4 extraColorAdd = 0.015 * vec4(1, 1, 1, 0) * sin(vertexPosition.x * 5.0) * sin(vertexPosition.y * 5.0);
+
+    gl_FragColor = color + randColorAdd + extraColorAdd;
   }
 `;
 
