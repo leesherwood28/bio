@@ -6,7 +6,7 @@ import styles from '../styles/Home.module.css';
 
 const Home: NextPage = () => {
   return (
-    <div className='w-screen h-screen relative'>
+    <div className='w-screen h-screen relative overflow-hidden'>
       <Game />
     </div>
   );
