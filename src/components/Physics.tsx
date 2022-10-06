@@ -1,4 +1,4 @@
-import { useFrame, useStore } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import { Euler, Quaternion } from 'three';
 import { isNil } from '../functions/is-nil.fn';
@@ -26,7 +26,7 @@ const progressPhysics = (
   object.applyQuaternion(new Quaternion().setFromEuler(rotationEuler));
 };
 
-export const usePhysics = () => {
+const Physics: React.FunctionComponent = () => {
   const physicalObjects = useRef<PhysicalObject[]>([]);
 
   useEffect(() => {
@@ -38,4 +38,7 @@ export const usePhysics = () => {
   useFrame((state, elapsedTime) => {
     physicalObjects.current.forEach((o) => progressPhysics(o, elapsedTime));
   });
+  return null;
 };
+
+export default Physics;
