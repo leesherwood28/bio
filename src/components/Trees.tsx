@@ -1,4 +1,4 @@
-import { useGLTF, useTexture } from '@react-three/drei';
+import { useFBX, useGLTF, useTexture } from '@react-three/drei';
 import { useLoader } from '@react-three/fiber';
 import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
@@ -64,6 +64,9 @@ const useTexturesMap = (
 };
 
 const Trees: React.FunctionComponent = () => {
+  const fbx = useFBX('/foilage/BirchTree_1.fbx');
+  return <primitive scale={0.025} object={fbx} />;
+
   const { scene, nodes, materials } = useGLTF(
     '/foilage/BirchTree_1.gltf'
   ) as any;
