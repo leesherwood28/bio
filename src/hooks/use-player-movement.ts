@@ -45,6 +45,7 @@ export const usePlayerMovement = (api: RigidBodyApiRef) => {
     if (isNil(api.current)) {
       return;
     }
+    console.log('here');
 
     let { forward, sideways } = input;
     forward = removeBuffer(forward);

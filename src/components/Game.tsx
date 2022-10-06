@@ -10,7 +10,7 @@ import KeyboardInput from './KeyboardInput';
 import Planet from './Planet';
 import Player from './Player';
 import { Stars } from './Stars';
-import { Debug, Physics } from '@react-three/rapier';
+import { Debug, HeightfieldCollider, Physics } from '@react-three/rapier';
 
 const Game: React.FunctionComponent = () => {
   return (
@@ -21,7 +21,7 @@ const Game: React.FunctionComponent = () => {
         shadows
         style={{ background: 'black' }}
       >
-        <Physics>
+        <Physics gravity={[0, 0, 0]}>
           <Debug color='red' sleepColor='blue' />
           <Ground />
           <Player />

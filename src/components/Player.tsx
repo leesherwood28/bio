@@ -31,9 +31,9 @@ const Player: React.FunctionComponent = () => {
     <RigidBody
       ref={playerRef}
       position={[0, 10, 0]}
-      colliders={'ball'}
+      colliders={'cuboid'}
+      friction={0}
       enabledRotations={[false, true, false]}
-      args={[]}
       restitution={0}
     >
       <primitive
