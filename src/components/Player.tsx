@@ -20,9 +20,10 @@ const Player: React.FunctionComponent = () => {
   usePlayerCamera(playerPhysicsApi);
   usePlayerMovement(playerPhysicsApi);
 
+  console.log('here');
   return (
     <>
-      <group ref={playerPhysicsApi.getObjectRef()} position={[0, 0, 0]}>
+      <group ref={playerPhysicsApi.objectRef} position={[0, 0, 0]}>
         <primitive
           object={scene}
           rotation={[0, 0, 0]}

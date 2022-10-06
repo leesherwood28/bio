@@ -25,7 +25,7 @@ export const usePlayerCamera = (playerApi: PhysicsApi<Object3D>) => {
   const idealOffset = useRef(new Vector3());
 
   useFrame((state, delta) => {
-    const playerRef = playerApi.getObjectRef().current;
+    const playerRef = playerApi.objectRef.current;
     if (isNil(playerRef)) {
       return;
     }

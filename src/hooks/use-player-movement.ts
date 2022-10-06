@@ -62,7 +62,7 @@ export const usePlayerMovement = (api: PhysicsApi<Object3D>) => {
     const forwardSpeed = forwardMultiplier * forward;
     api.setVelocity(
       new Vector3(0, 0, forwardSpeed).applyEuler(
-        api.getObjectRef().current?.rotation ?? new Euler()
+        api.objectRef.current?.rotation ?? new Euler()
       )
     );
     setCharacterState(mapForwardSpeedToplayerState(forwardSpeed));

@@ -13,7 +13,7 @@ export interface PhysicsApi<T extends Object3D> {
   setAngularVelocity: (velocity: Vector3) => void;
   getVelocity: () => Vector3;
   getAngularVelocity: () => Vector3;
-  getObjectRef: () => RefObject<T>;
+  objectRef: RefObject<T>;
 }
 
 export const usePhysicsObject = <T extends Object3D>(): PhysicsApi<T> => {
@@ -27,7 +27,7 @@ export const usePhysicsObject = <T extends Object3D>(): PhysicsApi<T> => {
     setVelocity: (v) => (velocity.current = v),
     getVelocity: () => velocity.current,
     getAngularVelocity: () => angularVelocity.current,
-    getObjectRef: () => objectRef,
+    objectRef: objectRef,
   };
 
   useFrame((state, elapsedTime) => {

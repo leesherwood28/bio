@@ -33,10 +33,7 @@ const usePlayerCharacterStates = (
   animations: AnimationClip[],
   playerPhysicsApi: PhysicsApi<Object3D>
 ) => {
-  const { actions } = useAnimations(
-    animations,
-    playerPhysicsApi.getObjectRef()
-  );
+  const { actions } = useAnimations(animations, playerPhysicsApi.objectRef);
   const characterState = usePlayerData((s) => s.characterState);
   const [currentAnimation, setAnimation] = useState<AnimationAction>();
 
