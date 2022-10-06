@@ -21,7 +21,7 @@ const Game: React.FunctionComponent = () => {
         shadows
         style={{ background: 'black' }}
       >
-        <Physics gravity={[0, 0, 0]}>
+        <Physics gravity={[0, 0, 0]} timeStep='vary'>
           <Debug color='red' sleepColor='blue' />
           <Ground />
           <Player />

@@ -5,7 +5,7 @@ import { RefObject, useRef } from 'react';
 import { Object3D, Vector3 } from 'three';
 
 const calculateIdealOffset = (object: RigidBodyApi) => {
-  const idealOffset = new Vector3(-1, 2, -2.5);
+  const idealOffset = new Vector3(-1, 0, -4.5);
   idealOffset.applyQuaternion(object.rotation());
   idealOffset.add(object.translation());
   return idealOffset;
