@@ -12,6 +12,7 @@
     "@react-three/cannon": "^6.4.0",
     "@react-three/drei": "^9.29.1",
     "@react-three/fiber": "^8.7.2",
+    "@react-three/rapier": "^0.7.6",
     "@types/three": "^0.144.0",
     "immer": "^9.0.15",
     "maath": "^0.4.2",

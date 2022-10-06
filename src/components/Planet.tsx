@@ -16,6 +16,7 @@ const PLANET_MOVE_SPEED = 0.01;
 
 const Planet: React.FunctionComponent = () => {
   const planetRef = createRef<Mesh>();
+
   const planetTexture = useLoader(TextureLoader, 'jupiter/jupiter.jpg');
 
   planetTexture.anisotropy = 16;

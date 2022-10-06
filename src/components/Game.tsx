@@ -1,4 +1,3 @@
-import { Physics, Debug, useBox } from '@react-three/cannon';
 import { Stats } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { Mesh } from 'three';
@@ -11,6 +10,7 @@ import KeyboardInput from './KeyboardInput';
 import Planet from './Planet';
 import Player from './Player';
 import { Stars } from './Stars';
+import { Physics } from '@react-three/rapier';
 
 const Game: React.FunctionComponent = () => {
   return (
@@ -21,21 +21,23 @@ const Game: React.FunctionComponent = () => {
         shadows
         style={{ background: 'black' }}
       >
-        <Ground />
-        <Player />
-        <ambientLight intensity={0.5} />
-        <directionalLight
-          position={[10, 200, 900]}
-          castShadow
-          shadow-mapSize={[2048, 2048]}
-        />
-        <Stars />
-        <BlackHole />
-        <GlassDome />
-        {/* <Planet /> */}
-        {/* Remove */}
-        <Stats />
-        <Orbit />
+        <Physics>
+          <Ground />
+          <Player />
+          <ambientLight intensity={0.5} />
+          <directionalLight
+            position={[10, 200, 900]}
+            castShadow
+            shadow-mapSize={[2048, 2048]}
+          />
+          <Stars />
+          <BlackHole />
+          <GlassDome />
+          {/* <Planet /> */}
+          {/* Remove */}
+          <Stats />
+          <Orbit />
+        </Physics>
       </Canvas>
       <KeyboardInput />
       <JoystickInput />
