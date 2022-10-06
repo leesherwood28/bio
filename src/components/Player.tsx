@@ -24,7 +24,7 @@ const Player: React.FunctionComponent = () => {
   ) as GLTF;
 
   // usePlayerCharacterStates(animations, playerRef);
-  // usePlayerCamera(playerRef);
+  usePlayerCamera(playerRef);
   usePlayerMovement(playerRef);
 
   return (
