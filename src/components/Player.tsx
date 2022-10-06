@@ -11,10 +11,7 @@ import { usePlayerMovement } from '../hooks/use-player-movement';
 const Player: React.FunctionComponent = () => {
   const playerPhysicsApi = usePhysicsObject<Group>(1);
 
-  const { scene, animations } = useGLTF(
-    '/player/scene.gltf',
-    'https://www.gstatic.com/draco/versioned/decoders/1.4.0/'
-  ) as GLTF;
+  const { scene, animations } = useGLTF('/player/scene.gltf') as GLTF;
 
   usePlayerCharacterStates(animations, playerPhysicsApi);
   usePlayerCamera(playerPhysicsApi);

@@ -3,7 +3,7 @@ import { useLoader } from '@react-three/fiber';
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 import { useEffect } from 'react';
-import { Texture } from 'three';
+import { AdditiveBlending, DoubleSide, Texture } from 'three';
 import * as maath from 'maath';
 
 const MODELS = [];
@@ -63,14 +63,14 @@ const Trees: React.FunctionComponent = () => {
   );
 
   useEffect(() => {
-    textures.forEach((t) => (t.flipY = false));
-
     scene.traverse((t: any) => {
       if (!t.isMesh) {
         return;
       }
+      t.side = DoubleSide;
       if (textures.has(t.material.name)) {
         t.material.map = textures.get(t.material.name);
+        t.material.blending = AdditiveBlending;
         t.material.needsUpdate = true;
       }
       if (normals.has(t.material.name)) {
