@@ -1,6 +1,6 @@
 import { useSphere, useRaycastVehicle } from '@react-three/cannon';
 import { PerspectiveCamera, useGLTF } from '@react-three/drei';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { BoxGeometry, Group } from 'three';
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { usePhysicsObject } from '../hooks/use-physics-object';
@@ -25,15 +25,20 @@ const Player: React.FunctionComponent = () => {
 
   // usePlayerCharacterStates(animations, playerRef);
   // usePlayerCamera(playerRef);
-  // usePlayerMovement(playerPhysicsApi, playerRef);
+  usePlayerMovement(playerRef);
 
   return (
-    <RigidBody ref={playerRef} position={[0, 0, 0]}>
+    <RigidBody
+      ref={playerRef}
+      position={[0, 10, 0]}
+      colliders={'ball'}
+      lockRotations
+      args={[]}
+      restitution={0}
+    >
       <primitive
         object={scene}
-        rotation={[0, 0, 0]}
         scale={[0.01, 0.01, 0.01]}
-        position={[-0.05, 2.83, 0.1]}
         castShadow
         receiveShadow
       ></primitive>
