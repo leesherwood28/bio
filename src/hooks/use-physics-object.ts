@@ -8,27 +8,26 @@ import {
 } from 'react';
 import { Euler, Object3D, Quaternion, Vector3 } from 'three';
 
-export interface PhysicsApi {
+export interface PhysicsApi<T extends Object3D> {
   setVelocity: (velocity: Vector3) => void;
   setAngularVelocity: (velocity: Vector3) => void;
   getVelocity: () => Vector3;
   getAngularVelocity: () => Vector3;
+  getObjectRef: () => RefObject<T>;
 }
 
-export const usePhysicsObject: <T extends Object3D>() => [
-  MutableRefObject<T>,
-  PhysicsApi
-] = <T extends Object3D>() => {
+export const usePhysicsObject = <T extends Object3D>(): PhysicsApi<T> => {
   const velocity = useRef<Vector3>(new Vector3(1, 1, 1));
   const angularVelocity = useRef<Vector3>(new Vector3());
 
   const objectRef = useRef<T>(new Object3D() as T);
 
-  const api: PhysicsApi = {
+  const api: PhysicsApi<T> = {
     setAngularVelocity: (v) => (angularVelocity.current = v),
     setVelocity: (v) => (velocity.current = v),
     getVelocity: () => velocity.current,
     getAngularVelocity: () => angularVelocity.current,
+    getObjectRef: () => objectRef,
   };
 
   useFrame((state, elapsedTime) => {
@@ -47,5 +46,5 @@ export const usePhysicsObject: <T extends Object3D>() => [
     );
   });
 
-  return [objectRef, api];
+  return api;
 };

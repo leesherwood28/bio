@@ -1,6 +1,7 @@
 import { useAnimations } from '@react-three/drei';
 import { RefObject, useEffect, useState } from 'react';
 import { AnimationAction, AnimationClip, Event, Group, Object3D } from 'three';
+import { PhysicsApi } from './use-physics-object';
 import { PlayerCharacterState, usePlayerData } from './use-player-data';
 
 const mapStateToAnimation = (
@@ -30,9 +31,12 @@ const mapStateToAnimation = (
 
 const usePlayerCharacterStates = (
   animations: AnimationClip[],
-  playerRef: RefObject<Group>
+  playerPhysicsApi: PhysicsApi<Object3D>
 ) => {
-  const { actions } = useAnimations(animations, playerRef);
+  const { actions } = useAnimations(
+    animations,
+    playerPhysicsApi.getObjectRef()
+  );
   const characterState = usePlayerData((s) => s.characterState);
   const [currentAnimation, setAnimation] = useState<AnimationAction>();
 

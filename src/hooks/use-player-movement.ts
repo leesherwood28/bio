@@ -35,10 +35,7 @@ const removeBuffer = (input: number): number => {
   return input;
 };
 
-export const usePlayerMovement = (
-  api: PhysicsApi,
-  playerRef: RefObject<Object3D>
-) => {
+export const usePlayerMovement = (api: PhysicsApi<Object3D>) => {
   const controllerInput = useRef(useInputStore.getState().input);
 
   const setCharacterState = usePlayerData((s) => s.setCharacterState);
@@ -65,7 +62,7 @@ export const usePlayerMovement = (
     const forwardSpeed = forwardMultiplier * forward;
     api.setVelocity(
       new Vector3(0, 0, forwardSpeed).applyEuler(
-        playerRef.current?.rotation ?? new Euler()
+        api.getObjectRef().current?.rotation ?? new Euler()
       )
     );
     setCharacterState(mapForwardSpeedToplayerState(forwardSpeed));

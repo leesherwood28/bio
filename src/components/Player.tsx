@@ -9,20 +9,20 @@ import { usePlayerCharacterStates } from '../hooks/use-player-character-states';
 import { usePlayerMovement } from '../hooks/use-player-movement';
 
 const Player: React.FunctionComponent = () => {
-  const [playerRef, playerPhysicsApi] = usePhysicsObject<Group>();
+  const playerPhysicsApi = usePhysicsObject<Group>();
 
   const { scene, animations } = useGLTF(
     '/player/scene.gltf',
     'https://www.gstatic.com/draco/versioned/decoders/1.4.0/'
   ) as GLTF;
 
-  usePlayerCharacterStates(animations, playerRef);
-  usePlayerCamera(playerRef);
-  usePlayerMovement(playerPhysicsApi, playerRef);
+  usePlayerCharacterStates(animations, playerPhysicsApi);
+  usePlayerCamera(playerPhysicsApi);
+  usePlayerMovement(playerPhysicsApi);
 
   return (
     <>
-      <group ref={playerRef} position={[0, 0, 0]}>
+      <group ref={playerPhysicsApi.getObjectRef()} position={[0, 0, 0]}>
         <primitive
           object={scene}
           rotation={[0, 0, 0]}

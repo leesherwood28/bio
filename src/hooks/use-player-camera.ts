@@ -1,6 +1,8 @@
 import { useFrame, useThree } from '@react-three/fiber';
-import { RefObject, useRef } from 'react';
+import { useRef } from 'react';
 import { Object3D, Vector3 } from 'three';
+import { isNil } from '../functions/is-nil.fn';
+import { PhysicsApi } from './use-physics-object';
 
 const calculateIdealOffset = (object: Object3D) => {
   const idealOffset = new Vector3(-1, 2, -2.5);
@@ -16,18 +18,19 @@ const calculateIdealLookat = (object: Object3D) => {
   return idealLookat;
 };
 
-export const usePlayerCamera = (playerRef: RefObject<Object3D>) => {
+export const usePlayerCamera = (playerApi: PhysicsApi<Object3D>) => {
   const { camera } = useThree();
 
   const idealLookat = useRef(new Vector3());
   const idealOffset = useRef(new Vector3());
 
   useFrame((state, delta) => {
-    if (!playerRef.current) {
+    const playerRef = playerApi.getObjectRef().current;
+    if (isNil(playerRef)) {
       return;
     }
-    const newIdealOffset = calculateIdealOffset(playerRef.current);
-    const newIdealLookat = calculateIdealLookat(playerRef.current);
+    const newIdealOffset = calculateIdealOffset(playerRef);
+    const newIdealLookat = calculateIdealLookat(playerRef);
 
     const lerp = 1.0 - Math.pow(0.001, delta);
     idealOffset.current.lerp(newIdealOffset, lerp);
