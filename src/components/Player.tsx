@@ -32,7 +32,7 @@ const Player: React.FunctionComponent = () => {
       ref={playerRef}
       position={[0, 10, 0]}
       colliders={'ball'}
-      lockRotations
+      enabledRotations={[false, true, false]}
       args={[]}
       restitution={0}
     >
