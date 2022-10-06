@@ -17,52 +17,7 @@ import {
   Texture,
   Vector3,
 } from 'three';
-import * as maath from 'maath';
 import { generateUUID } from 'three/src/math/MathUtils';
-
-// interface ModelData {
-//   numberAvailable: number;
-//   radius: number;
-// }
-
-// interface ModelDef {
-//   numberAvailable: number;
-//   radius: number;
-//   name: string;
-// }
-
-// const Models: ModelDef[] = [
-//      {
-//         name: 'Willow_Autumn',
-//         numberAvailable: 5,
-//         radius: 5,
-//       },
-//       BirchTree_Autumn:{
-//         name: 'BirchTree_Autumn',
-//         numberAvailable: 5,
-//         radius: 5,
-//       },
-//       Bush: {
-//         numberAvailable: 5,
-//         radius: 2,
-//       },
-//       CommonTree_Autumn: {
-//         numberAvailable: 5,
-//         radius: 2,
-//       },
-//       Corn: {
-//         numberAvailable: 2,
-//         radius: 0,
-//       },
-//       Rock: {
-//         numberAvailable: 7,
-//         radius: 2,
-//       },
-//       Rock_Moss: {
-//         numberAvailable: 7,
-//         radius: 2,
-//       },
-// ]
 
 // Models used with love from https://quaternius.com/;
 
@@ -73,14 +28,63 @@ interface Model {
   position: Vector3;
 }
 
-const Trees: React.FunctionComponent = () => {
+const Foliage: React.FunctionComponent = () => {
   const MAX_DISTANCE = 50;
 
   return (
     <>
       <RandomFoliageSet
         path={'Willow_Autumn'}
-        number={20}
+        number={10}
+        available={5}
+        maxDistance={MAX_DISTANCE}
+      />
+
+      <RandomFoliageSet
+        path={'BirchTree_Autumn'}
+        number={10}
+        available={5}
+        maxDistance={MAX_DISTANCE}
+      />
+
+      <RandomFoliageSet
+        path={'Bush'}
+        number={10}
+        available={2}
+        maxDistance={MAX_DISTANCE}
+      />
+
+      <RandomFoliageSet
+        path={'CommonTree_Autumn'}
+        number={10}
+        available={5}
+        maxDistance={MAX_DISTANCE}
+      />
+
+      <RandomFoliageSet
+        path={'Corn'}
+        number={10}
+        available={2}
+        maxDistance={MAX_DISTANCE}
+      />
+
+      <RandomFoliageSet
+        path={'Rock'}
+        number={5}
+        available={7}
+        maxDistance={MAX_DISTANCE}
+      />
+
+      <RandomFoliageSet
+        path={'Rock_Moss'}
+        number={5}
+        available={7}
+        maxDistance={MAX_DISTANCE}
+      />
+
+      <RandomFoliageSet
+        path={'Plant'}
+        number={100}
         available={5}
         maxDistance={MAX_DISTANCE}
       />
@@ -95,6 +99,11 @@ interface FoilageSetParams {
   maxDistance: number;
 }
 
+const randomDistanceGen = (): number => {
+  const number = Math.random();
+  return 1 - number ** 10;
+};
+
 const RandomFoliageSet: React.FunctionComponent<FoilageSetParams> = ({
   path,
   available,
@@ -103,9 +112,9 @@ const RandomFoliageSet: React.FunctionComponent<FoilageSetParams> = ({
 }) => {
   const [foilage] = useState(() => {
     return Array.from({ length: number }).map((_, i) => {
-      const position = new Vector3(Math.random() * maxDistance).applyEuler(
-        new Euler(0, Math.random() * 2 * Math.PI, 0)
-      );
+      const position = new Vector3(
+        randomDistanceGen() * maxDistance
+      ).applyEuler(new Euler(0, Math.random() * 2 * Math.PI, 0));
 
       const randomIndex = Math.floor(Math.random() * available) + 1;
 
@@ -119,13 +128,11 @@ const RandomFoliageSet: React.FunctionComponent<FoilageSetParams> = ({
     });
   });
 
-  console.log(foilage);
-
   return (
     <>
       {foilage.map((f) => (
         <primitive
-          scale={0.04}
+          scale={0.02}
           key={f.id}
           object={f.item}
           position={f.position}
@@ -135,4 +142,4 @@ const RandomFoliageSet: React.FunctionComponent<FoilageSetParams> = ({
   );
 };
 
-export default Trees;
+export default Foliage;

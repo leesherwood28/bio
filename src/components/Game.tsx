@@ -9,7 +9,7 @@ import KeyboardInput from './KeyboardInput';
 import Physics from './Physics';
 import Player from './Player';
 import { Stars } from './Stars';
-import Trees from './Trees';
+import Foliage from './Foliage';
 
 const Game: React.FunctionComponent = () => {
   return (
@@ -32,9 +32,7 @@ const Game: React.FunctionComponent = () => {
         <Stars />
         <BlackHole />
         <GlassDome />
-
-        {/* Foilage */}
-        <Trees />
+        <Foliage />
 
         {/* <Planet /> */}
         {/* Remove */}
