@@ -111,7 +111,7 @@ const RandomFoliageSet: React.FunctionComponent<FoilageSetParams> = ({
 
       const model: Model = {
         id: generateUUID(),
-        item: useFBX(`/foilage/${path}_${randomIndex}.fbx`),
+        item: useFBX(`/foilage/${path}_${randomIndex}.fbx`).clone(),
         position: position,
         radius: 1,
       };
@@ -125,7 +125,7 @@ const RandomFoliageSet: React.FunctionComponent<FoilageSetParams> = ({
     <>
       {foilage.map((f) => (
         <primitive
-          scale={0.015}
+          scale={0.04}
           key={f.id}
           object={f.item}
           position={f.position}
