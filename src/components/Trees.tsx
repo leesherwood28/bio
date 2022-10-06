@@ -1,9 +1,19 @@
 import { useGLTF, useTexture } from '@react-three/drei';
 import { useLoader } from '@react-three/fiber';
-import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
+import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
+import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
+
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 import { useEffect } from 'react';
-import { AdditiveBlending, DoubleSide, Texture } from 'three';
+import {
+  AdditiveBlending,
+  DoubleSide,
+  MaterialLoader,
+  ObjectLoader,
+  ShaderChunk,
+  Texture,
+} from 'three';
 import * as maath from 'maath';
 
 const MODELS = [];
@@ -39,6 +49,8 @@ const NORMALS = [
   'PineTree_Bark',
 ];
 
+// Models used with love from https://quaternius.com/;
+
 const useTexturesMap = (
   textures: string[],
   pathFn: (t: string) => string
@@ -52,7 +64,16 @@ const useTexturesMap = (
 };
 
 const Trees: React.FunctionComponent = () => {
-  const { scene } = useGLTF('/foilage/BirchTree_1.gltf') as any;
+  const { scene, nodes, materials } = useGLTF(
+    '/foilage/BirchTree_1.gltf'
+  ) as any;
+
+  //   const materials = useLoader(MTLLoader, '/foilage/BirchTree_1.mtl');
+  //   const object = useLoader(OBJLoader, '/foilage/BirchTree_1.obj', (loader) => {
+  //     materials.preload();
+  //     (loader as any).setMaterials(materials);
+  //   }) as any;
+
   const textures = useTexturesMap(
     TEXTURES,
     (t) => `/foilage/textures/${t}.png`
@@ -68,9 +89,11 @@ const Trees: React.FunctionComponent = () => {
         return;
       }
       t.side = DoubleSide;
+      t.material.side = DoubleSide;
+      t.material.transparent = true;
+
       if (textures.has(t.material.name)) {
         t.material.map = textures.get(t.material.name);
-        t.material.blending = AdditiveBlending;
         t.material.needsUpdate = true;
       }
       if (normals.has(t.material.name)) {
@@ -79,6 +102,23 @@ const Trees: React.FunctionComponent = () => {
       }
     });
   }, [scene, textures]);
+
+  return (
+    <group dispose={null}>
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Cube004.geometry}
+        material={materials.BirchTree_Bark}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Cube004_1.geometry}
+        material={materials.BirchTree_Leaves}
+      />
+    </group>
+  );
 
   return <primitive object={scene}></primitive>;
 };

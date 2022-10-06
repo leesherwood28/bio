@@ -23,7 +23,7 @@ const Game: React.FunctionComponent = () => {
         <Physics />
         <Player />
         <Ground />
-        <ambientLight intensity={0.5} />
+        <ambientLight intensity={1.5} />
         <directionalLight
           position={[10, 200, 900]}
           castShadow
