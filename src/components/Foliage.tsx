@@ -1,22 +1,7 @@
-import { useFBX, useGLTF, useTexture } from '@react-three/drei';
-import { useLoader } from '@react-three/fiber';
-import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
-import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
+import { useFBX } from '@react-three/drei';
 
-import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
-import { useEffect, useState } from 'react';
-import {
-  AdditiveBlending,
-  DoubleSide,
-  Euler,
-  Group,
-  MaterialLoader,
-  ObjectLoader,
-  ShaderChunk,
-  Texture,
-  Vector3,
-} from 'three';
+import { useState } from 'react';
+import { Euler, Group, Vector3 } from 'three';
 import { generateUUID } from 'three/src/math/MathUtils';
 import { WORLD_RADIUS } from '../contants/world-radius.const';
 
@@ -30,8 +15,6 @@ interface Model {
 }
 
 const Foliage: React.FunctionComponent = () => {
-  const MAX_DISTANCE = 50;
-
   return (
     <>
       <RandomFoliageSet path={'Willow_Autumn'} number={10} available={5} />
