@@ -7,6 +7,7 @@ interface PhysicsStore {
   objects: PhysicalObject[];
   addObject: (object: PhysicalObject) => void;
   setObject: (objectId: string, setFn: (value: PhysicalObject) => void) => void;
+  getObject: (objectId: string) => PhysicalObject | null | undefined;
 }
 
 export const usePhysicsStore = create<PhysicsStore>((set, get) => {
@@ -18,6 +19,8 @@ export const usePhysicsStore = create<PhysicsStore>((set, get) => {
           state.objects.push(object);
         })
       ),
+    getObject: (objectId: string) =>
+      get().objects.find((o) => o.id === objectId),
     setObject: (objectId: string, setFn: (value: PhysicalObject) => void) =>
       set(
         produce<PhysicsStore>((state) => {
