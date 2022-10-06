@@ -1,8 +1,9 @@
 import { useFrame } from '@react-three/fiber';
 import { RigidBodyApiRef } from '@react-three/rapier';
-import { RefObject, useEffect, useRef } from 'react';
+import { RefObject, useCallback, useEffect, useRef } from 'react';
 import { Euler, Object3D, Vector3 } from 'three';
 import { isNil } from '../functions/is-nil.fn';
+import { Input } from '../models/input.model';
 import { useInputStore } from '../store/input.store';
 import { PhysicsApi } from './use-physics-object';
 import { PlayerCharacterState, usePlayerData } from './use-player-data';
@@ -38,23 +39,14 @@ const removeBuffer = (input: number): number => {
 };
 
 export const usePlayerMovement = (api: RigidBodyApiRef) => {
-  const controllerInput = useRef(useInputStore.getState().input);
-
   const setCharacterState = usePlayerData((s) => s.setCharacterState);
 
-  useEffect(
-    () =>
-      useInputStore.subscribe(
-        (state) => (controllerInput.current = state.input)
-      ),
-    []
-  );
-
-  useFrame(() => {
+  const setPlayerMovement = useCallback((input: Input) => {
     if (isNil(api.current)) {
       return;
     }
-    let { forward, sideways } = controllerInput.current;
+
+    let { forward, sideways } = input;
     forward = removeBuffer(forward);
     sideways = removeBuffer(sideways);
 
@@ -69,5 +61,10 @@ export const usePlayerMovement = (api: RigidBodyApiRef) => {
       new Vector3(0, 0, forwardSpeed).applyQuaternion(api.current.rotation())
     );
     setCharacterState(mapForwardSpeedToplayerState(forwardSpeed));
-  });
+  }, []);
+
+  useEffect(
+    () => useInputStore.subscribe((i) => setPlayerMovement(i.input)),
+    [setPlayerMovement]
+  );
 };
