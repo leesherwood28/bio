@@ -74,7 +74,7 @@ interface Model {
 }
 
 const Trees: React.FunctionComponent = () => {
-  const MAX_DISTANCE = 100;
+  const MAX_DISTANCE = 50;
 
   return (
     <>
@@ -118,6 +118,8 @@ const RandomFoliageSet: React.FunctionComponent<FoilageSetParams> = ({
       return model;
     });
   });
+
+  console.log(foilage);
 
   return (
     <>
