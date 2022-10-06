@@ -9,7 +9,7 @@ import { usePlayerCharacterStates } from '../hooks/use-player-character-states';
 import { usePlayerMovement } from '../hooks/use-player-movement';
 
 const Player: React.FunctionComponent = () => {
-  const playerPhysicsApi = usePhysicsObject<Group>();
+  const playerPhysicsApi = usePhysicsObject<Group>(1);
 
   const { scene, animations } = useGLTF(
     '/player/scene.gltf',
@@ -20,7 +20,6 @@ const Player: React.FunctionComponent = () => {
   usePlayerCamera(playerPhysicsApi);
   usePlayerMovement(playerPhysicsApi);
 
-  console.log('here');
   return (
     <>
       <group ref={playerPhysicsApi.objectRef} position={[0, 0, 0]}>

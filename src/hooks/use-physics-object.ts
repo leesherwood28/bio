@@ -1,12 +1,8 @@
-import { useFrame } from '@react-three/fiber';
-import {
-  createRef,
-  MutableRefObject,
-  RefObject,
-  useEffect,
-  useRef,
-} from 'react';
-import { Euler, Object3D, Quaternion, Vector3 } from 'three';
+import { RefObject, useEffect, useRef } from 'react';
+import { Object3D, Vector3 } from 'three';
+import { generateUUID } from 'three/src/math/MathUtils';
+import { PhysicalObject } from '../models/physical-object.model';
+import { usePhysicsStore } from '../store/physics.store';
 
 export interface PhysicsApi<T extends Object3D> {
   setVelocity: (velocity: Vector3) => void;
@@ -16,35 +12,35 @@ export interface PhysicsApi<T extends Object3D> {
   objectRef: RefObject<T>;
 }
 
-export const usePhysicsObject = <T extends Object3D>(): PhysicsApi<T> => {
-  const velocity = useRef<Vector3>(new Vector3(1, 1, 1));
-  const angularVelocity = useRef<Vector3>(new Vector3());
+export const usePhysicsObject = <T extends Object3D>(
+  radius: number
+): PhysicsApi<T> => {
+  const id = useRef<string>(generateUUID());
 
-  const objectRef = useRef<T>(new Object3D() as T);
+  const { addObject, setObject, getObject } = usePhysicsStore();
 
-  const api: PhysicsApi<T> = {
-    setAngularVelocity: (v) => (angularVelocity.current = v),
-    setVelocity: (v) => (velocity.current = v),
-    getVelocity: () => velocity.current,
-    getAngularVelocity: () => angularVelocity.current,
-    objectRef: objectRef,
-  };
-
-  useFrame((state, elapsedTime) => {
-    if (!objectRef.current) {
-      return;
-    }
-
-    objectRef.current.position.add(
-      velocity.current.clone().multiplyScalar(elapsedTime)
-    );
-    const rotationEuler = new Euler(
-      ...angularVelocity.current.clone().multiplyScalar(elapsedTime).toArray()
-    );
-    objectRef.current.applyQuaternion(
-      new Quaternion().setFromEuler(rotationEuler)
-    );
+  const objectRef = useRef<PhysicalObject>({
+    id: id.current,
+    angularVelocity: new Vector3(0, 0, 0),
+    objectRef: useRef<T>(new Object3D() as T),
+    radius: radius,
+    velocity: new Vector3(0, 0, 0),
   });
 
-  return api;
+  useEffect(() => {
+    addObject(objectRef.current);
+  }, []);
+
+  const apiRef = useRef<PhysicsApi<T>>({
+    setAngularVelocity: (v) =>
+      setObject(id.current, (s) => (s.angularVelocity = v)),
+    setVelocity: (v) => setObject(id.current, (s) => (s.velocity = v)),
+    getVelocity: () => getObject(id.current)?.velocity ?? new Vector3(),
+    getAngularVelocity: () =>
+      (getObject(id.current) ?? objectRef.current).velocity,
+    objectRef: (getObject(id.current) ?? objectRef.current)
+      .objectRef as RefObject<T>,
+  });
+
+  return apiRef.current;
 };
