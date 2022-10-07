@@ -21,11 +21,6 @@ const Game: React.FunctionComponent = () => {
         shadows={{ type: PCFSoftShadowMap }}
         style={{ background: 'black' }}
       >
-        <mesh castShadow receiveShadow position={[10, 0, 0]}>
-          <boxGeometry />
-          <meshStandardMaterial />
-        </mesh>
-
         <Physics />
         <Player />
         <Ground />
