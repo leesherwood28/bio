@@ -1,18 +1,10 @@
-import { useFBX } from '@react-three/drei';
-
 import { useState } from 'react';
 import { Euler, Group, Vector3 } from 'three';
 import { generateUUID } from 'three/src/math/MathUtils';
 import { WORLD_RADIUS } from '../contants/world-radius.const';
+import { useFbxWithShadows } from '../hooks/use-fbx-with-shadows';
 
 // Models used with love from https://quaternius.com/;
-
-interface Model {
-  radius: number;
-  item: Group;
-  id: string;
-  position: Vector3;
-}
 
 const Foliage: React.FunctionComponent = () => {
   return (
@@ -55,7 +47,7 @@ const RandomFoliageSet: React.FunctionComponent<FoilageSetParams> = ({
   available,
   number,
 }) => {
-  const [foilage] = useState(() => {
+  const [foilage] = useState<FoilageItem[]>(() => {
     return Array.from({ length: number }).map((_, i) => {
       const position = new Vector3(
         randomDistanceGen() * WORLD_RADIUS
@@ -63,28 +55,40 @@ const RandomFoliageSet: React.FunctionComponent<FoilageSetParams> = ({
 
       const randomIndex = Math.floor(Math.random() * available) + 1;
 
-      const model: Model = {
+      const foilageItem: FoilageItem = {
         id: generateUUID(),
-        item: useFBX(`/foilage/${path}_${randomIndex}.fbx`).clone(),
+        path: `/foilage/${path}_${randomIndex}.fbx`,
         position: position,
         radius: 1,
       };
-      return model;
+      return foilageItem;
     });
   });
 
   return (
     <>
       {foilage.map((f) => (
-        <primitive
-          scale={0.02}
-          key={f.id}
-          object={f.item}
-          position={f.position}
-        />
+        <FoilageItem key={f.id} {...f}></FoilageItem>
       ))}
     </>
   );
+};
+
+interface FoilageItem {
+  id: string;
+  path: string;
+  position: Vector3;
+  radius: number;
+}
+
+const FoilageItem: React.FunctionComponent<FoilageItem> = ({
+  path,
+  position,
+  radius,
+}) => {
+  const foilage = useFbxWithShadows(path).clone();
+
+  return <primitive scale={0.02} object={foilage} position={position} />;
 };
 
 export default Foliage;
