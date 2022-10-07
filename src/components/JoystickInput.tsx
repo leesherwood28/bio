@@ -168,7 +168,7 @@ const JoystickInput: React.FunctionComponent = () => {
   }, [handleJoystickEnd]);
 
   return (
-    <div className='absolute md:hidden bottom-16 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full bg-slate-500 opacity-50 flex items-center justify-center'>
+    <div className='absolute md:hidden bottom-20 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full bg-slate-500 opacity-50 flex items-center justify-center'>
       <button
         ref={joystickRef}
         onTouchStart={handleJoystickStart}
