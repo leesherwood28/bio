@@ -59,7 +59,7 @@ const BlackHole: React.FunctionComponent = () => {
     }
     accretionRef.current.rotateOnWorldAxis(
       new Vector3(0, 0, 1),
-      time * BLACK_HOLE_MOVE_SPEED
+      -time * BLACK_HOLE_MOVE_SPEED
     );
     accretionRefTwo.current.rotateOnWorldAxis(
       new Vector3(0, 1, 0),
