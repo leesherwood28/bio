@@ -3,14 +3,13 @@ import { useEffect } from 'react';
 
 export function useFbxWithShadows(path: string) {
   const group = useFBX(path);
-
-  useEffect(() => {
-    group.traverse((item: any) => {
-      if (item.isMesh) {
-        item.castShadow = true;
-      }
-    });
-  }, [group]);
+  group.traverse((item: any) => {
+    if (item.isMesh) {
+      item.castShadow = true;
+      item.receiveShadow = true;
+      item.needsUpdate = true;
+    }
+  });
 
   return group;
 }

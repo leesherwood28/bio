@@ -4,14 +4,12 @@ import { useEffect } from 'react';
 export function useGltfWithShadows(path: string) {
   const gltf = useGLTF(path);
 
-  useEffect(() => {
-    const { scene } = gltf;
-    scene.traverse((item: any) => {
-      if (item.isMesh) {
-        item.castShadow = true;
-      }
-    });
-  }, [gltf]);
-
+  gltf.scene.traverse((item: any) => {
+    if (item.isMesh) {
+      item.castShadow = true;
+      item.receiveShadow = true;
+      item.needsUpdate = true;
+    }
+  });
   return gltf;
 }
