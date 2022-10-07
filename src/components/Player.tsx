@@ -1,6 +1,6 @@
 import React from 'react';
 import { Group } from 'three';
-import { useGltfWithShadows } from '../hooks/use-gltf-with-shadows copy';
+import { useGltfWithShadows } from '../hooks/use-gltf-with-shadows';
 import { usePhysicsObject } from '../hooks/use-physics-object';
 import { usePlayerCamera } from '../hooks/use-player-camera';
 import { usePlayerCharacterStates } from '../hooks/use-player-character-states';
