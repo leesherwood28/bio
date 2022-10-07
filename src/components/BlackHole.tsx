@@ -7,7 +7,6 @@ import {
   Mesh,
   MultiplyBlending,
   NormalBlending,
-  SubtractiveBlending,
   TextureLoader,
   Vector3,
 } from 'three';
@@ -46,6 +45,8 @@ const accretionDiskFragmentShader = `
   }
 `;
 
+const BLACK_HOLE_POSITION = new Vector3(10, 200, 900);
+
 const BlackHole: React.FunctionComponent = () => {
   const accretionRef = createRef<Mesh>();
   const accretionRefTwo = createRef<Mesh>();
@@ -74,48 +75,59 @@ const BlackHole: React.FunctionComponent = () => {
   );
 
   return (
-    <group
-      position={[10, 200, 900]}
-      rotation={[-Math.PI / 10, 0, Math.PI / 7]}
-      scale={blackHoleVectorScale}
-    >
-      <mesh>
-        <sphereGeometry args={[4, 48, 48]} />
-        <meshBasicMaterial color={'Black'} />
-      </mesh>
-      <mesh scale={1.005}>
-        <sphereGeometry args={[4, 48, 48]} />
-        <meshBasicMaterial
-          blending={AdditiveBlending}
-          color={[1, 0.6, 0]}
-          side={BackSide}
-        ></meshBasicMaterial>
-      </mesh>
-      <mesh ref={accretionRef}>
-        <ringGeometry args={[10, 5, 64]} />
-        <shaderMaterial
-          fragmentShader={accretionDiskFragmentShader}
-          vertexShader={accrectionDiskVectorShader}
-          blending={AdditiveBlending}
-          side={DoubleSide}
-          uniforms={{
-            scaler: { value: 0.1 },
-          }}
-        />
-      </mesh>
-      <mesh ref={accretionRefTwo} rotation={[Math.PI / 2, 0, 0]}>
-        <ringGeometry args={[10, 5, 64]} />
-        <shaderMaterial
-          fragmentShader={accretionDiskFragmentShader}
-          vertexShader={accrectionDiskVectorShader}
-          blending={AdditiveBlending}
-          side={DoubleSide}
-          uniforms={{
-            scaler: { value: 0.1 },
-          }}
-        />
-      </mesh>
-    </group>
+    <>
+      <directionalLight
+        position={BLACK_HOLE_POSITION}
+        castShadow
+        shadow-mapSize={[1024, 1024]}
+        shadow-mapType={PCFSoftShadowMap}
+      >
+        <orthographicCamera attach='shadow-camera' args={[-25, 25, 6, -5]} />
+      </directionalLight>
+
+      <group
+        position={BLACK_HOLE_POSITION}
+        rotation={[-Math.PI / 10, 0, Math.PI / 7]}
+        scale={blackHoleVectorScale}
+      >
+        <mesh>
+          <sphereGeometry args={[4, 48, 48]} />
+          <meshBasicMaterial color={'Black'} />
+        </mesh>
+        <mesh scale={1.005}>
+          <sphereGeometry args={[4, 48, 48]} />
+          <meshBasicMaterial
+            blending={AdditiveBlending}
+            color={[1, 0.6, 0]}
+            side={BackSide}
+          ></meshBasicMaterial>
+        </mesh>
+        <mesh ref={accretionRef}>
+          <ringGeometry args={[10, 5, 64]} />
+          <shaderMaterial
+            fragmentShader={accretionDiskFragmentShader}
+            vertexShader={accrectionDiskVectorShader}
+            blending={AdditiveBlending}
+            side={DoubleSide}
+            uniforms={{
+              scaler: { value: 0.1 },
+            }}
+          />
+        </mesh>
+        <mesh ref={accretionRefTwo} rotation={[Math.PI / 2, 0, 0]}>
+          <ringGeometry args={[10, 5, 64]} />
+          <shaderMaterial
+            fragmentShader={accretionDiskFragmentShader}
+            vertexShader={accrectionDiskVectorShader}
+            blending={AdditiveBlending}
+            side={DoubleSide}
+            uniforms={{
+              scaler: { value: 0.1 },
+            }}
+          />
+        </mesh>
+      </group>
+    </>
   );
 };
 
