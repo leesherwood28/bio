@@ -1,6 +1,6 @@
 import { useSphere, useRaycastVehicle } from '@react-three/cannon';
 import { PerspectiveCamera, useGLTF } from '@react-three/drei';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BoxGeometry, Group } from 'three';
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { usePhysicsObject } from '../hooks/use-physics-object';
@@ -16,6 +16,14 @@ const Player: React.FunctionComponent = () => {
   usePlayerCharacterStates(animations, playerPhysicsApi);
   usePlayerCamera(playerPhysicsApi);
   usePlayerMovement(playerPhysicsApi);
+
+  useEffect(() => {
+    scene.traverse((item: any) => {
+      if (item.isMesh) {
+        item.castShadow = true;
+      }
+    });
+  }, [scene]);
 
   return (
     <>

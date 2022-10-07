@@ -10,6 +10,7 @@ import Physics from './Physics';
 import Player from './Player';
 import { Stars } from './Stars';
 import Foliage from './Foliage';
+import { PCFSoftShadowMap, BasicShadowMap, PCFShadowMap } from 'three';
 
 const Game: React.FunctionComponent = () => {
   return (
@@ -17,18 +18,19 @@ const Game: React.FunctionComponent = () => {
       <Canvas
         className='w-full h-full'
         camera={{ far: 5000 }}
-        shadows
+        shadows={{ type: PCFSoftShadowMap }}
         style={{ background: 'black' }}
       >
+        <mesh castShadow receiveShadow position={[10, 0, 0]}>
+          <boxGeometry />
+          <meshStandardMaterial />
+        </mesh>
+
         <Physics />
         <Player />
         <Ground />
         <ambientLight intensity={0.6} />
-        <directionalLight
-          position={[10, 200, 900]}
-          castShadow
-          shadow-mapSize={[2048, 2048]}
-        />
+
         <Stars />
         <BlackHole />
         <GlassDome />
