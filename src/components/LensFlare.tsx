@@ -16,11 +16,14 @@ declare module '@react-three/fiber' {
   }
 }
 
-export const LensFlare: React.FunctionComponent = () => {
+export interface LensFlareArguments {
+  position: ReactThreeFiber.Vector3;
+}
+
+export const LensFlare: React.FunctionComponent<LensFlareArguments> = ({
+  position,
+}) => {
   const ref = useRef<Lensflare>(null);
-  const lensflare0 = useTexture('/lensflare/lensflare0.png');
-  const lensflare1 = useTexture('/lensflare/lensflare1.png');
-  const lensflare2 = useTexture('/lensflare/lensflare2.png');
   const lensflare3 = useTexture('/lensflare/lensflare3.png');
 
   useEffect(() => {
@@ -28,7 +31,6 @@ export const LensFlare: React.FunctionComponent = () => {
       return;
     }
 
-    ref.current.addElement(new LensflareElement(lensflare0, 700, 0));
     ref.current.addElement(new LensflareElement(lensflare3, 60, 0.6));
     ref.current.addElement(new LensflareElement(lensflare3, 70, 0.7));
     ref.current.addElement(new LensflareElement(lensflare3, 120, 0.9));
@@ -37,7 +39,7 @@ export const LensFlare: React.FunctionComponent = () => {
 
   return (
     <>
-      <lensflare position={[0, 2, 0]} ref={ref}></lensflare>
+      <lensflare ref={ref} position={position}></lensflare>
     </>
   );
 };

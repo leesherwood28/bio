@@ -5,8 +5,6 @@ import {
   BackSide,
   DoubleSide,
   Mesh,
-  MultiplyBlending,
-  NormalBlending,
   TextureLoader,
   Vector3,
 } from 'three';
@@ -47,6 +45,7 @@ const accretionDiskFragmentShader = `
 `;
 
 const BLACK_HOLE_POSITION = new Vector3(10, 200, 900);
+const LENS_FLARE_POSITION = BLACK_HOLE_POSITION.clone().multiplyScalar(0.5);
 
 const BlackHole: React.FunctionComponent = () => {
   const accretionRef = createRef<Mesh>();
@@ -77,17 +76,15 @@ const BlackHole: React.FunctionComponent = () => {
 
   return (
     <>
-      {/* <directionalLight
+      <directionalLight
         position={BLACK_HOLE_POSITION}
         castShadow
         shadow-mapSize={[2048, 2048]}
       >
-        <LensFlare />
         <orthographicCamera attach='shadow-camera' args={[-25, 25, 6, -5]} />
-      </directionalLight> */}
+      </directionalLight>
 
-      <LensFlare />
-
+      <LensFlare position={LENS_FLARE_POSITION} />
       <group
         position={BLACK_HOLE_POSITION}
         rotation={[-Math.PI / 10, 0, Math.PI / 7]}
