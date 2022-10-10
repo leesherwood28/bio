@@ -11,6 +11,7 @@ import {
   Vector3,
 } from 'three';
 import { isNil } from '../functions/is-nil.fn';
+import LensFlare from './LensFlare';
 
 const BLACK_HOLE_MOVE_SPEED = 0.1;
 
@@ -81,6 +82,7 @@ const BlackHole: React.FunctionComponent = () => {
         castShadow
         shadow-mapSize={[2048, 2048]}
       >
+        <LensFlare />
         <orthographicCamera attach='shadow-camera' args={[-25, 25, 6, -5]} />
       </directionalLight>
 

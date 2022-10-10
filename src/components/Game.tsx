@@ -11,6 +11,7 @@ import Player from './Player';
 import { Stars } from './Stars';
 import Foliage from './Foliage';
 import { PCFSoftShadowMap, BasicShadowMap, PCFShadowMap } from 'three';
+import LensFlare from './LensFlare';
 
 const Game: React.FunctionComponent = () => {
   return (
