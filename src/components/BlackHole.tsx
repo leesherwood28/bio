@@ -80,6 +80,7 @@ const BlackHole: React.FunctionComponent = () => {
         position={BLACK_HOLE_POSITION}
         castShadow
         shadow-mapSize={[2048, 2048]}
+        intensity={3}
       >
         <orthographicCamera attach='shadow-camera' args={[-25, 25, 6, -5]} />
       </directionalLight>
