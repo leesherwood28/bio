@@ -86,9 +86,7 @@ const BlackHole: React.FunctionComponent = () => {
         <orthographicCamera attach='shadow-camera' args={[-25, 25, 6, -5]} />
       </directionalLight> */}
 
-      <pointLight position={[0, 2, 0]} castShadow args={[0xffffff, 1.5, 2000]}>
-        <LensFlare />
-      </pointLight>
+      <LensFlare />
 
       <group
         position={BLACK_HOLE_POSITION}
