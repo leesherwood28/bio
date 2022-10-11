@@ -18,17 +18,7 @@ const domeFragmentShader = `
   uniform float scaler;
 
   void main() {
-    float distanceFromCenter = length(vertexPosition);
-    float intensity = (1.0 - scaler * length(vertexPosition));
-    float colorIntensity = intensity * 3.5;
-    float intensityFluctuation = sin(100.0 * intensity) * 0.005 / intensity;
-    float totalIntensity = colorIntensity + intensityFluctuation;
-    vec4 color = vec4(1, 0.6, 0, 1) * totalIntensity;
-    float randomColorIntensity = sin(50.0 * intensity) * 0.01;
-    vec4 randColorAdd = vec4(randomColorIntensity, randomColorIntensity, 0, 1);
-    vec4 extraColorAdd = 0.03 * vec4(1, 1, 1, 0) * sin(vertexPosition.x * 5.0) * sin(vertexPosition.y * 5.0);
-
-    gl_FragColor = color + randColorAdd + extraColorAdd;
+    gl_FragColor = vec4(0, 0.2, 1, 0);
   }
 `;
 
@@ -36,12 +26,26 @@ const Dome: React.FunctionComponent = () => {
   return (
     <mesh position={[0, 0, 0]}>
       <sphereGeometry args={[WORLD_RADIUS, 64, 64]} />
-      <shaderMaterial
+      {/* <meshPhysicalMaterial
+        color={0xffffff}
+        transmission={1}
+        opacity={1}
+        metalness={0}
+        roughness={0}
+        ior={1.5}
+        thickness={0.01}
+        specularIntensity={1}
+        specularColor={0xffffff}
+        envMapIntensity={1}
+        lightMapIntensity={1}
+        side={DoubleSide}
+      /> */}
+      {/* <shaderMaterial
         vertexShader={domeVectorShader}
         fragmentShader={domeFragmentShader}
         blending={AdditiveBlending}
         side={DoubleSide}
-      />
+      /> */}
     </mesh>
   );
 };
