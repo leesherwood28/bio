@@ -2,7 +2,7 @@ import { useTexture } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
 import { AdditiveBlending, BackSide, DoubleSide } from 'three';
-import { WORLD_RADIUS } from '../contants/world-radius.const';
+import { WORLD } from '../contants/world.const';
 import { isNil } from '../functions/is-nil.fn';
 
 const domeVectorShader = `
@@ -59,7 +59,7 @@ const Sheild: React.FunctionComponent = () => {
 
   return (
     <mesh position={[0, 0, 0]} rotation={[0, 0, 0]}>
-      <sphereGeometry args={[WORLD_RADIUS, 64, 64]} />
+      <sphereGeometry args={[WORLD.radius, 64, 64]} />
       {/* <meshStandardMaterial color={'blue'} side={DoubleSide} /> */}
       {/* <meshBasicMaterial color={'blue'} side={DoubleSide} /> */}
       {/* <meshBasicMaterial

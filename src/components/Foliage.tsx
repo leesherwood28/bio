@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Euler, Group, Vector3 } from 'three';
 import { generateUUID } from 'three/src/math/MathUtils';
-import { WORLD_RADIUS } from '../contants/world-radius.const';
+import { WORLD } from '../contants/world.const';
 import { useFbxWithShadows } from '../hooks/use-fbx-with-shadows';
 
 // Models used with love from https://quaternius.com/;
@@ -38,8 +38,7 @@ interface FoilageSetParams {
 }
 
 const randomDistanceGen = (): number => {
-  const number = Math.random();
-  return 1 - number ** 8;
+  return Math.random();
 };
 
 const RandomFoliageSet: React.FunctionComponent<FoilageSetParams> = ({
@@ -50,7 +49,9 @@ const RandomFoliageSet: React.FunctionComponent<FoilageSetParams> = ({
   const [foilage] = useState<FoilageItem[]>(() => {
     return Array.from({ length: number }).map((_, i) => {
       const position = new Vector3(
-        randomDistanceGen() * WORLD_RADIUS
+        WORLD.foilageRadiusStart +
+          randomDistanceGen() *
+            (WORLD.foilageRadiusEnd - WORLD.foilageRadiusStart)
       ).applyEuler(new Euler(0, Math.random() * 2 * Math.PI, 0));
 
       const randomIndex = Math.floor(Math.random() * available) + 1;
