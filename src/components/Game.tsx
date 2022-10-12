@@ -12,7 +12,7 @@ import { Stars } from './Stars';
 import Foliage from './Foliage';
 import { PCFSoftShadowMap, BasicShadowMap, PCFShadowMap } from 'three';
 import LensFlare from './LensFlare';
-import Dome from './Dome';
+import Sheild from './Sheild';
 
 const Game: React.FunctionComponent = () => {
   return (
@@ -26,7 +26,7 @@ const Game: React.FunctionComponent = () => {
         <Physics />
         <Player />
         <Ground />
-        <Dome />
+        <Sheild />
         <ambientLight intensity={0.6} />
 
         <Stars />

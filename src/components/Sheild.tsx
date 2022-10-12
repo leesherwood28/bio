@@ -44,7 +44,7 @@ const domeFragmentShader = `
   }
 `;
 
-const Dome: React.FunctionComponent = () => {
+const Sheild: React.FunctionComponent = () => {
   const texture = useTexture('/sheild/sheild.png');
   const textureRef = useRef<THREE.ShaderMaterial>(null);
 
@@ -85,4 +85,4 @@ const Dome: React.FunctionComponent = () => {
   );
 };
 
-export default Dome;
+export default Sheild;
