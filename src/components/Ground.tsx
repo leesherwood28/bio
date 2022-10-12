@@ -1,5 +1,4 @@
 import { useTexture } from '@react-three/drei';
-import { useEffect } from 'react';
 import { RepeatWrapping, NearestFilter } from 'three';
 import { WORLD } from '../contants/world.const';
 
