@@ -1,10 +1,31 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { WORLD } from '../contants/world.const';
 import { Vector3, Euler } from 'three';
 import { generateUUID } from 'three/src/math/MathUtils';
+import { Html } from '@react-three/drei';
+import create from 'zustand';
+import produce from 'immer';
+import { isNil } from '../functions/is-nil.fn';
+
+interface ObeliskStore {
+  obeliskMeshes: any[];
+  addObeliskMesh: (mesh: any) => void;
+}
+const useObeliskStore = create<ObeliskStore>((set) => {
+  return {
+    obeliskMeshes: [],
+    addObeliskMesh: (mesh: any) =>
+      set(
+        produce<ObeliskStore>((state) => {
+          state.obeliskMeshes.push(mesh);
+        })
+      ),
+  };
+});
 
 interface ObeliskDef {
   key: string;
+  title: string;
   position: Vector3;
   rotation: Euler;
 }
@@ -15,6 +36,7 @@ const centralObeliskPosition = new Vector3(0, 0, ObeliskDistance);
 const OBELISK_DEFS: ObeliskDef[] = [
   {
     key: generateUUID(),
+    title: 'Intro',
     position: centralObeliskPosition
       .clone()
       .applyEuler(new Euler(0, -Math.PI / 2, 0)),
@@ -22,6 +44,7 @@ const OBELISK_DEFS: ObeliskDef[] = [
   },
   {
     key: generateUUID(),
+    title: 'Skills',
     position: centralObeliskPosition
       .clone()
       .applyEuler(new Euler(0, -Math.PI / 4, 0)),
@@ -30,6 +53,7 @@ const OBELISK_DEFS: ObeliskDef[] = [
 
   {
     key: generateUUID(),
+    title: 'Tech',
     position: centralObeliskPosition
       .clone()
       .applyEuler(new Euler(0, Math.PI / 2, 0)),
@@ -37,6 +61,7 @@ const OBELISK_DEFS: ObeliskDef[] = [
   },
   {
     key: generateUUID(),
+    title: 'Experience',
     position: centralObeliskPosition
       .clone()
       .applyEuler(new Euler(0, Math.PI / 4, 0)),
@@ -48,7 +73,12 @@ const Obelisks: React.FunctionComponent = () => {
   return (
     <>
       {OBELISK_DEFS.map((o) => (
-        <Obelisk key={o.key} position={o.position} rotation={o.rotation} />
+        <Obelisk
+          key={o.key}
+          position={o.position}
+          rotation={o.rotation}
+          title={o.title}
+        />
       ))}
     </>
   );
@@ -57,19 +87,54 @@ const Obelisks: React.FunctionComponent = () => {
 export interface ObeliskParams {
   position?: Vector3;
   rotation?: Euler;
+  title?: string;
 }
+
+const OBELISK_HEIGHT = 10;
+const OBELISK_WIDTH = 2.5;
+const OBELISK_DEPTH = 0.25;
+
 const Obelisk: React.FunctionComponent<ObeliskParams> = ({
   position,
   rotation,
+  title,
 }) => {
+  const obeliskMesh = useRef(null);
+  const { addObeliskMesh, obeliskMeshes } = useObeliskStore();
+
+  useEffect(() => {
+    if (isNil(obeliskMesh.current)) {
+      return;
+    }
+    addObeliskMesh(obeliskMesh);
+  }, [obeliskMesh]);
+
   return (
-    <mesh castShadow position={position} rotation={rotation}>
-      <boxGeometry args={[2, 10, 0.25]}></boxGeometry>
-      <meshPhysicalMaterial
-        color={'black'}
-        clearcoat={1}
-      ></meshPhysicalMaterial>
-    </mesh>
+    <group position={position} rotation={rotation}>
+      <mesh ref={obeliskMesh} castShadow>
+        <boxGeometry
+          args={[OBELISK_WIDTH, OBELISK_HEIGHT, OBELISK_DEPTH]}
+        ></boxGeometry>
+        <meshPhysicalMaterial
+          color={'black'}
+          clearcoat={1}
+        ></meshPhysicalMaterial>
+      </mesh>
+      <Html
+        occlude={obeliskMeshes}
+        transform
+        position={[0, OBELISK_HEIGHT / 4, 0.15]}
+        center
+        className='w-20 h-48 text-white'
+      >
+        <h2 className='text-l font-mono mb-1'>{title}</h2>
+        <div className='scale-50 origin-top-left w-40 h-96 overflow-y-auto'>
+          <p className='text-white'> Gonna Talk About Myself here </p>
+          <p className='text-white'> Gonna Talk About Myself here </p>
+          <p className='text-white'> Gonna Talk About Myself here </p>
+        </div>
+      </Html>
+    </group>
   );
 };
 
