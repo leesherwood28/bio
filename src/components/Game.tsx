@@ -1,18 +1,18 @@
 import { Stats } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
+import { PCFSoftShadowMap } from 'three';
 import BlackHole from './BlackHole';
 import Orbit from './dev/Orbit';
+import Foliage from './Foliage';
 import { GlassDome } from './GlassDome';
 import Ground from './Ground';
 import JoystickInput from './JoystickInput';
 import KeyboardInput from './KeyboardInput';
+import Obelisks from './Obelisks';
 import Physics from './Physics';
 import Player from './Player';
-import { Stars } from './Stars';
-import Foliage from './Foliage';
-import { PCFSoftShadowMap, BasicShadowMap, PCFShadowMap } from 'three';
-import LensFlare from './LensFlare';
 import Sheild from './Sheild';
+import { Stars } from './Stars';
 
 const Game: React.FunctionComponent = () => {
   return (
@@ -36,6 +36,8 @@ const Game: React.FunctionComponent = () => {
 
         {/* <Planet /> */}
         {/* Remove */}
+
+        <Obelisks />
         <Stats />
         <Orbit />
       </Canvas>
