@@ -5,13 +5,11 @@ import { WORLD } from '../contants/world.const';
 
 const Ground: React.FunctionComponent = () => {
   const grassTexture = useTexture('/ground/grass.jpg');
+  grassTexture.wrapS = RepeatWrapping;
+  grassTexture.wrapT = RepeatWrapping;
+  grassTexture.repeat.set(100, 100);
+  grassTexture.magFilter = NearestFilter;
 
-  useEffect(() => {
-    grassTexture.wrapS = RepeatWrapping;
-    grassTexture.wrapT = RepeatWrapping;
-    grassTexture.repeat.set(100, 100);
-    grassTexture.magFilter = NearestFilter;
-  }, [grassTexture]);
   return (
     <>
       <mesh receiveShadow rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
