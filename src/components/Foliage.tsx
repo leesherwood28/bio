@@ -37,8 +37,11 @@ interface FoilageSetParams {
   available: number;
 }
 
-const randomDistanceGen = (): number => {
-  return Math.random();
+const randomFoliageDistanceGen = (): number => {
+  return (
+    WORLD.foilageRadiusStart +
+    Math.random() * (WORLD.foilageRadiusEnd - WORLD.foilageRadiusStart)
+  );
 };
 
 const RandomFoliageSet: React.FunctionComponent<FoilageSetParams> = ({
@@ -48,11 +51,9 @@ const RandomFoliageSet: React.FunctionComponent<FoilageSetParams> = ({
 }) => {
   const [foilage] = useState<FoilageItem[]>(() => {
     return Array.from({ length: number }).map((_, i) => {
-      const position = new Vector3(
-        WORLD.foilageRadiusStart +
-          randomDistanceGen() *
-            (WORLD.foilageRadiusEnd - WORLD.foilageRadiusStart)
-      ).applyEuler(new Euler(0, Math.random() * 2 * Math.PI, 0));
+      const position = new Vector3(randomFoliageDistanceGen()).applyEuler(
+        new Euler(0, Math.random() * 2 * Math.PI, 0)
+      );
 
       const randomIndex = Math.floor(Math.random() * available) + 1;
 
