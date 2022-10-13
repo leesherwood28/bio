@@ -1,17 +1,16 @@
 import { Vector3 } from 'three';
-import create from 'zustand';
-import { Input } from '../models/input.model';
+import create, { StoreApi } from 'zustand';
 
 interface CameraStore {
-  lookAt: Vector3 | null;
-
-  setInput: (input: Partial<Input>) => void;
+  idealLookAt: Vector3 | null;
+  idealPosition: Vector3 | null;
+  set: StoreApi<CameraStore>['setState'];
 }
 
-export const useInputStore = create<InputStore>((set, get) => {
+export const useCameraStore = create<CameraStore>((set) => {
   return {
-    input: { forward: 0, sideways: 0 },
-    setInput: (input: Partial<Input>) =>
-      set((state) => ({ ...state, input: { ...state.input, ...input } })),
+    idealLookAt: null,
+    idealPosition: null,
+    set,
   };
 });

@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Group } from 'three';
 import { useGltfWithShadows } from '../../hooks/use-gltf-with-shadows';
 import { usePhysicsObject } from '../../hooks/use-physics-object';
-import { usePlayerCamera } from '../../hooks/use-player-camera';
 import { usePlayerStore } from '../../store/player.store';
 import PlayerCharacterStates from './PlayerCharacterStates';
 import PlayerMovement from './PlayerMovement';
@@ -15,10 +14,6 @@ const Player: React.FunctionComponent = () => {
 
   setPlayerApi(playerPhysicsApi);
   setPlayerAnimations(animations);
-
-  usePlayerCamera(playerPhysicsApi);
-
-  console.count('render');
 
   return (
     <>

@@ -12,6 +12,7 @@ import Stars from './environment/Stars';
 import Orbit from './dev/Orbit';
 import JoystickInput from './input/JoystickInput';
 import KeyboardInput from './input/KeyboardInput';
+import GameCamera from './game/GameCamera';
 
 const Game: React.FunctionComponent = () => {
   return (
@@ -35,6 +36,7 @@ const Game: React.FunctionComponent = () => {
         {/* <Planet /> */}
         {/* Remove */}
 
+        <GameCamera />
         <Obelisks />
         <Stats />
         <Orbit />
