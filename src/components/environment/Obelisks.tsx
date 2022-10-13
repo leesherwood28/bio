@@ -1,4 +1,5 @@
 import { Center, Html, Text3D } from '@react-three/drei';
+import Image from 'next/image';
 import { useCallback, useState } from 'react';
 import { Euler, Vector3 } from 'three';
 import { generateUUID } from 'three/src/math/MathUtils';
@@ -123,13 +124,8 @@ const Obelisk: React.FunctionComponent<ObeliskParams> = ({
   const [isLookingAtObelisk, setIsLookingAtObelisk] = useState(false);
 
   return (
-    <group
-      onClick={focusObelisk}
-      onDoubleClick={stopFocusObelisk}
-      position={position}
-      rotation={rotation}
-    >
-      <mesh castShadow>
+    <group position={position} rotation={rotation}>
+      <mesh onClick={focusObelisk} castShadow>
         <boxGeometry
           args={[OBELISK_WIDTH, OBELISK_HEIGHT, OBELISK_DEPTH]}
         ></boxGeometry>
@@ -152,16 +148,36 @@ const Obelisk: React.FunctionComponent<ObeliskParams> = ({
       </Center>
 
       {isLookingAtObelisk ? (
-        <Html
-          transform
-          position={[0, 0, 0.15]}
-          center
-          className='w-20 h-48 text-white'
-        >
-          <div className='scale-50 origin-top-left w-40 h-96 overflow-y-auto'>
-            {children}
-          </div>
-        </Html>
+        <>
+          <Html
+            transform
+            position={[0, 0, 0.15]}
+            center
+            className='w-20 h-48 text-white'
+          >
+            <div className='scale-50 origin-top-left w-40 h-96 overflow-y-auto'>
+              {children}
+            </div>
+          </Html>
+
+          <Html
+            transform
+            position={[-1.7, 0.5 + OBELISK_TITLE_HEIGHT / 2, 0.15]}
+            center
+          >
+            <button
+              onClick={stopFocusObelisk}
+              className='bg-slate-300  rounded-full hover:bg-slate-200 grid items-center p-1'
+            >
+              <Image
+                layout='fixed'
+                src='/icons/close.svg'
+                width={16}
+                height={16}
+              />
+            </button>
+          </Html>
+        </>
       ) : null}
     </group>
   );
