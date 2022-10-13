@@ -13,7 +13,7 @@ import Intro from '../bio/Intro';
 import Skills from '../bio/Skills';
 
 const OBELISK_HEIGHT = 5;
-const OBELISK_WIDTH = 2.5;
+const OBELISK_WIDTH = 2.8;
 const OBELISK_DEPTH = 0.25;
 const MAX_PLAYER_DISTANCE_FOR_VIEW = 5;
 const MAX_PLAYER_DISTANCE_FROM_CENTER_BUFFER_FOR_VIEW = 10;
@@ -215,9 +215,9 @@ const ObeliskContent: React.FunctionComponent<ObeliskContent> = ({
       transform
       position={[0, 0, 0.15]}
       center
-      className='w-20 h-48 text-white'
+      className='w-24 h-48 text-white'
     >
-      <div className='scale-50 origin-top-left w-40 h-96 overflow-y-auto'>
+      <div className='origin-top-left scale-50 w-48 h-96 overflow-y-auto text-xs'>
         {children}
       </div>
     </Html>
