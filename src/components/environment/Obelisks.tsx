@@ -4,6 +4,7 @@ import { Euler, Vector3 } from 'three';
 import { generateUUID } from 'three/src/math/MathUtils';
 import { WORLD } from '../../contants/world.const';
 import { useCameraStore } from '../../store/camera.store';
+import { usePlayerStore } from '../../store/player.store';
 import Experience from '../bio/Experience';
 import Intro from '../bio/Intro';
 import Skills from '../bio/Skills';
@@ -98,11 +99,13 @@ const Obelisk: React.FunctionComponent<ObeliskParams> = ({
   children,
 }) => {
   const setCamera = useCameraStore((s) => s.set);
+  const setPlayerPaused = usePlayerStore((s) => s.setIsPaused);
 
   const focusObelisk = useCallback(() => {
     const idealLookAt = position;
     const idealPosition = position.clone().multiplyScalar(0.6);
     setCamera((state) => ({ idealLookAt, idealPosition }));
+    setPlayerPaused(true);
   }, [position, rotation]);
 
   return (

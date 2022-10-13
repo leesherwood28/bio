@@ -37,6 +37,7 @@ const removeBuffer = (input: number): number => {
 
 const PlayerMovement: React.FunctionComponent = () => {
   const setCharacterState = usePlayerStore((s) => s.setCharacterState);
+  const isPaused = usePlayerStore((s) => s.isPaused);
 
   useFrame(() => {
     const playerApi = usePlayerStore.getState().playerApi;
@@ -45,6 +46,13 @@ const PlayerMovement: React.FunctionComponent = () => {
     if (isNil(playerApi)) {
       return;
     }
+
+    if (isPaused) {
+      playerApi.setAngularVelocity(new Vector3());
+      playerApi.setVelocity(new Vector3());
+      return;
+    }
+
     let { forward, sideways } = controllerInput;
     forward = removeBuffer(forward);
     sideways = removeBuffer(sideways);
