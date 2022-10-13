@@ -11,6 +11,7 @@ import { usePlayerStore } from '../../store/player.store';
 import Experience from '../bio/Experience';
 import Intro from '../bio/Intro';
 import Skills from '../bio/Skills';
+import { useSpring, animated } from '@react-spring/three';
 
 const OBELISK_HEIGHT = 5;
 const OBELISK_WIDTH = 2.8;
