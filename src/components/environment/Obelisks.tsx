@@ -1,5 +1,5 @@
 import { Html } from '@react-three/drei';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { Euler, Vector3 } from 'three';
 import { generateUUID } from 'three/src/math/MathUtils';
 import { WORLD } from '../../contants/world.const';
@@ -106,7 +106,10 @@ const Obelisk: React.FunctionComponent<ObeliskParams> = ({
     const idealPosition = position.clone().multiplyScalar(0.6);
     setCamera((state) => ({ idealLookAt, idealPosition }));
     setPlayerPaused(true);
+    setIsLookingAtObelisk(true);
   }, [position, rotation]);
+
+  const [isLookingAtObelisk, setIsLookingAtObelisk] = useState(false);
 
   return (
     <group onClick={focusObelisk} position={position} rotation={rotation}>
@@ -119,17 +122,20 @@ const Obelisk: React.FunctionComponent<ObeliskParams> = ({
           clearcoat={1}
         ></meshPhysicalMaterial>
       </mesh>
-      <Html
-        transform
-        position={[0, 0, 0.15]}
-        center
-        className='w-20 h-48 text-white'
-      >
-        <h2 className='text-l font-mono mb-1'>{title}</h2>
-        <div className='scale-50 origin-top-left w-40 h-96 overflow-y-auto'>
-          {children}
-        </div>
-      </Html>
+
+      {isLookingAtObelisk ? (
+        <Html
+          transform
+          position={[0, 0, 0.15]}
+          center
+          className='w-20 h-48 text-white'
+        >
+          <h2 className='text-l font-mono mb-1'>{title}</h2>
+          <div className='scale-50 origin-top-left w-40 h-96 overflow-y-auto'>
+            {children}
+          </div>
+        </Html>
+      ) : null}
     </group>
   );
 };
