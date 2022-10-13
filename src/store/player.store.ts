@@ -13,6 +13,8 @@ interface PlayerStore {
   playerAnimations: AnimationClip[] | null;
   characterState: PlayerCharacterState;
   isPaused: boolean;
+  isHidden: boolean;
+  setIsHidden: (isHidden: boolean) => void;
   setIsPaused: (isPaused: boolean) => void;
   setPlayerApi: (api: PhysicsApi<Object3D>) => void;
   setPlayerAnimations: (animations: AnimationClip[]) => void;
@@ -25,7 +27,9 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
     playerAnimations: null,
     characterState: 'idle',
     isPaused: false,
-    setIsPaused: (isPaused) => set({ isPaused: isPaused }),
+    isHidden: false,
+    setIsHidden: (isHidden) => set({ isHidden }),
+    setIsPaused: (isPaused) => set({ isPaused }),
     setPlayerApi: (api: PhysicsApi<Object3D>) =>
       set((state) => ({ ...state, playerApi: api })),
 

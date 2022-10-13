@@ -12,6 +12,8 @@ const Player: React.FunctionComponent = () => {
   const setPlayerApi = usePlayerStore((s) => s.setPlayerApi);
   const setPlayerAnimations = usePlayerStore((s) => s.setPlayerAnimations);
 
+  const isHidden = usePlayerStore((s) => s.isHidden);
+
   setPlayerApi(playerPhysicsApi);
   setPlayerAnimations(animations);
 
@@ -25,6 +27,8 @@ const Player: React.FunctionComponent = () => {
           position={[-0.05, 2.83, 0.1]}
           castShadow
           receiveShadow
+          transparent={isHidden}
+          opacity={isHidden ? 0 : 1}
         >
           <PlayerCharacterStates />
           <PlayerMovement />
