@@ -126,13 +126,14 @@ const Obelisk: React.FunctionComponent<ObeliskParams> = ({
 
   return (
     <group position={position} rotation={rotation}>
-      <ObeliskBlock onClick={focusObelisk} />
+      <ObeliskBlock />
       <ObeliskTitle title={title} />
+      <ObeliskButton onClick={focusObelisk} icon='view.svg' />
 
       {isLookingAtObelisk ? (
         <>
           <ObeliskContent>{children}</ObeliskContent>
-          <CloseObeliskFocusButton onClick={stopFocusObelisk} />
+          <ObeliskButton onClick={stopFocusObelisk} icon='close.svg' />
         </>
       ) : null}
     </group>
@@ -160,13 +161,9 @@ const ObeliskTitle: React.FunctionComponent<ObeliskTitle> = ({ title }) => {
   );
 };
 
-interface ObeliskBlock {
-  onClick: (event: ThreeEvent<MouseEvent>) => void;
-}
-
-const ObeliskBlock: React.FunctionComponent<ObeliskBlock> = ({ onClick }) => {
+const ObeliskBlock: React.FunctionComponent = () => {
   return (
-    <mesh onClick={onClick} castShadow>
+    <mesh castShadow>
       <boxGeometry
         args={[OBELISK_WIDTH, OBELISK_HEIGHT, OBELISK_DEPTH]}
       ></boxGeometry>
@@ -175,19 +172,6 @@ const ObeliskBlock: React.FunctionComponent<ObeliskBlock> = ({ onClick }) => {
         clearcoat={1}
       ></meshPhysicalMaterial>
     </mesh>
-  );
-};
-
-interface CloseObeliskFocusButton {
-  onClick: MouseEventHandler<HTMLButtonElement>;
-}
-const CloseObeliskFocusButton: React.FunctionComponent<
-  CloseObeliskFocusButton
-> = ({ onClick }) => {
-  return (
-    <ObeliskButton onClick={onClick}>
-      <Image layout='fixed' src='/icons/close.svg' width={16} height={16} />
-    </ObeliskButton>
   );
 };
 
@@ -214,11 +198,11 @@ const ObeliskContent: React.FunctionComponent<ObeliskContent> = ({
 
 interface ObeliskButton {
   onClick: MouseEventHandler<HTMLButtonElement>;
-  children: React.ReactNode;
+  icon: string;
 }
 const ObeliskButton: React.FunctionComponent<ObeliskButton> = ({
   onClick,
-  children,
+  icon,
 }) => {
   return (
     <Html
@@ -230,7 +214,7 @@ const ObeliskButton: React.FunctionComponent<ObeliskButton> = ({
         onClick={onClick}
         className='bg-slate-300  rounded-full hover:bg-slate-200 grid items-center p-1'
       >
-        {children}
+        <Image layout='fixed' src={'/icons/' + icon} width={16} height={16} />
       </button>
     </Html>
   );
