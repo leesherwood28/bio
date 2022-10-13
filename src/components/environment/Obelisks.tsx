@@ -147,7 +147,7 @@ const Obelisk: React.FunctionComponent<ObeliskParams> = ({
           bevelThickness={0.001}
         >
           {title}
-          <meshPhysicalMaterial color={'white'} clearcoat={1} />
+          <meshNormalMaterial />
         </Text3D>
       </Center>
 
