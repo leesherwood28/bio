@@ -15,8 +15,9 @@ import Skills from '../bio/Skills';
 const OBELISK_HEIGHT = 5;
 const OBELISK_WIDTH = 2.5;
 const OBELISK_DEPTH = 0.25;
-const MAX_PLAYER_DISTANCE_FOR_VIEW = 2;
-const MAX_ANGLE_FOR_VIEW = 2;
+const MAX_PLAYER_DISTANCE_FOR_VIEW = 5;
+const MAX_PLAYER_DISTANCE_FROM_CENTER_BUFFER_FOR_VIEW = 10;
+
 interface ObeliskDef {
   key: string;
   title: string;
@@ -135,11 +136,11 @@ const Obelisk: React.FunctionComponent<ObeliskParams> = ({
     if (isNil(playerPosition) || isNil(playerRotation)) {
       return;
     }
+
     const isNowLookingAtObelisk =
       playerPosition.distanceTo(position) <= MAX_PLAYER_DISTANCE_FOR_VIEW &&
-      playerPosition.lengthSq() <= position.lengthSq() &&
-      Math.abs(playerPosition.angleTo(position) - playerRotation.y) <=
-        MAX_PLAYER_DISTANCE_FOR_VIEW;
+      playerPosition.lengthSq() <=
+        position.lengthSq() - MAX_PLAYER_DISTANCE_FROM_CENTER_BUFFER_FOR_VIEW;
 
     if (isLookingAtObelisk !== isNowLookingAtObelisk) {
       setIsLookingAtObelisk(isNowLookingAtObelisk);
