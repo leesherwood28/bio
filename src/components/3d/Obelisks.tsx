@@ -5,6 +5,9 @@ import { Euler, Vector3 } from 'three';
 import { generateUUID } from 'three/src/math/MathUtils';
 import create from 'zustand';
 import { WORLD } from '../../contants/world.const';
+import Experience from '../bio/Experience';
+import Intro from '../bio/Intro';
+import Skills from '../bio/Skills';
 
 interface ObeliskStore {
   obeliskMeshes: any[];
@@ -28,6 +31,7 @@ interface ObeliskDef {
   position: Vector3;
   rotation: Euler;
   meshRef: RefObject<any>;
+  component: React.ReactNode;
 }
 
 const ObeliskDistance = WORLD.centerRadiusEnd - 3;
@@ -42,6 +46,7 @@ const OBELISK_DEFS: ObeliskDef[] = [
       .applyEuler(new Euler(0, -Math.PI / 2, 0)),
     rotation: new Euler(0, Math.PI / 2, 0),
     meshRef: createRef(),
+    component: <Intro />,
   },
   {
     key: generateUUID(),
@@ -51,6 +56,7 @@ const OBELISK_DEFS: ObeliskDef[] = [
       .applyEuler(new Euler(0, -Math.PI / 4, 0)),
     rotation: new Euler(0, (3 * Math.PI) / 4, 0),
     meshRef: createRef(),
+    component: <Skills />,
   },
 
   {
@@ -61,6 +67,7 @@ const OBELISK_DEFS: ObeliskDef[] = [
       .applyEuler(new Euler(0, Math.PI / 2, 0)),
     rotation: new Euler(0, -Math.PI / 2, 0),
     meshRef: createRef(),
+    component: <Skills />,
   },
   {
     key: generateUUID(),
@@ -70,6 +77,7 @@ const OBELISK_DEFS: ObeliskDef[] = [
       .applyEuler(new Euler(0, Math.PI / 4, 0)),
     rotation: new Euler(0, (3 * -Math.PI) / 4, 0),
     meshRef: createRef(),
+    component: <Experience />,
   },
 ];
 
@@ -84,7 +92,9 @@ const Obelisks: React.FunctionComponent = () => {
           title={o.title}
           meshRef={o.meshRef}
           occlude={OBELISK_DEFS.map((o) => o.meshRef)}
-        />
+        >
+          {o.component}
+        </Obelisk>
       ))}
     </>
   );
@@ -96,6 +106,7 @@ export interface ObeliskParams {
   title: string;
   meshRef: RefObject<any>;
   occlude: RefObject<any>[];
+  children: React.ReactNode;
 }
 
 const OBELISK_HEIGHT = 10;
@@ -108,6 +119,7 @@ const Obelisk: React.FunctionComponent<ObeliskParams> = ({
   title,
   meshRef,
   occlude,
+  children,
 }) => {
   return (
     <group position={position} rotation={rotation}>
@@ -129,9 +141,7 @@ const Obelisk: React.FunctionComponent<ObeliskParams> = ({
       >
         <h2 className='text-l font-mono mb-1'>{title}</h2>
         <div className='scale-50 origin-top-left w-40 h-96 overflow-y-auto'>
-          <p className='text-white'> Gonna Talk About Myself here </p>
-          <p className='text-white'> Gonna Talk About Myself here </p>
-          <p className='text-white'> Gonna Talk About Myself here </p>
+          {children}
         </div>
       </Html>
     </group>

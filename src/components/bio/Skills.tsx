@@ -34,7 +34,11 @@ interface SkillChipCollectionParams {
 const SkillChipCollection: React.FunctionComponent<
   SkillChipCollectionParams
 > = ({ children }) => {
-  return <div className='grid grid-cols-2'>{children}</div>;
+  return (
+    <div className='grid grid-cols-2 gap-4 self-stretch place-items-center'>
+      {children}
+    </div>
+  );
 };
 
 interface SkillShipParams {
@@ -47,7 +51,13 @@ const SkillChip: React.FunctionComponent<SkillShipParams> = ({
 }) => {
   return (
     <div className='flex items-center bg-white text-black rounded-full px-2'>
-      <Image className='w-4 h-4 mr-2' src={'/icons/' + assetPath} />
+      <Image
+        height={16}
+        width={16}
+        layout='fixed'
+        className='w-4 h-4 mr-2'
+        src={'/icons/' + assetPath}
+      />
       {text}
     </div>
   );
