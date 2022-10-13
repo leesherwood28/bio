@@ -10,7 +10,8 @@ import PlayerCharacterStates from './PlayerCharacterStates';
 const Player: React.FunctionComponent = () => {
   const playerPhysicsApi = usePhysicsObject<Group>(1);
   const { scene, animations } = useGltfWithShadows('/player/scene.gltf');
-  const { setPlayerApi, setPlayerAnimations } = usePlayerStore();
+  const setPlayerApi = usePlayerStore((s) => s.setPlayerApi);
+  const setPlayerAnimations = usePlayerStore((s) => s.setPlayerAnimations);
 
   useEffect(() => {
     setPlayerApi(playerPhysicsApi);
