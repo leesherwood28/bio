@@ -2,11 +2,8 @@ import { useAnimations } from '@react-three/drei';
 import { useEffect, useState } from 'react';
 import { AnimationAction } from 'three';
 import { isNil } from '../../functions/is-nil.fn';
-import {
-  PlayerCharacterState,
-  usePlayerData,
-} from '../../hooks/use-player-data';
-import { usePlayerStore } from '../../store/player.store';
+
+import { PlayerCharacterState, usePlayerStore } from '../../store/player.store';
 
 const mapStateToAnimation = (
   characterState: PlayerCharacterState,
@@ -40,7 +37,7 @@ const PlayerCharacterStates: React.FunctionComponent = () => {
     playerAnimations ?? [],
     playerApi?.objectRef
   );
-  const characterState = usePlayerData((s) => s.characterState);
+  const characterState = usePlayerStore((s) => s.characterState);
   const [currentAnimation, setAnimation] = useState<AnimationAction>();
   useEffect(() => {
     if (isNil(actions)) {

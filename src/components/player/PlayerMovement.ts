@@ -1,13 +1,9 @@
 import { useFrame } from '@react-three/fiber';
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { Euler, Vector3 } from 'three';
 import { isNil } from '../../functions/is-nil.fn';
-import {
-  PlayerCharacterState,
-  usePlayerData,
-} from '../../hooks/use-player-data';
 import { useInputStore } from '../../store/input.store';
-import { usePlayerStore } from '../../store/player.store';
+import { PlayerCharacterState, usePlayerStore } from '../../store/player.store';
 
 const SPEED_MULTIPLIER = {
   forward: 10,
@@ -40,7 +36,7 @@ const removeBuffer = (input: number): number => {
 };
 
 const PlayerMovement: React.FunctionComponent = () => {
-  const setCharacterState = usePlayerData((s) => s.setCharacterState);
+  const setCharacterState = usePlayerStore((s) => s.setCharacterState);
 
   useFrame(() => {
     const playerApi = usePlayerStore.getState().playerApi;
