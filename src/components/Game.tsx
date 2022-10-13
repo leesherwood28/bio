@@ -6,7 +6,7 @@ import Foliage from './3d/Foliage';
 import Ground from './3d/Ground';
 import Obelisks from './3d/Obelisks';
 import Physics from './3d/Physics';
-import Player from './3d/Player';
+import Player from './player/Player';
 import Sheild from './3d/Sheild';
 import Stars from './3d/Stars';
 import Orbit from './dev/Orbit';

@@ -1,8 +1,12 @@
 import { useAnimations } from '@react-three/drei';
-import { RefObject, useEffect, useState } from 'react';
-import { AnimationAction, AnimationClip, Event, Group, Object3D } from 'three';
-import { PhysicsApi } from './use-physics-object';
-import { PlayerCharacterState, usePlayerData } from './use-player-data';
+import { useEffect, useState } from 'react';
+import { AnimationAction } from 'three';
+import { isNil } from '../../functions/is-nil.fn';
+import {
+  PlayerCharacterState,
+  usePlayerData,
+} from '../../hooks/use-player-data';
+import { usePlayerStore } from '../../store/player.store';
 
 const mapStateToAnimation = (
   characterState: PlayerCharacterState,
@@ -29,16 +33,22 @@ const mapStateToAnimation = (
   return actions['Root|Idle 01 '] as AnimationAction;
 };
 
-const usePlayerCharacterStates = (
-  animations: AnimationClip[],
-  playerPhysicsApi: PhysicsApi<Object3D>
-) => {
-  const { actions } = useAnimations(animations, playerPhysicsApi.objectRef);
+const PlayerCharacterStates: React.FunctionComponent = () => {
+  const { playerAnimations, playerApi } = usePlayerStore();
+
+  const { actions } = useAnimations(
+    playerAnimations ?? [],
+    playerApi?.objectRef
+  );
   const characterState = usePlayerData((s) => s.characterState);
   const [currentAnimation, setAnimation] = useState<AnimationAction>();
 
   useEffect(() => {
     const animation = mapStateToAnimation(characterState, actions);
+    console.log(animation);
+    if (isNil(animation)) {
+      return;
+    }
     if (currentAnimation) {
       animation.enabled = true;
       animation.crossFadeFrom(currentAnimation, 0.5, false);
@@ -46,6 +56,8 @@ const usePlayerCharacterStates = (
     animation.play();
     setAnimation(animation);
   }, [characterState, actions]);
+
+  return null;
 };
 
-export { usePlayerCharacterStates };
+export default PlayerCharacterStates;
