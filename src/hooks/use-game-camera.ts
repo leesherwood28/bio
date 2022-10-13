@@ -18,7 +18,7 @@ const calculateIdealLookat = (object: Object3D) => {
   return idealLookat;
 };
 
-export const useGameCamera = (playerApi: PhysicsApi<Object3D>) => {
+export const useGameCamera = () => {
   const { camera } = useThree();
 
   const idealLookat = useRef(new Vector3());
