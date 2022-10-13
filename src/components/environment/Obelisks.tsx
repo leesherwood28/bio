@@ -11,7 +11,7 @@ import { usePlayerStore } from '../../store/player.store';
 import Experience from '../bio/Experience';
 import Intro from '../bio/Intro';
 import Skills from '../bio/Skills';
-import { useSpring, animated } from '@react-spring/three';
+import { animated, useSpring } from '@react-spring/web';
 
 const OBELISK_HEIGHT = 5;
 const OBELISK_WIDTH = 2.8;
@@ -233,19 +233,28 @@ const ObeliskButton: React.FunctionComponent<ObeliskButton> = ({
   onClick,
   icon,
 }) => {
+  const springProps = useSpring({
+    from: { scale: 0 },
+    to: { scale: 1 },
+    config: { bounce: 2, tension: 500 },
+  });
+
   return (
-    <Html
-      transform
-      position={[-1.7, 0.5 + OBELISK_TITLE_HEIGHT / 2, 0.15]}
-      center
-    >
-      <button
-        onClick={onClick}
-        className='bg-slate-300  rounded-full hover:bg-slate-200 grid items-center p-1'
+    <>
+      <Html
+        transform
+        position={[-1.7, 0.5 + OBELISK_TITLE_HEIGHT / 2, 0.15]}
+        center
       >
-        <Image layout='fixed' src={'/icons/' + icon} width={16} height={16} />
-      </button>
-    </Html>
+        <animated.button
+          style={springProps}
+          onClick={onClick}
+          className='bg-slate-300  rounded-full hover:bg-slate-200 grid items-center p-1'
+        >
+          <Image layout='fixed' src={'/icons/' + icon} width={16} height={16} />
+        </animated.button>
+      </Html>
+    </>
   );
 };
 
