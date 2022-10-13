@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { Euler, Group, Vector3 } from 'three';
+import { Euler, Vector3 } from 'three';
 import { generateUUID } from 'three/src/math/MathUtils';
-import { WORLD } from '../contants/world.const';
-import { useFbxWithShadows } from '../hooks/use-fbx-with-shadows';
+import { WORLD } from '../../contants/world.const';
+import { useFbxWithShadows } from '../../hooks/use-fbx-with-shadows';
 
 // Models used with love from https://quaternius.com/;
 

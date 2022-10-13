@@ -1,18 +1,18 @@
 import { Stats } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { PCFSoftShadowMap } from 'three';
-import BlackHole from './BlackHole';
+import BlackHole from './3d/BlackHole';
+import Foliage from './3d/Foliage';
+import { GlassDome } from './3d/GlassDome';
+import Ground from './3d/Ground';
+import Obelisks from './3d/Obelisks';
+import Physics from './3d/Physics';
+import Player from './3d/Player';
+import Sheild from './3d/Sheild';
+import Stars from './3d/Stars';
 import Orbit from './dev/Orbit';
-import Foliage from './Foliage';
-import { GlassDome } from './GlassDome';
-import Ground from './Ground';
 import JoystickInput from './JoystickInput';
 import KeyboardInput from './KeyboardInput';
-import Obelisks from './Obelisks';
-import Physics from './Physics';
-import Player from './Player';
-import Sheild from './Sheild';
-import { Stars } from './Stars';
 
 const Game: React.FunctionComponent = () => {
   return (

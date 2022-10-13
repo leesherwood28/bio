@@ -8,7 +8,7 @@ import {
   TextureLoader,
   Vector3,
 } from 'three';
-import { isNil } from '../functions/is-nil.fn';
+import { isNil } from '../../functions/is-nil.fn';
 import LensFlare from './LensFlare';
 
 const BLACK_HOLE_MOVE_SPEED = 0.1;

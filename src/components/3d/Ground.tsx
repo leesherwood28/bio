@@ -1,6 +1,6 @@
 import { useTexture } from '@react-three/drei';
 import { RepeatWrapping, NearestFilter } from 'three';
-import { WORLD } from '../contants/world.const';
+import { WORLD } from '../../contants/world.const';
 
 const Ground: React.FunctionComponent = () => {
   const grassTexture = useTexture('/ground/grass.jpg');

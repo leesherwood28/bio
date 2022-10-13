@@ -23,7 +23,7 @@ void main() {
   gl_FragColor = vec4(stars, 1.0);
 }`;
 
-export function Stars() {
+const Stars: React.FunctionComponent = () => {
   const envMap = useCubeTexture(
     [
       'space-posx.jpg',
@@ -48,4 +48,6 @@ export function Stars() {
       />
     </mesh>
   );
-}
+};
+
+export default Stars;
