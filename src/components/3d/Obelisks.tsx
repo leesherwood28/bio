@@ -1,36 +1,16 @@
 import { Html } from '@react-three/drei';
-import produce from 'immer';
-import { createRef, RefObject } from 'react';
 import { Euler, Vector3 } from 'three';
 import { generateUUID } from 'three/src/math/MathUtils';
-import create from 'zustand';
 import { WORLD } from '../../contants/world.const';
 import Experience from '../bio/Experience';
 import Intro from '../bio/Intro';
 import Skills from '../bio/Skills';
-
-interface ObeliskStore {
-  obeliskMeshes: any[];
-  addObeliskMesh: (mesh: any) => void;
-}
-const useObeliskStore = create<ObeliskStore>((set) => {
-  return {
-    obeliskMeshes: [],
-    addObeliskMesh: (mesh: any) =>
-      set(
-        produce<ObeliskStore>((state) => {
-          state.obeliskMeshes.push(mesh);
-        })
-      ),
-  };
-});
 
 interface ObeliskDef {
   key: string;
   title: string;
   position: Vector3;
   rotation: Euler;
-  meshRef: RefObject<any>;
   component: React.ReactNode;
 }
 
@@ -45,7 +25,6 @@ const OBELISK_DEFS: ObeliskDef[] = [
       .clone()
       .applyEuler(new Euler(0, -Math.PI / 2, 0)),
     rotation: new Euler(0, Math.PI / 2, 0),
-    meshRef: createRef(),
     component: <Intro />,
   },
   {
@@ -55,7 +34,6 @@ const OBELISK_DEFS: ObeliskDef[] = [
       .clone()
       .applyEuler(new Euler(0, -Math.PI / 4, 0)),
     rotation: new Euler(0, (3 * Math.PI) / 4, 0),
-    meshRef: createRef(),
     component: <Skills />,
   },
 
@@ -66,7 +44,6 @@ const OBELISK_DEFS: ObeliskDef[] = [
       .clone()
       .applyEuler(new Euler(0, Math.PI / 2, 0)),
     rotation: new Euler(0, -Math.PI / 2, 0),
-    meshRef: createRef(),
     component: <Skills />,
   },
   {
@@ -76,7 +53,6 @@ const OBELISK_DEFS: ObeliskDef[] = [
       .clone()
       .applyEuler(new Euler(0, Math.PI / 4, 0)),
     rotation: new Euler(0, (3 * -Math.PI) / 4, 0),
-    meshRef: createRef(),
     component: <Experience />,
   },
 ];
@@ -90,8 +66,6 @@ const Obelisks: React.FunctionComponent = () => {
           position={o.position}
           rotation={o.rotation}
           title={o.title}
-          meshRef={o.meshRef}
-          occlude={OBELISK_DEFS.map((o) => o.meshRef)}
         >
           {o.component}
         </Obelisk>
@@ -104,8 +78,6 @@ export interface ObeliskParams {
   position: Vector3;
   rotation: Euler;
   title: string;
-  meshRef: RefObject<any>;
-  occlude: RefObject<any>[];
   children: React.ReactNode;
 }
 
@@ -117,13 +89,11 @@ const Obelisk: React.FunctionComponent<ObeliskParams> = ({
   position,
   rotation,
   title,
-  meshRef,
-  occlude,
   children,
 }) => {
   return (
     <group position={position} rotation={rotation}>
-      <mesh ref={meshRef} castShadow>
+      <mesh castShadow>
         <boxGeometry
           args={[OBELISK_WIDTH, OBELISK_HEIGHT, OBELISK_DEPTH]}
         ></boxGeometry>
