@@ -34,14 +34,14 @@ const mapStateToAnimation = (
 };
 
 const PlayerCharacterStates: React.FunctionComponent = () => {
-  const { playerAnimations, playerApi } = usePlayerStore();
+  const playerAnimations = usePlayerStore((s) => s.playerAnimations);
+  const playerApi = usePlayerStore((s) => s.playerApi);
   const { actions } = useAnimations(
     playerAnimations ?? [],
     playerApi?.objectRef
   );
   const characterState = usePlayerData((s) => s.characterState);
   const [currentAnimation, setAnimation] = useState<AnimationAction>();
-
   useEffect(() => {
     if (isNil(actions)) {
       return;

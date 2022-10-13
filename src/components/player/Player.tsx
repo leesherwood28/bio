@@ -12,11 +12,8 @@ const Player: React.FunctionComponent = () => {
   const { scene, animations } = useGltfWithShadows('/player/scene.gltf');
   const setPlayerApi = usePlayerStore((s) => s.setPlayerApi);
   const setPlayerAnimations = usePlayerStore((s) => s.setPlayerAnimations);
-
-  useEffect(() => {
-    setPlayerApi(playerPhysicsApi);
-    setPlayerAnimations(animations);
-  }, []);
+  setPlayerApi(playerPhysicsApi);
+  setPlayerAnimations(animations);
 
   usePlayerCamera(playerPhysicsApi);
   usePlayerMovement(playerPhysicsApi);
