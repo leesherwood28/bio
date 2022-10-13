@@ -1,9 +1,13 @@
 import { useFrame } from '@react-three/fiber';
-import { RefObject, useEffect, useRef } from 'react';
-import { Euler, Object3D, Vector3 } from 'three';
-import { useInputStore } from '../store/input.store';
-import { PhysicsApi } from './use-physics-object';
-import { PlayerCharacterState, usePlayerData } from './use-player-data';
+import React, { useEffect, useRef } from 'react';
+import { Euler, Vector3 } from 'three';
+import { isNil } from '../../functions/is-nil.fn';
+import {
+  PlayerCharacterState,
+  usePlayerData,
+} from '../../hooks/use-player-data';
+import { useInputStore } from '../../store/input.store';
+import { usePlayerStore } from '../../store/player.store';
 
 const SPEED_MULTIPLIER = {
   forward: 10,
@@ -35,7 +39,8 @@ const removeBuffer = (input: number): number => {
   return input;
 };
 
-export const usePlayerMovement = (api: PhysicsApi<Object3D>) => {
+const PlayerMovement: React.FunctionComponent = () => {
+  const playerApi = usePlayerStore((s) => s.playerApi);
   const controllerInput = useRef(useInputStore.getState().input);
 
   const setCharacterState = usePlayerData((s) => s.setCharacterState);
@@ -49,22 +54,28 @@ export const usePlayerMovement = (api: PhysicsApi<Object3D>) => {
   );
 
   useFrame(() => {
+    if (isNil(playerApi)) {
+      return;
+    }
     let { forward, sideways } = controllerInput.current;
     forward = removeBuffer(forward);
     sideways = removeBuffer(sideways);
 
-    api.setAngularVelocity(
+    playerApi.setAngularVelocity(
       new Vector3(0, -sideways * SPEED_MULTIPLIER.rotate, 0)
     );
 
     const forwardMultiplier =
       forward > 0 ? SPEED_MULTIPLIER.forward : SPEED_MULTIPLIER.backward;
     const forwardSpeed = forwardMultiplier * forward;
-    api.setVelocity(
+    playerApi.setVelocity(
       new Vector3(0, 0, forwardSpeed).applyEuler(
-        api.objectRef.current?.rotation ?? new Euler()
+        playerApi.objectRef.current?.rotation ?? new Euler()
       )
     );
     setCharacterState(mapForwardSpeedToplayerState(forwardSpeed));
   });
+  return null;
 };
+
+export default PlayerMovement;

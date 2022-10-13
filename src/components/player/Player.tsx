@@ -3,20 +3,23 @@ import { Group } from 'three';
 import { useGltfWithShadows } from '../../hooks/use-gltf-with-shadows';
 import { usePhysicsObject } from '../../hooks/use-physics-object';
 import { usePlayerCamera } from '../../hooks/use-player-camera';
-import { usePlayerMovement } from '../../hooks/use-player-movement';
 import { usePlayerStore } from '../../store/player.store';
 import PlayerCharacterStates from './PlayerCharacterStates';
+import PlayerMovement from './PlayerMovement';
 
 const Player: React.FunctionComponent = () => {
   const playerPhysicsApi = usePhysicsObject<Group>(1);
   const { scene, animations } = useGltfWithShadows('/player/scene.gltf');
   const setPlayerApi = usePlayerStore((s) => s.setPlayerApi);
   const setPlayerAnimations = usePlayerStore((s) => s.setPlayerAnimations);
+
   setPlayerApi(playerPhysicsApi);
   setPlayerAnimations(animations);
 
   usePlayerCamera(playerPhysicsApi);
-  usePlayerMovement(playerPhysicsApi);
+  // usePlayerMovement(playerPhysicsApi);
+
+  console.count('render');
 
   return (
     <>
@@ -30,6 +33,7 @@ const Player: React.FunctionComponent = () => {
           receiveShadow
         >
           <PlayerCharacterStates />
+          <PlayerMovement />
         </primitive>
       </group>
     </>
