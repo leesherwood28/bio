@@ -3,8 +3,8 @@ import Image from 'next/image';
 const Skills: React.FunctionComponent = () => {
   return (
     <div className='text-center flex flex-col items-center gap-2'>
-      <h2>Web Technologies</h2>
-      <p data-scroll-reveal className='text-sm'>
+      <h2 className='text-base'>Web Technologies</h2>
+      <p data-scroll-reveal className=''>
         I have good experience with the following web technologies:
       </p>
       <SkillChipCollection>
@@ -55,10 +55,9 @@ const SkillChip: React.FunctionComponent<SkillShipParams> = ({
         height={16}
         width={16}
         layout='fixed'
-        className='w-4 h-4 mr-2'
         src={'/icons/' + assetPath}
       />
-      {text}
+      <span className='ml-1'>{text}</span>
     </div>
   );
 };
