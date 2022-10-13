@@ -17,7 +17,9 @@ export const usePhysicsObject = <T extends Object3D>(
 ): PhysicsApi<T> => {
   const id = useRef<string>(generateUUID());
 
-  const { addObject, setObject, getObject } = usePhysicsStore();
+  const addObject = usePhysicsStore((s) => s.addObject);
+  const setObject = usePhysicsStore((s) => s.setObject);
+  const getObject = usePhysicsStore((s) => s.getObject);
 
   const objectRef = useRef<PhysicalObject>({
     id: id.current,
