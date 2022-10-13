@@ -40,24 +40,16 @@ const removeBuffer = (input: number): number => {
 };
 
 const PlayerMovement: React.FunctionComponent = () => {
-  const playerApi = usePlayerStore((s) => s.playerApi);
-  const controllerInput = useRef(useInputStore.getState().input);
-
   const setCharacterState = usePlayerData((s) => s.setCharacterState);
 
-  useEffect(
-    () =>
-      useInputStore.subscribe(
-        (state) => (controllerInput.current = state.input)
-      ),
-    []
-  );
-
   useFrame(() => {
+    const playerApi = usePlayerStore.getState().playerApi;
+    const controllerInput = useInputStore.getState().input;
+
     if (isNil(playerApi)) {
       return;
     }
-    let { forward, sideways } = controllerInput.current;
+    let { forward, sideways } = controllerInput;
     forward = removeBuffer(forward);
     sideways = removeBuffer(sideways);
 

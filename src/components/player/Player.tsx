@@ -17,7 +17,6 @@ const Player: React.FunctionComponent = () => {
   setPlayerAnimations(animations);
 
   usePlayerCamera(playerPhysicsApi);
-  // usePlayerMovement(playerPhysicsApi);
 
   console.count('render');
 
