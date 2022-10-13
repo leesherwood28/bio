@@ -185,18 +185,9 @@ const CloseObeliskFocusButton: React.FunctionComponent<
   CloseObeliskFocusButton
 > = ({ onClick }) => {
   return (
-    <Html
-      transform
-      position={[-1.7, 0.5 + OBELISK_TITLE_HEIGHT / 2, 0.15]}
-      center
-    >
-      <button
-        onClick={onClick}
-        className='bg-slate-300  rounded-full hover:bg-slate-200 grid items-center p-1'
-      >
-        <Image layout='fixed' src='/icons/close.svg' width={16} height={16} />
-      </button>
-    </Html>
+    <ObeliskButton onClick={onClick}>
+      <Image layout='fixed' src='/icons/close.svg' width={16} height={16} />
+    </ObeliskButton>
   );
 };
 
@@ -217,6 +208,30 @@ const ObeliskContent: React.FunctionComponent<ObeliskContent> = ({
       <div className='scale-50 origin-top-left w-40 h-96 overflow-y-auto'>
         {children}
       </div>
+    </Html>
+  );
+};
+
+interface ObeliskButton {
+  onClick: MouseEventHandler<HTMLButtonElement>;
+  children: React.ReactNode;
+}
+const ObeliskButton: React.FunctionComponent<ObeliskButton> = ({
+  onClick,
+  children,
+}) => {
+  return (
+    <Html
+      transform
+      position={[-1.7, 0.5 + OBELISK_TITLE_HEIGHT / 2, 0.15]}
+      center
+    >
+      <button
+        onClick={onClick}
+        className='bg-slate-300  rounded-full hover:bg-slate-200 grid items-center p-1'
+      >
+        {children}
+      </button>
     </Html>
   );
 };
