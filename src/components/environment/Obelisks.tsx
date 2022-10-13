@@ -111,10 +111,22 @@ const Obelisk: React.FunctionComponent<ObeliskParams> = ({
     setIsLookingAtObelisk(true);
   }, [position, rotation]);
 
+  const stopFocusObelisk = useCallback(() => {
+    setCamera((state) => ({ idealLookAt: null, idealPosition: null }));
+    setPlayerPaused(false);
+    setPlayerHidden(false);
+    setIsLookingAtObelisk(false);
+  }, [position, rotation]);
+
   const [isLookingAtObelisk, setIsLookingAtObelisk] = useState(false);
 
   return (
-    <group onClick={focusObelisk} position={position} rotation={rotation}>
+    <group
+      onClick={focusObelisk}
+      onDoubleClick={stopFocusObelisk}
+      position={position}
+      rotation={rotation}
+    >
       <mesh castShadow>
         <boxGeometry
           args={[OBELISK_WIDTH, OBELISK_HEIGHT, OBELISK_DEPTH]}
