@@ -1,10 +1,11 @@
 import { Center, Html, Text3D } from '@react-three/drei';
-import { ThreeEvent } from '@react-three/fiber';
+import { ThreeEvent, useFrame } from '@react-three/fiber';
 import Image from 'next/image';
 import { MouseEventHandler, useCallback, useState } from 'react';
 import { Euler, Vector3 } from 'three';
 import { generateUUID } from 'three/src/math/MathUtils';
 import { WORLD } from '../../contants/world.const';
+import { isNil } from '../../functions/is-nil.fn';
 import { useCameraStore } from '../../store/camera.store';
 import { usePlayerStore } from '../../store/player.store';
 import Experience from '../bio/Experience';
@@ -14,7 +15,8 @@ import Skills from '../bio/Skills';
 const OBELISK_HEIGHT = 5;
 const OBELISK_WIDTH = 2.5;
 const OBELISK_DEPTH = 0.25;
-
+const MAX_PLAYER_DISTANCE_FOR_VIEW = 2;
+const MAX_ANGLE_FOR_VIEW = 2;
 interface ObeliskDef {
   key: string;
   title: string;
@@ -106,36 +108,61 @@ const Obelisk: React.FunctionComponent<ObeliskParams> = ({
   const setPlayerPaused = usePlayerStore((s) => s.setIsPaused);
   const setPlayerHidden = usePlayerStore((s) => s.setIsHidden);
 
+  const [isLookingAtObelisk, setIsLookingAtObelisk] = useState(false);
+  const [isFocusedOnObelisk, setIsFocusedOnObelisk] = useState(false);
+
   const focusObelisk = useCallback(() => {
     const idealLookAt = position;
     const idealPosition = position.clone().multiplyScalar(0.6);
     setCamera((state) => ({ idealLookAt, idealPosition }));
     setPlayerPaused(true);
     setPlayerHidden(true);
-    setIsLookingAtObelisk(true);
+    setIsFocusedOnObelisk(true);
   }, [position, rotation]);
 
   const stopFocusObelisk = useCallback(() => {
     setCamera((state) => ({ idealLookAt: null, idealPosition: null }));
     setPlayerPaused(false);
     setPlayerHidden(false);
-    setIsLookingAtObelisk(false);
+    setIsFocusedOnObelisk(false);
   }, [position, rotation]);
 
-  const [isLookingAtObelisk, setIsLookingAtObelisk] = useState(false);
+  useFrame(() => {
+    const playerPosition =
+      usePlayerStore.getState().playerApi?.objectRef.current?.position;
+    const playerRotation =
+      usePlayerStore.getState().playerApi?.objectRef.current?.rotation;
+    if (isNil(playerPosition) || isNil(playerRotation)) {
+      return;
+    }
+    const isNowLookingAtObelisk =
+      playerPosition.distanceTo(position) <= MAX_PLAYER_DISTANCE_FOR_VIEW &&
+      playerPosition.lengthSq() <= position.lengthSq() &&
+      Math.abs(playerPosition.angleTo(position) - playerRotation.y) <=
+        MAX_PLAYER_DISTANCE_FOR_VIEW;
+
+    if (isLookingAtObelisk !== isNowLookingAtObelisk) {
+      setIsLookingAtObelisk(isNowLookingAtObelisk);
+    }
+  });
 
   return (
     <group position={position} rotation={rotation}>
       <ObeliskBlock />
       <ObeliskTitle title={title} />
-      <ObeliskButton onClick={focusObelisk} icon='view.svg' />
 
-      {isLookingAtObelisk ? (
+      {isLookingAtObelisk && (
+        <>
+          <ObeliskButton onClick={focusObelisk} icon='view.svg' />
+        </>
+      )}
+
+      {isFocusedOnObelisk && (
         <>
           <ObeliskContent>{children}</ObeliskContent>
           <ObeliskButton onClick={stopFocusObelisk} icon='close.svg' />
         </>
-      ) : null}
+      )}
     </group>
   );
 };
