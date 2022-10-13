@@ -1,9 +1,9 @@
 import { useTexture } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
-import { AdditiveBlending, BackSide, DoubleSide } from 'three';
-import { WORLD } from '../contants/world.const';
-import { isNil } from '../functions/is-nil.fn';
+import { AdditiveBlending, DoubleSide } from 'three';
+import { WORLD } from '../../contants/world.const';
+import { isNil } from '../../functions/is-nil.fn';
 
 const domeVectorShader = `
 
@@ -60,14 +60,6 @@ const Sheild: React.FunctionComponent = () => {
   return (
     <mesh position={[0, 0, 0]} rotation={[0, 0, 0]}>
       <sphereGeometry args={[WORLD.radius, 64, 64]} />
-      {/* <meshStandardMaterial color={'blue'} side={DoubleSide} /> */}
-      {/* <meshBasicMaterial color={'blue'} side={DoubleSide} /> */}
-      {/* <meshBasicMaterial
-        map={texture}
-        color={'blue'}
-        side={DoubleSide}
-        transparent={true}
-      /> */}
 
       <shaderMaterial
         ref={textureRef}

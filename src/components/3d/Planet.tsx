@@ -1,16 +1,7 @@
-import { useVideoTexture } from '@react-three/drei';
 import { useFrame, useLoader } from '@react-three/fiber';
-import { createRef, useRef } from 'react';
-import {
-  FrontSide,
-  DoubleSide,
-  GLSL1,
-  GLSL3,
-  Mesh,
-  Vector3,
-  TextureLoader,
-} from 'three';
-import { isNil } from '../functions/is-nil.fn';
+import { createRef } from 'react';
+import { Mesh, TextureLoader, Vector3 } from 'three';
+import { isNil } from '../../functions/is-nil.fn';
 
 const PLANET_MOVE_SPEED = 0.01;
 

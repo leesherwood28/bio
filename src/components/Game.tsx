@@ -3,7 +3,6 @@ import { Canvas } from '@react-three/fiber';
 import { PCFSoftShadowMap } from 'three';
 import BlackHole from './3d/BlackHole';
 import Foliage from './3d/Foliage';
-import { GlassDome } from './3d/GlassDome';
 import Ground from './3d/Ground';
 import Obelisks from './3d/Obelisks';
 import Physics from './3d/Physics';
@@ -31,7 +30,6 @@ const Game: React.FunctionComponent = () => {
 
         <Stars />
         <BlackHole />
-        <GlassDome />
         <Foliage />
 
         {/* <Planet /> */}

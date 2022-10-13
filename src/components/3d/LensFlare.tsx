@@ -5,7 +5,7 @@ import {
   Lensflare,
   LensflareElement,
 } from 'three/examples/jsm/objects/Lensflare';
-import { isNil } from '../functions/is-nil.fn';
+import { isNil } from '../../functions/is-nil.fn';
 
 extend({ Lensflare, LensflareElement });
 

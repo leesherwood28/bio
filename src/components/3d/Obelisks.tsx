@@ -1,18 +1,10 @@
-import {
-  createRef,
-  RefObject,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
-import { WORLD } from '../contants/world.const';
-import { Vector3, Euler } from 'three';
-import { generateUUID } from 'three/src/math/MathUtils';
 import { Html } from '@react-three/drei';
-import create from 'zustand';
 import produce from 'immer';
-import { isNil } from '../functions/is-nil.fn';
+import { createRef, RefObject } from 'react';
+import { Euler, Vector3 } from 'three';
+import { generateUUID } from 'three/src/math/MathUtils';
+import create from 'zustand';
+import { WORLD } from '../../contants/world.const';
 
 interface ObeliskStore {
   obeliskMeshes: any[];

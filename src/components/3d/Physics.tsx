@@ -1,9 +1,9 @@
 import { useFrame } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import { Euler, Quaternion } from 'three';
-import { isNil } from '../functions/is-nil.fn';
-import { PhysicalObject } from '../models/physical-object.model';
-import { usePhysicsStore } from '../store/physics.store';
+import { isNil } from '../../functions/is-nil.fn';
+import { PhysicalObject } from '../../models/physical-object.model';
+import { usePhysicsStore } from '../../store/physics.store';
 
 const progressPhysics = (
   physicalObject: PhysicalObject,
