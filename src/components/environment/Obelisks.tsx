@@ -1,6 +1,7 @@
 import { Center, Html, Text3D } from '@react-three/drei';
+import { ThreeEvent } from '@react-three/fiber';
 import Image from 'next/image';
-import { useCallback, useState } from 'react';
+import { MouseEventHandler, useCallback, useState } from 'react';
 import { Euler, Vector3 } from 'three';
 import { generateUUID } from 'three/src/math/MathUtils';
 import { WORLD } from '../../contants/world.const';
@@ -125,61 +126,98 @@ const Obelisk: React.FunctionComponent<ObeliskParams> = ({
 
   return (
     <group position={position} rotation={rotation}>
-      <mesh onClick={focusObelisk} castShadow>
-        <boxGeometry
-          args={[OBELISK_WIDTH, OBELISK_HEIGHT, OBELISK_DEPTH]}
-        ></boxGeometry>
-        <meshPhysicalMaterial
-          color={'black'}
-          clearcoat={1}
-        ></meshPhysicalMaterial>
-      </mesh>
-      <Center position={[0, OBELISK_TITLE_HEIGHT, 0]}>
-        <Text3D
-          font={'/fonts/Montserrat_Thin_Regular.json'}
-          bevelEnabled
-          bevelSize={0.01}
-          size={0.5}
-          bevelThickness={0.001}
-        >
-          {title}
-          <meshNormalMaterial />
-        </Text3D>
-      </Center>
+      <ObeliskBlock onClick={focusObelisk} />
+      <ObeliskTitle title={title} />
 
       {isLookingAtObelisk ? (
         <>
-          <Html
-            transform
-            position={[0, 0, 0.15]}
-            center
-            className='w-20 h-48 text-white'
-          >
-            <div className='scale-50 origin-top-left w-40 h-96 overflow-y-auto'>
-              {children}
-            </div>
-          </Html>
-
-          <Html
-            transform
-            position={[-1.7, 0.5 + OBELISK_TITLE_HEIGHT / 2, 0.15]}
-            center
-          >
-            <button
-              onClick={stopFocusObelisk}
-              className='bg-slate-300  rounded-full hover:bg-slate-200 grid items-center p-1'
-            >
-              <Image
-                layout='fixed'
-                src='/icons/close.svg'
-                width={16}
-                height={16}
-              />
-            </button>
-          </Html>
+          <ObeliskContent>{children}</ObeliskContent>
+          <CloseObeliskFocusButton onClick={stopFocusObelisk} />
         </>
       ) : null}
     </group>
+  );
+};
+
+interface ObeliskTitle {
+  title: string;
+}
+
+const ObeliskTitle: React.FunctionComponent<ObeliskTitle> = ({ title }) => {
+  return (
+    <Center position={[0, OBELISK_TITLE_HEIGHT, 0]}>
+      <Text3D
+        font={'/fonts/Montserrat_Thin_Regular.json'}
+        bevelEnabled
+        bevelSize={0.01}
+        size={0.5}
+        bevelThickness={0.001}
+      >
+        {title}
+        <meshNormalMaterial />
+      </Text3D>
+    </Center>
+  );
+};
+
+interface ObeliskBlock {
+  onClick: (event: ThreeEvent<MouseEvent>) => void;
+}
+
+const ObeliskBlock: React.FunctionComponent<ObeliskBlock> = ({ onClick }) => {
+  return (
+    <mesh onClick={onClick} castShadow>
+      <boxGeometry
+        args={[OBELISK_WIDTH, OBELISK_HEIGHT, OBELISK_DEPTH]}
+      ></boxGeometry>
+      <meshPhysicalMaterial
+        color={'black'}
+        clearcoat={1}
+      ></meshPhysicalMaterial>
+    </mesh>
+  );
+};
+
+interface CloseObeliskFocusButton {
+  onClick: MouseEventHandler<HTMLButtonElement>;
+}
+const CloseObeliskFocusButton: React.FunctionComponent<
+  CloseObeliskFocusButton
+> = ({ onClick }) => {
+  return (
+    <Html
+      transform
+      position={[-1.7, 0.5 + OBELISK_TITLE_HEIGHT / 2, 0.15]}
+      center
+    >
+      <button
+        onClick={onClick}
+        className='bg-slate-300  rounded-full hover:bg-slate-200 grid items-center p-1'
+      >
+        <Image layout='fixed' src='/icons/close.svg' width={16} height={16} />
+      </button>
+    </Html>
+  );
+};
+
+interface ObeliskContent {
+  children: React.ReactNode;
+}
+
+const ObeliskContent: React.FunctionComponent<ObeliskContent> = ({
+  children,
+}) => {
+  return (
+    <Html
+      transform
+      position={[0, 0, 0.15]}
+      center
+      className='w-20 h-48 text-white'
+    >
+      <div className='scale-50 origin-top-left w-40 h-96 overflow-y-auto'>
+        {children}
+      </div>
+    </Html>
   );
 };
 
