@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Input } from '../models/input.model';
-import { useInputStore } from '../store/input.store';
+import { Input } from '../../models/input.model';
+import { useInputStore } from '../../store/input.store';
 
 function inputByKey(key: string, isKeyUp: boolean): Partial<Input> {
   const value = isKeyUp ? 0 : 1;

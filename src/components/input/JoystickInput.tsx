@@ -1,8 +1,8 @@
 import { MouseEvent, TouchEvent, useCallback, useEffect, useRef } from 'react';
 import { Vector2 } from 'three';
-import { isNil } from '../functions/is-nil.fn';
-import { Input } from '../models/input.model';
-import { useInputStore } from '../store/input.store';
+import { isNil } from '../../functions/is-nil.fn';
+import { Input } from '../../models/input.model';
+import { useInputStore } from '../../store/input.store';
 
 interface JoystickMovement {
   x: number;

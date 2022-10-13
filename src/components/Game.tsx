@@ -11,8 +11,8 @@ import Player from './3d/Player';
 import Sheild from './3d/Sheild';
 import Stars from './3d/Stars';
 import Orbit from './dev/Orbit';
-import JoystickInput from './JoystickInput';
-import KeyboardInput from './KeyboardInput';
+import JoystickInput from './input/JoystickInput';
+import KeyboardInput from './input/KeyboardInput';
 
 const Game: React.FunctionComponent = () => {
   return (
