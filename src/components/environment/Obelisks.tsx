@@ -1,10 +1,16 @@
 import { Html } from '@react-three/drei';
+import { useCallback } from 'react';
 import { Euler, Vector3 } from 'three';
 import { generateUUID } from 'three/src/math/MathUtils';
 import { WORLD } from '../../contants/world.const';
+import { useCameraStore } from '../../store/camera.store';
 import Experience from '../bio/Experience';
 import Intro from '../bio/Intro';
 import Skills from '../bio/Skills';
+
+const OBELISK_HEIGHT = 5;
+const OBELISK_WIDTH = 2.5;
+const OBELISK_DEPTH = 0.25;
 
 interface ObeliskDef {
   key: string;
@@ -15,7 +21,11 @@ interface ObeliskDef {
 }
 
 const ObeliskDistance = WORLD.centerRadiusEnd - 3;
-const centralObeliskPosition = new Vector3(0, 0, ObeliskDistance);
+const centralObeliskPosition = new Vector3(
+  0,
+  OBELISK_HEIGHT / 2,
+  ObeliskDistance
+);
 
 const OBELISK_DEFS: ObeliskDef[] = [
   {
@@ -81,18 +91,22 @@ export interface ObeliskParams {
   children: React.ReactNode;
 }
 
-const OBELISK_HEIGHT = 10;
-const OBELISK_WIDTH = 2.5;
-const OBELISK_DEPTH = 0.25;
-
 const Obelisk: React.FunctionComponent<ObeliskParams> = ({
   position,
   rotation,
   title,
   children,
 }) => {
+  const setCamera = useCameraStore((s) => s.set);
+
+  const focusObelisk = useCallback(() => {
+    const idealLookAt = position;
+    const idealPosition = position.clone().multiplyScalar(0.6);
+    setCamera((state) => ({ idealLookAt, idealPosition }));
+  }, [position, rotation]);
+
   return (
-    <group position={position} rotation={rotation}>
+    <group onClick={focusObelisk} position={position} rotation={rotation}>
       <mesh castShadow>
         <boxGeometry
           args={[OBELISK_WIDTH, OBELISK_HEIGHT, OBELISK_DEPTH]}
@@ -104,7 +118,7 @@ const Obelisk: React.FunctionComponent<ObeliskParams> = ({
       </mesh>
       <Html
         transform
-        position={[0, OBELISK_HEIGHT / 4, 0.15]}
+        position={[0, 0, 0.15]}
         center
         className='w-20 h-48 text-white'
       >
