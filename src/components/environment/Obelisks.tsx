@@ -1,4 +1,4 @@
-import { Html } from '@react-three/drei';
+import { Center, Html, Text3D } from '@react-three/drei';
 import { useCallback, useState } from 'react';
 import { Euler, Vector3 } from 'three';
 import { generateUUID } from 'three/src/math/MathUtils';
@@ -92,6 +92,8 @@ export interface ObeliskParams {
   children: React.ReactNode;
 }
 
+const OBELISK_TITLE_HEIGHT = OBELISK_HEIGHT / 2 + 0.4;
+
 const Obelisk: React.FunctionComponent<ObeliskParams> = ({
   position,
   rotation,
@@ -136,6 +138,18 @@ const Obelisk: React.FunctionComponent<ObeliskParams> = ({
           clearcoat={1}
         ></meshPhysicalMaterial>
       </mesh>
+      <Center position={[0, OBELISK_TITLE_HEIGHT, 0]}>
+        <Text3D
+          font={'/fonts/Montserrat_Thin_Regular.json'}
+          bevelEnabled
+          bevelSize={0.01}
+          size={0.5}
+          bevelThickness={0.001}
+        >
+          {title}
+          <meshPhysicalMaterial color={'white'} clearcoat={1} />
+        </Text3D>
+      </Center>
 
       {isLookingAtObelisk ? (
         <Html
@@ -144,7 +158,6 @@ const Obelisk: React.FunctionComponent<ObeliskParams> = ({
           center
           className='w-20 h-48 text-white'
         >
-          <h2 className='text-l font-mono mb-1'>{title}</h2>
           <div className='scale-50 origin-top-left w-40 h-96 overflow-y-auto'>
             {children}
           </div>
