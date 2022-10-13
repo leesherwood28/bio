@@ -133,7 +133,6 @@ const Obelisk: React.FunctionComponent<ObeliskParams> = ({
         ></meshPhysicalMaterial>
       </mesh>
       <Html
-        occlude={occlude}
         transform
         position={[0, OBELISK_HEIGHT / 4, 0.15]}
         center
