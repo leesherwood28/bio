@@ -2,6 +2,7 @@ import produce from 'immer';
 import create from 'zustand';
 import { isNil } from '../functions/is-nil.fn';
 import { PhysicalObject } from '../models/physical-object.model';
+import {} from '@react-three/fiber';
 
 interface PhysicsStore {
   objects: PhysicalObject[];
