@@ -1,3 +1,5 @@
+// TODO, rework from https://codesandbox.io/s/two-r3f-renderers-share-scene-and-camera-qq1zl?file=/src/App.js
+
 import * as React from "react";
 import ReactDOM from "react-dom";
 import { Canvas, useThree, useFrame, extend } from "react-three-fiber";
