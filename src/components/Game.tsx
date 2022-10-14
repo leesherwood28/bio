@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber';
-import { PCFSoftShadowMap } from 'three';
+import { Camera, PCFSoftShadowMap, Scene, WebGLRenderer } from 'three';
 import Orbit from './dev/Orbit';
 import BlackHole from './environment/BlackHole';
 import Foliage from './environment/Foliage';
@@ -15,6 +15,39 @@ import Player from './player/Player';
 
 import {} from '@react-three/fiber';
 import CSS3DSceneRenderer from './three-constructs/CSS3DSceneRenderer';
+import { Renderer } from '@react-three/fiber/dist/declarations/src/core/store';
+import {
+  CSS3DObject,
+  CSS3DRenderer,
+} from 'three/examples/jsm/renderers/CSS3DRenderer';
+
+class DualRenderer implements Renderer {
+  private readonly webGlRenderer = new WebGLRenderer({ canvas: this.canvas });
+  private readonly cssRenderer = new CSS3DRenderer();
+
+  constructor(private canvas: HTMLCanvasElement) {
+    this.cssRenderer.domElement.style.position = 'absolute';
+    this.cssRenderer.domElement.style.top = '0';
+    this.cssRenderer.setSize(window.innerWidth, window.innerHeight);
+    document
+      .querySelector('#game-container')
+      ?.prepend(this.cssRenderer.domElement);
+  }
+
+  render(scene: Scene, camera: Camera) {
+    this.webGlRenderer.render(scene, camera);
+    this.cssRenderer.render(scene, camera);
+  }
+
+  setPixelRatio(ratio: number) {
+    this.webGlRenderer.setPixelRatio(ratio);
+  }
+
+  setSize(width: number, height: number, updateStyle: boolean) {
+    this.webGlRenderer.setSize(width, height, updateStyle);
+    this.cssRenderer.setSize(width, height);
+  }
+}
 
 const Game: React.FunctionComponent = () => {
   return (
