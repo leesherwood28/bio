@@ -39,7 +39,7 @@ const Game: React.FunctionComponent = () => {
 
         <GameCamera />
         <Obelisks />
-        <Stats />
+        {/* <Stats /> */}
         <Orbit />
       </Canvas>
       <KeyboardInput />
