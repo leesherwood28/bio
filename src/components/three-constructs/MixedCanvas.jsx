@@ -42,15 +42,16 @@ export const Html3D = React.forwardRef(
   ) => {
     const ctx = useMixedCanvasContext();
     const root = React.useMemo(
-      () =>
-        Object.assign(document.createElement("div"), {
+      () => {
+        const container = Object.assign(document.createElement("div"), {
           className: ROOT_CLASS
-        }),
+        });
+        return createRoot(container);
+      },
       []
     );
     React.useEffect(() => {
-      const reactRoot = createRoot(root);
-      reactRoot.render(children);
+      root.render(children);
       const resizeObserver = new ResizeObserver((entries) => {
         for (let i = 0; i !== entries.length; i++) {
           const target = entries[i].target;
