@@ -12,7 +12,6 @@ import { usePlayerStore } from '../../store/player.store';
 import Experience from '../bio/Experience';
 import Intro from '../bio/Intro';
 import Skills from '../bio/Skills';
-import HtmlThreeElement from '../three-constructs/HtmlThreeElement';
 
 const OBELISK_HEIGHT = 5;
 const OBELISK_WIDTH = 2.8;
@@ -153,7 +152,6 @@ const Obelisk: React.FunctionComponent<ObeliskParams> = ({
     <group position={position} rotation={rotation}>
       <ObeliskBlock />
       <ObeliskTitle title={title} />
-      <ObeliskContent>{children}</ObeliskContent>
 
       {isLookingAtObelisk && (
         <>
@@ -163,6 +161,7 @@ const Obelisk: React.FunctionComponent<ObeliskParams> = ({
 
       {isFocusedOnObelisk && (
         <>
+          <ObeliskContent>{children}</ObeliskContent>
           <ObeliskButton onClick={stopFocusObelisk} icon='close.svg' />
         </>
       )}
@@ -213,11 +212,16 @@ const ObeliskContent: React.FunctionComponent<ObeliskContent> = ({
   children,
 }) => {
   return (
-    <HtmlThreeElement>
+    <Html
+      transform
+      position={[0, 0, 0.15]}
+      center
+      className='w-24 h-48 text-white'
+    >
       <div className='origin-top-left scale-50 w-48 h-96 overflow-y-auto text-xs'>
         {children}
       </div>
-    </HtmlThreeElement>
+    </Html>
   );
 };
 
