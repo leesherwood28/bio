@@ -214,7 +214,7 @@ const ObeliskContent: React.FunctionComponent<ObeliskContent> = ({
   children,
 }) => {
   return (
-    <Html3D position={[0, 0, 0.15]} className='w-24 h-48 text-white'>
+    <Html3D className='w-24 h-48 text-white'>
       <div className='origin-top-left scale-50 w-48 h-96 overflow-y-auto text-xs'>
         {children}
       </div>
