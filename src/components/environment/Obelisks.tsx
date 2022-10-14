@@ -243,7 +243,7 @@ const ObeliskButton: React.FunctionComponent<ObeliskButton> = ({
     <>
       <Html
         transform
-        position={[-1.7, 0.5 + OBELISK_TITLE_HEIGHT / 2, 0.15]}
+        position={[-1.2, 0.5 + OBELISK_TITLE_HEIGHT / 2, 0.15]}
         center
       >
         <animated.button
