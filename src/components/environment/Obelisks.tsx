@@ -13,6 +13,7 @@ import Intro from '../bio/Intro';
 import Skills from '../bio/Skills';
 import { animated, useSpring } from '@react-spring/web';
 import HtmlThreeElement from '../three-constructs/HtmlThreeElement';
+import { Html3D } from '../three-constructs/MixedCanvas';
 
 const OBELISK_HEIGHT = 5;
 const OBELISK_WIDTH = 2.8;
@@ -151,10 +152,9 @@ const Obelisk: React.FunctionComponent<ObeliskParams> = ({
 
   return (
     <group position={position} rotation={rotation}>
-      <HtmlThreeElement width={2} height={5} />
-      {/* <ObeliskBlock />
+      <ObeliskBlock />
       <ObeliskTitle title={title} />
-
+      <ObeliskContent>{children}</ObeliskContent>
 
       {isLookingAtObelisk && (
         <>
@@ -164,10 +164,9 @@ const Obelisk: React.FunctionComponent<ObeliskParams> = ({
 
       {isFocusedOnObelisk && (
         <>
-          <ObeliskContent>{children}</ObeliskContent>
           <ObeliskButton onClick={stopFocusObelisk} icon='close.svg' />
         </>
-      )} */}
+      )}
     </group>
   );
 };
@@ -215,16 +214,11 @@ const ObeliskContent: React.FunctionComponent<ObeliskContent> = ({
   children,
 }) => {
   return (
-    <Html
-      transform
-      position={[0, 0, 0.15]}
-      center
-      className='w-24 h-48 text-white'
-    >
+    <Html3D position={[0, 0, 0.15]} className='w-24 h-48 text-white'>
       <div className='origin-top-left scale-50 w-48 h-96 overflow-y-auto text-xs'>
         {children}
       </div>
-    </Html>
+    </Html3D>
   );
 };
 

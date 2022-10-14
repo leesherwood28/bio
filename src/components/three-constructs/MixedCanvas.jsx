@@ -1,9 +1,8 @@
 // TODO, rework from https://codesandbox.io/s/two-r3f-renderers-share-scene-and-camera-qq1zl?file=/src/App.js
 
 import * as React from "react";
-import ReactDOM from "react-dom";
 import { Canvas, useThree, useFrame, extend } from "@react-three/fiber";
-
+import { createRoot } from 'react-dom/client';
 
 import {   CSS3DObject as Css3DObject,
   CSS3DSprite as Css3DSprite } from 'three/examples/jsm/renderers/CSS3DRenderer';
@@ -50,7 +49,8 @@ export const Html3D = React.forwardRef(
       []
     );
     React.useEffect(() => {
-      ReactDOM.render(children, root);
+      const reactRoot = createRoot(root);
+      reactRoot.render(children);
       const resizeObserver = new ResizeObserver((entries) => {
         for (let i = 0; i !== entries.length; i++) {
           const target = entries[i].target;
