@@ -13,6 +13,7 @@ import Orbit from './dev/Orbit';
 import JoystickInput from './input/JoystickInput';
 import KeyboardInput from './input/KeyboardInput';
 import GameCamera from './game/GameCamera';
+import CSS3DSceneRenderer from './rendering/CSS3DSceneRenderer';
 
 const Game: React.FunctionComponent = () => {
   return (
@@ -23,12 +24,12 @@ const Game: React.FunctionComponent = () => {
         shadows={{ type: PCFSoftShadowMap }}
         style={{ background: 'black' }}
       >
+        <CSS3DSceneRenderer />
         <Physics />
         <Player />
         <Ground />
         <Sheild />
         <ambientLight intensity={0.6} />
-
         <Stars />
         <BlackHole />
         <Foliage />
