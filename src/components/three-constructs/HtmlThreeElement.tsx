@@ -6,7 +6,14 @@ import {
   ReactThreeFiber,
   useThree,
 } from '@react-three/fiber';
-import { NoBlending, Object3D } from 'three';
+import {
+  BoxGeometry,
+  Color,
+  Mesh,
+  MeshBasicMaterial,
+  NoBlending,
+  Object3D,
+} from 'three';
 import { useEffect, useRef } from 'react';
 import { isNil } from '../../functions/is-nil.fn';
 
@@ -28,24 +35,27 @@ const HtmlThreeElement: React.FunctionComponent<
     if (isNil(objectRef.current)) {
       return;
     }
-    const element = document.createElement('button');
+    const element = document.createElement('div');
+    element.style.transform = 'scale3d(0.00625, 0.00625, 0.00625)';
     element.style.width = width + 'px';
     element.style.height = height + 'px';
-
-    element.style.boxSizing = 'border-box';
+    element.style.backgroundColor = 'red';
     element.textContent = 'testing element';
-    element.style.transform = 'translate(100px, 100px)';
-    element.style.fontSize = '200px';
+
     const css3d = new CSS3DObject(element);
     objectRef.current.add(css3d);
+
+    // test 2
+    // const obj = makeElementObject('button', 10, 10);
+    // scene.add(obj);
   }, [objectRef, scene]);
 
   return (
     <object3D ref={objectRef} {...params}>
-      <cSS3DObject attach='css3dObject'></cSS3DObject>
+      {/* <cSS3DObject attach='css3dObject'></cSS3DObject> */}
 
       <mesh>
-        {/* <boxGeometry args={[width, height]} /> */}
+        <boxGeometry args={[width, height]} />
         <meshBasicMaterial opacity={0.4} transparent color={'white'} />
       </mesh>
     </object3D>

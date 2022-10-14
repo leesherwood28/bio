@@ -45,8 +45,8 @@ const CSS3DSceneRenderer: React.FunctionComponent = () => {
     document
       .querySelector('#game-container')
       ?.appendChild(css3dRenderer.domElement);
-    const element = makeElementObject('button', 75, 20);
-    scene.add(element);
+    // const element = makeElementObject('button', 75, 20);
+    // scene.add(element);
   }, []);
   return null;
 };
