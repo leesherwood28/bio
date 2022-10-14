@@ -1,5 +1,10 @@
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
-import { extend, Object3DNode, ReactThreeFiber } from '@react-three/fiber';
+import {
+  extend,
+  Object3DNode,
+  Object3DProps,
+  ReactThreeFiber,
+} from '@react-three/fiber';
 import { NoBlending } from 'three';
 
 extend({ CSS3DObject });
@@ -9,10 +14,9 @@ interface HtmlThreeElementParams {
   height: number;
 }
 
-const HtmlThreeElement: React.FunctionComponent<HtmlThreeElementParams> = ({
-  width,
-  height,
-}) => {
+const HtmlThreeElement: React.FunctionComponent<
+  HtmlThreeElementParams & Object3DProps
+> = ({ width, height, ...params }) => {
   const element = document.createElement('button');
   element.style.width = width + 'px';
   element.style.height = height + 'px';
@@ -21,7 +25,7 @@ const HtmlThreeElement: React.FunctionComponent<HtmlThreeElementParams> = ({
   element.textContent = 'testing';
 
   return (
-    <object3D>
+    <object3D {...params}>
       <css3DObject element={element}></css3DObject>
 
       <mesh>
