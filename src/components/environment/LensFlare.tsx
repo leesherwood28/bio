@@ -9,13 +9,6 @@ import { isNil } from '../../functions/is-nil.fn';
 
 extend({ Lensflare, LensflareElement });
 
-declare module '@react-three/fiber' {
-  interface ThreeElements {
-    lensflare: Object3DNode<Lensflare, typeof Lensflare>;
-    lensflareElement: Object3DNode<LensflareElement, typeof LensflareElement>;
-  }
-}
-
 export interface LensFlareArguments {
   position: ReactThreeFiber.Vector3;
 }
