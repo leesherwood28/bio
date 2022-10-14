@@ -1,5 +1,6 @@
+import { animated, useSpring } from '@react-spring/web';
 import { Center, Html, Text3D } from '@react-three/drei';
-import { ThreeEvent, useFrame } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 import Image from 'next/image';
 import { MouseEventHandler, useCallback, useState } from 'react';
 import { Euler, Vector3 } from 'three';
@@ -11,9 +12,7 @@ import { usePlayerStore } from '../../store/player.store';
 import Experience from '../bio/Experience';
 import Intro from '../bio/Intro';
 import Skills from '../bio/Skills';
-import { animated, useSpring } from '@react-spring/web';
 import HtmlThreeElement from '../three-constructs/HtmlThreeElement';
-import { Html3D } from '../three-constructs/MixedCanvas';
 
 const OBELISK_HEIGHT = 5;
 const OBELISK_WIDTH = 2.8;
@@ -214,11 +213,11 @@ const ObeliskContent: React.FunctionComponent<ObeliskContent> = ({
   children,
 }) => {
   return (
-    <Html3D className='w-24 h-48 text-white'>
+    <HtmlThreeElement>
       <div className='origin-top-left scale-50 w-48 h-96 overflow-y-auto text-xs'>
         {children}
       </div>
-    </Html3D>
+    </HtmlThreeElement>
   );
 };
 
