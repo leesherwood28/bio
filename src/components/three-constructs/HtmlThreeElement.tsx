@@ -36,11 +36,13 @@ const HtmlThreeElement: React.FunctionComponent<
       return;
     }
     const element = document.createElement('div');
+    const innerEl = document.createElement('div');
+    element.append(innerEl);
     element.style.transform = 'scale3d(0.00625, 0.00625, 0.00625)';
     element.style.width = width + 'px';
     element.style.height = height + 'px';
     element.style.backgroundColor = 'red';
-    element.textContent = 'testing element';
+    innerEl.textContent = 'hello';
 
     const css3d = new CSS3DObject(element);
     objectRef.current.add(css3d);
