@@ -13,7 +13,7 @@ import Orbit from './dev/Orbit';
 import JoystickInput from './input/JoystickInput';
 import KeyboardInput from './input/KeyboardInput';
 import GameCamera from './game/GameCamera';
-import CSS3DSceneRenderer from './rendering/CSS3DSceneRenderer';
+import CSS3DSceneRenderer from './three-constructs/CSS3DSceneRenderer';
 
 const Game: React.FunctionComponent = () => {
   return (

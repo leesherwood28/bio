@@ -170,16 +170,18 @@ const JoystickInput: React.FunctionComponent = () => {
   }, [handleJoystickEnd]);
 
   return (
-    !isPlayerPaused && (
-      <div className='absolute md:hidden bottom-20 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full bg-slate-500 opacity-50 flex items-center justify-center'>
-        <button
-          ref={joystickRef}
-          onTouchStart={handleJoystickStart}
-          onMouseDown={handleJoystickStart}
-          className='bg-black w-16 h-16 rounded-full cursor-move focus:outline-none'
-        ></button>
-      </div>
-    )
+    <>
+      {!isPlayerPaused && (
+        <div className='absolute md:hidden bottom-20 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full bg-slate-500 opacity-50 flex items-center justify-center'>
+          <button
+            ref={joystickRef}
+            onTouchStart={handleJoystickStart}
+            onMouseDown={handleJoystickStart}
+            className='bg-black w-16 h-16 rounded-full cursor-move focus:outline-none'
+          ></button>
+        </div>
+      )}
+    </>
   );
 };
 
