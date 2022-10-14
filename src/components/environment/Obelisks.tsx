@@ -12,6 +12,7 @@ import Experience from '../bio/Experience';
 import Intro from '../bio/Intro';
 import Skills from '../bio/Skills';
 import { animated, useSpring } from '@react-spring/web';
+import HtmlThreeElement from '../three-constructs/HtmlThreeElement';
 
 const OBELISK_HEIGHT = 5;
 const OBELISK_WIDTH = 2.8;
@@ -152,6 +153,8 @@ const Obelisk: React.FunctionComponent<ObeliskParams> = ({
     <group position={position} rotation={rotation}>
       <ObeliskBlock />
       <ObeliskTitle title={title} />
+
+      <HtmlThreeElement width={20} height={20} />
 
       {isLookingAtObelisk && (
         <>

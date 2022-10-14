@@ -26,7 +26,7 @@ const HtmlThreeElement: React.FunctionComponent<
 
   return (
     <object3D {...params}>
-      <css3DObject element={element}></css3DObject>
+      <cSS3DObject element={element}></cSS3DObject>
 
       <mesh>
         <boxGeometry args={[width, height]} />

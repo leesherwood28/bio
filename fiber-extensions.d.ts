@@ -9,6 +9,6 @@ declare module '@react-three/fiber' {
   interface ThreeElements {
     lensflare: Object3DNode<Lensflare, typeof Lensflare>;
     lensflareElement: Object3DNode<LensflareElement, typeof LensflareElement>;
-    css3DObject: Object3DNode<CSS3DObject, typeof CSS3DObject>;
+    cSS3DObject: Object3DNode<CSS3DObject, typeof CSS3DObject>;
   }
 }
