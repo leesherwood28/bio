@@ -2,27 +2,15 @@
 
 import * as React from "react";
 import ReactDOM from "react-dom";
-import { Canvas, useThree, useFrame, extend } from "react-three-fiber";
-import {
-  Canvas as CanvasCSS,
-  useFrame as useFrameCSS
-} from "react-three-fiber/css3d";
-import {
-  CSS3DObject as Css3DObject,
-  CSS3DSprite as Css3DSprite
-} from "three/examples/jsm/renderers/CSS3DRenderer";
+import { Canvas, useThree, useFrame, extend } from "@react-three/fiber";
+
+
+import {   CSS3DObject as Css3DObject,
+  CSS3DSprite as Css3DSprite } from 'three/examples/jsm/renderers/CSS3DRenderer';
+
 import * as THREE from "three";
 
-//example code section
-import { animated, useSpring } from "@react-spring/three";
-import {
-  animated as animatedDOM,
-  useSpring as useSpringDOM
-} from "react-spring";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-extend({ OrbitControls });
 
-//end example code section
 
 extend({ Css3DObject, Css3DSprite });
 
@@ -38,18 +26,6 @@ const useMixedCanvasContext = () =>
   null);
 
 const resizeMap = new WeakMap();
-const resizeObserver = new ResizeObserver((entries) => {
-  for (let i = 0; i !== entries.length; i++) {
-    const target = entries[i].target;
-    let offsets = resizeMap.get(target);
-    if (!offsets) {
-      offsets = {};
-      resizeMap.set(target, offsets);
-    }
-    offsets.width = target.offsetWidth;
-    offsets.height = target.offsetHeight;
-  }
-});
 
 
 export const Html3D = React.forwardRef(
@@ -75,6 +51,19 @@ export const Html3D = React.forwardRef(
     );
     React.useEffect(() => {
       ReactDOM.render(children, root);
+      const resizeObserver = new ResizeObserver((entries) => {
+        for (let i = 0; i !== entries.length; i++) {
+          const target = entries[i].target;
+          let offsets = resizeMap.get(target);
+          if (!offsets) {
+            offsets = {};
+            resizeMap.set(target, offsets);
+          }
+          offsets.width = target.offsetWidth;
+          offsets.height = target.offsetHeight;
+        }
+      });
+      
       resizeObserver.observe(root);
       return () => resizeObserver.unobserve(root);
     }, [children, root]);
@@ -175,7 +164,7 @@ export function MixedCanvas({ children, scaleFactor = 160, cssProps = {}, ...pro
         </MixedCanvasProvider>
       </Canvas>
       {canvasState && (
-        <CanvasCSS
+        <Canvas
           {...cssProps}
           style={{
             position: "absolute",
@@ -185,13 +174,13 @@ export function MixedCanvas({ children, scaleFactor = 160, cssProps = {}, ...pro
           }}
         >
           <RenderCSS scaleFactor={scaleFactor} {...canvasState} />
-        </CanvasCSS>
+        </Canvas>
       )}
     </>
   );
 }
 
 function RenderCSS({ scene, camera, scaleFactor }) {
-  useFrameCSS(({ gl: css3d }) => css3d.render(scene, camera), 1);
+  useFrame(({ gl: css3d }) => css3d.render(scene, camera), 1);
   return null;
 }
