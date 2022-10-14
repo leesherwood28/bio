@@ -151,10 +151,10 @@ const Obelisk: React.FunctionComponent<ObeliskParams> = ({
 
   return (
     <group position={position} rotation={rotation}>
-      <ObeliskBlock />
+      <HtmlThreeElement width={2} height={5} />
+      {/* <ObeliskBlock />
       <ObeliskTitle title={title} />
 
-      <HtmlThreeElement width={20} height={20} />
 
       {isLookingAtObelisk && (
         <>
@@ -167,7 +167,7 @@ const Obelisk: React.FunctionComponent<ObeliskParams> = ({
           <ObeliskContent>{children}</ObeliskContent>
           <ObeliskButton onClick={stopFocusObelisk} icon='close.svg' />
         </>
-      )}
+      )} */}
     </group>
   );
 };

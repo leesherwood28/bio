@@ -17,7 +17,7 @@ import CSS3DSceneRenderer from './three-constructs/CSS3DSceneRenderer';
 
 const Game: React.FunctionComponent = () => {
   return (
-    <>
+    <div id='game-container' className='w-full h-full'>
       <Canvas
         className='w-full h-full'
         camera={{ far: 5000 }}
@@ -44,7 +44,7 @@ const Game: React.FunctionComponent = () => {
       </Canvas>
       <KeyboardInput />
       <JoystickInput />
-    </>
+    </div>
   );
 };
 
