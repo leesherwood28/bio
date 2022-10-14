@@ -13,18 +13,19 @@ import Orbit from './dev/Orbit';
 import JoystickInput from './input/JoystickInput';
 import KeyboardInput from './input/KeyboardInput';
 import GameCamera from './game/GameCamera';
-import CSS3DSceneRenderer from './three-constructs/CSS3DSceneRenderer';
+import { MixedCanvas } from './three-constructs/MixedCanvas';
+
+import {} from '@react-three/fiber';
 
 const Game: React.FunctionComponent = () => {
   return (
     <div id='game-container' className='w-full h-full'>
-      <Canvas
+      <MixedCanvas
         className='w-full h-full'
         camera={{ far: 5000 }}
         shadows={{ type: PCFSoftShadowMap }}
         style={{ background: 'black' }}
       >
-        <CSS3DSceneRenderer />
         <Physics />
         <Player />
         <Ground />
@@ -41,7 +42,7 @@ const Game: React.FunctionComponent = () => {
         <Obelisks />
         {/* <Stats /> */}
         <Orbit />
-      </Canvas>
+      </MixedCanvas>
       <KeyboardInput />
       <JoystickInput />
     </div>
