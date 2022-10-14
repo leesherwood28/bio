@@ -59,7 +59,6 @@ const Game: React.FunctionComponent = () => {
         style={{ background: 'black' }}
       >
         |
-        <CSS3DSceneRenderer />
         <Physics />
         <Player />
         <Ground />
