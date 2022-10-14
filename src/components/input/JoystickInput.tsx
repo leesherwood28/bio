@@ -3,6 +3,7 @@ import { Vector2 } from 'three';
 import { isNil } from '../../functions/is-nil.fn';
 import { Input } from '../../models/input.model';
 import { useInputStore } from '../../store/input.store';
+import { usePlayerStore } from '../../store/player.store';
 
 interface JoystickMovement {
   x: number;
@@ -70,6 +71,7 @@ const reduceJoystickSidewaysMovement = (movement: number): number => {
 
 const JoystickInput: React.FunctionComponent = () => {
   const setInput = useInputStore((s) => s.setInput);
+  const isPlayerPaused = usePlayerStore((s) => s.isPaused);
 
   const joystickRef = useRef<HTMLButtonElement>(null);
   const stateRef = useRef<State>({ isMoving: false, startPosition: null });
@@ -168,14 +170,16 @@ const JoystickInput: React.FunctionComponent = () => {
   }, [handleJoystickEnd]);
 
   return (
-    <div className='absolute md:hidden bottom-20 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full bg-slate-500 opacity-50 flex items-center justify-center'>
-      <button
-        ref={joystickRef}
-        onTouchStart={handleJoystickStart}
-        onMouseDown={handleJoystickStart}
-        className='bg-black w-16 h-16 rounded-full cursor-move focus:outline-none'
-      ></button>
-    </div>
+    !isPlayerPaused && (
+      <div className='absolute md:hidden bottom-20 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full bg-slate-500 opacity-50 flex items-center justify-center'>
+        <button
+          ref={joystickRef}
+          onTouchStart={handleJoystickStart}
+          onMouseDown={handleJoystickStart}
+          className='bg-black w-16 h-16 rounded-full cursor-move focus:outline-none'
+        ></button>
+      </div>
+    )
   );
 };
 
