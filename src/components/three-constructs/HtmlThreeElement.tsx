@@ -65,11 +65,11 @@ const HtmlThreeElement: React.FunctionComponent<
     <>
       <object3D ref={objectRef} {...params}>
         <mesh>
-          <boxGeometry args={[width, height, 1]} />
-          <meshPhongMaterial
-            opacity={0.15}
+          <boxGeometry args={[width, height, 0.0001]} />
+          <meshBasicMaterial
+            opacity={0.1}
             color={0x111111}
-            transparent
+            transparent={true}
             blending={NoBlending}
           />
         </mesh>
