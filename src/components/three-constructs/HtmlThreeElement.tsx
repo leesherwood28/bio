@@ -31,6 +31,7 @@ const HtmlThreeElement: React.FunctionComponent<
   HtmlThreeElementParams & Object3DProps
 > = ({ width, height, children, ...params }) => {
   const [el] = useState(() => document.createElement('div'));
+
   const root = useRef<Root>();
   const objectRef = useRef<Object3D<Event>>(null);
   const { scene } = useThree();
@@ -39,12 +40,17 @@ const HtmlThreeElement: React.FunctionComponent<
     if (isNil(objectRef.current)) {
       return;
     }
+
     el.style.width = width + 'px';
     el.style.height = height + 'px';
-    el.style.transform = 'scale3d(0.00625, 0.00625, 0.00625)';
-    root.current = createRoot(el);
     const css3d = new CSS3DObject(el);
     objectRef.current.add(css3d);
+
+    const child = document.createElement('div');
+    el.append(child);
+    child.style.transform = 'scale3d(0.00625, 0.00625, 0.00625)';
+    child.style.transformOrigin = 'top';
+    root.current = createRoot(child);
 
     return () => {
       root.current?.unmount();
