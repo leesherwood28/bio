@@ -51,9 +51,9 @@ class DualRenderer implements Renderer {
 
 const Game: React.FunctionComponent = () => {
   return (
-    <div id='game-container' className='w-full h-full'>
+    <div id='game-container' className='w-full h-full relative'>
       <Canvas
-        className='w-full h-full'
+        className='w-full h-full absolute inset-0'
         camera={{ far: 5000 }}
         shadows={{ type: PCFSoftShadowMap }}
         style={{ background: 'black' }}
