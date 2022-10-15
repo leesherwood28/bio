@@ -58,7 +58,7 @@ const Game: React.FunctionComponent = () => {
         shadows={{ type: PCFSoftShadowMap }}
         style={{ background: 'black' }}
       >
-        |
+        <CSS3DSceneRenderer />
         <Physics />
         <Player />
         <Ground />
