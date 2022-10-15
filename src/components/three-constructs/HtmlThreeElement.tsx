@@ -64,11 +64,8 @@ const HtmlThreeElement: React.FunctionComponent<
   return (
     <>
       <object3D ref={objectRef} {...params}>
-        {/* <cSS3DObject attach='css3dObject'></cSS3DObject> */}
-
         <mesh>
           <boxGeometry args={[width, height]} />
-          <meshBasicMaterial opacity={0.4} transparent color={'white'} />
         </mesh>
       </object3D>
     </>

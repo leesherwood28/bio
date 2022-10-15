@@ -27,6 +27,7 @@ const CSS3DSceneRenderer: React.FunctionComponent = () => {
   }, []);
 
   useFrame(() => {
+    camera.updateMatrixWorld();
     css3dRenderer.render(scene, camera);
   });
 
