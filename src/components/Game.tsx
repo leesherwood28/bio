@@ -56,7 +56,6 @@ const Game: React.FunctionComponent = () => {
         className='w-full h-full absolute inset-0'
         camera={{ far: 5000 }}
         shadows={{ type: PCFSoftShadowMap }}
-        style={{ background: 'black' }}
       >
         <CSS3DSceneRenderer />
         <Physics />
