@@ -65,7 +65,7 @@ const HtmlThreeElement: React.FunctionComponent<
     <>
       <object3D ref={objectRef} {...params}>
         <mesh>
-          <boxGeometry args={[width, height]} />
+          <planeGeometry args={[width, height]} />
           <meshPhongMaterial
             color={0x111111}
             blending={NoBlending}
