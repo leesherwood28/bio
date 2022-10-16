@@ -215,7 +215,7 @@ const ObeliskContent: React.FunctionComponent<ObeliskContent> = ({
 }) => {
   return (
     <HtmlThreeElement height={5} width={2} position={[0, 0, 0.15]}>
-      {children}
+      <div className='w-full h-full bg-black text-white'>{children}</div>
     </HtmlThreeElement>
   );
 };
