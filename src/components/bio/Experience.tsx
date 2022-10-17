@@ -204,7 +204,7 @@ const Experience: React.FunctionComponent = () => {
           animations:
           <a
             href='https://stackblitz.com/edit/angular-hmvgzg?file=src/app/swiper-tabs/swiper-tab-group/swiper-tab-group.component.ts'
-            className='link'
+            className='underline text-blue-600 hover:text-blue-800 visited:text-purple-600 '
             target='_blank'
           >
             Stack Blitz Link
