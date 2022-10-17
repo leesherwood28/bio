@@ -8,7 +8,7 @@ extend({ CSS3DObject });
 
 interface HtmlThreeElementParams {
   children: React.ReactNode;
-  scaler: number;
+  scaler?: number;
 }
 
 const HtmlThreeElement: React.FunctionComponent<

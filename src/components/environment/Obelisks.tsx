@@ -12,7 +12,6 @@ import { usePlayerStore } from '../../store/player.store';
 import Experience from '../bio/Experience';
 import Intro from '../bio/Intro';
 import Skills from '../bio/Skills';
-import CSS3DSceneRenderer from '../three-constructs/CSS3DSceneRenderer';
 import HtmlThreeElement from '../three-constructs/HtmlThreeElement';
 
 const OBELISK_HEIGHT = 5;
@@ -210,12 +209,22 @@ interface ObeliskContent {
   children: React.ReactNode;
 }
 
+const contentScaler = 160;
+
 const ObeliskContent: React.FunctionComponent<ObeliskContent> = ({
   children,
 }) => {
   return (
-    <HtmlThreeElement height={5} width={2} position={[0, 0, 0.15]}>
-      <div className='w-full h-full bg-black text-white'>{children}</div>
+    <HtmlThreeElement scaler={contentScaler} position={[0, 0, 0.15]}>
+      <div
+        style={{
+          width: OBELISK_WIDTH * contentScaler,
+          height: OBELISK_HEIGHT * contentScaler,
+        }}
+        className='bg-black text-white'
+      >
+        {children}
+      </div>
     </HtmlThreeElement>
   );
 };
