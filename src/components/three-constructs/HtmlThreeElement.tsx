@@ -49,7 +49,9 @@ const HtmlThreeElement: React.FunctionComponent<
     const child = document.createElement('div');
     el.append(child);
     child.style.transform = 'scale3d(0.00625, 0.00625, 0.00625)';
-    child.style.transformOrigin = 'top';
+    // child.style.height = 160 * height + 'px';
+    child.style.width = 160 * width + 'px';
+    child.style.transformOrigin = 'left top';
     root.current = createRoot(child);
 
     return () => {
