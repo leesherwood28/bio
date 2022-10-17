@@ -56,6 +56,34 @@ const Intro: React.FunctionComponent = () => {
       </div>
 
       <h2 className='text-deep-gray'>About Me</h2>
+
+      <p className='text-sm mb-8'>
+        Hello I'm Lee. A freelance Front End Developer based in Dorset.
+        <br />
+        <br />
+        I specialise in Angular, but I have full stack experience with a range
+        of different technologies for creating modern applications.
+        <br />
+        <br />I am fortunate to work in a field I am passionate about,
+        programming is a job and a hobby.
+      </p>
+
+      <h2 className='text-deep-gray'>Coding Philosophies</h2>
+      <ul className='list-disc text-left'>
+        <li>
+          <b>I Always try to learn new skills:</b> Dont get stuck in old
+          patterns/ ways of thinking.
+        </li>
+        <li>
+          <b>I try to Keep up to date with new technologies and innovations</b>:
+          Creating feature rich applications is becoming faster and easier than
+          ever before.
+        </li>
+        <li>
+          <b>I Prioritise code readability:</b> It may be the the most important
+          coding standard in my opinion.
+        </li>
+      </ul>
     </div>
   );
 };
