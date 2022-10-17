@@ -26,7 +26,10 @@ const DualRenderer = function (canvas: HTMLCanvasElement) {
   //@ts-ignore
   this.cssRenderer.setSize(window.innerWidth, window.innerHeight);
   //@ts-ignore
-  canvas.parentElement?.prepend(this.cssRenderer.domElement);
+  document
+    .getElementById('game-container')
+    //@ts-ignore
+    ?.prepend(this.cssRenderer.domElement);
 
   //@ts-ignore
   const currentRender = this.render.bind(this);
