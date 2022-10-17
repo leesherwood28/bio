@@ -221,7 +221,7 @@ const ObeliskContent: React.FunctionComponent<ObeliskContent> = ({
           width: OBELISK_WIDTH * contentScaler,
           height: OBELISK_HEIGHT * contentScaler,
         }}
-        className='bg-black text-white overflow-y-auto'
+        className='bg-black text-white overflow-y-auto p-4'
       >
         {children}
       </div>
