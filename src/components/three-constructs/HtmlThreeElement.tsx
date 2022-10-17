@@ -1,6 +1,7 @@
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import {
   extend,
+  GroupProps,
   Object3DNode,
   Object3DProps,
   ReactThreeFiber,
@@ -28,44 +29,49 @@ interface HtmlThreeElementParams {
 }
 
 const HtmlThreeElement: React.FunctionComponent<
-  HtmlThreeElementParams & Object3DProps
+  HtmlThreeElementParams & GroupProps
 > = ({ width, height, children, ...params }) => {
-  const [el] = useState(() => document.createElement('div'));
+  const rootEl = useMemo(() => document.createElement('div'), []);
+  const root = useMemo(() => createRoot(rootEl), []);
 
-  const root = useRef<Root>();
-  const objectRef = useRef<Object3D<Event>>(null);
-  const { scene } = useThree();
+  useEffect(() => {
+    root.render(children);
+  }, [root, children]);
+  // const objectRef = useRef<Object3D<Event>>(null);
+  // const { scene } = useThree();
 
-  useLayoutEffect(() => {
-    if (isNil(objectRef.current)) {
-      return;
-    }
+  // useLayoutEffect(() => {
+  //   if (isNil(objectRef.current)) {
+  //     return;
+  //   }
 
-    el.style.width = width + 'px';
-    el.style.height = height + 'px';
-    const css3d = new CSS3DObject(el);
-    objectRef.current.add(css3d);
+  //   el.style.width = width + 'px';
+  //   el.style.height = height + 'px';
+  //   const css3d = new CSS3DObject(el);
+  //   css3d.scale = new Array(3).fill(1/ 160);
+  //   objectRef.current.add(css3d);
 
-    const child = document.createElement('div');
-    el.append(child);
-    child.style.transform = 'scale3d(0.00625, 0.00625, 0.00625)';
-    // child.style.height = 160 * height + 'px';
-    child.style.width = 160 * width + 'px';
-    child.style.transformOrigin = 'left top';
-    root.current = createRoot(child);
+  //   const child = document.createElement('div');
+  //   el.append(child);
+  //   // child.style.transform = 'scale3d(0.00625, 0.00625, 0.00625)';
+  //   // // child.style.height = 160 * height + 'px';
+  //   // child.style.width = 160 * width + 'px';
+  //   // child.style.transformOrigin = 'left top';
+  //   root.current = createRoot(child);
 
-    return () => {
-      root.current?.unmount();
-    };
-  }, [objectRef]);
-
-  useLayoutEffect(() => {
-    root.current?.render(children);
-  });
+  //   return () => {
+  //     root.current?.unmount();
+  //   };
+  // }, [objectRef]);
 
   return (
     <>
-      <object3D ref={objectRef} {...params}>
+      <group {...params}>
+        <cSS3DObject
+          args={[rootEl]}
+          scale={[1 / 160, 1 / 160, 1 / 160]}
+        ></cSS3DObject>
+
         <mesh>
           <planeGeometry args={[width, height]} />
           <meshPhongMaterial
@@ -75,7 +81,7 @@ const HtmlThreeElement: React.FunctionComponent<
             opacity={0.15}
           />
         </mesh>
-      </object3D>
+      </group>
     </>
   );
 };
