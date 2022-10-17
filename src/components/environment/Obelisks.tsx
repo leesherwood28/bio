@@ -9,6 +9,7 @@ import { WORLD } from '../../contants/world.const';
 import { isNil } from '../../functions/is-nil.fn';
 import { useCameraStore } from '../../store/camera.store';
 import { usePlayerStore } from '../../store/player.store';
+import Contact from '../bio/Contact';
 import Experience from '../bio/Experience';
 import Intro from '../bio/Intro';
 import Skills from '../bio/Skills';
@@ -41,8 +42,8 @@ const OBELISK_DEFS: ObeliskDef[] = [
     title: 'Intro',
     position: centralObeliskPosition
       .clone()
-      .applyEuler(new Euler(0, -Math.PI / 2, 0)),
-    rotation: new Euler(0, Math.PI / 2, 0),
+      .applyEuler(new Euler(0, Math.PI / 2, 0)),
+    rotation: new Euler(0, -Math.PI / 2, 0),
     component: <Intro />,
   },
   {
@@ -50,27 +51,27 @@ const OBELISK_DEFS: ObeliskDef[] = [
     title: 'Skills',
     position: centralObeliskPosition
       .clone()
-      .applyEuler(new Euler(0, -Math.PI / 4, 0)),
-    rotation: new Euler(0, (3 * Math.PI) / 4, 0),
+      .applyEuler(new Euler(0, Math.PI / 4, 0)),
+    rotation: new Euler(0, (3 * -Math.PI) / 4, 0),
     component: <Skills />,
   },
 
   {
     key: generateUUID(),
-    title: 'Tech',
+    title: 'Contact',
     position: centralObeliskPosition
       .clone()
-      .applyEuler(new Euler(0, Math.PI / 2, 0)),
-    rotation: new Euler(0, -Math.PI / 2, 0),
-    component: <Skills />,
+      .applyEuler(new Euler(0, -Math.PI / 2, 0)),
+    rotation: new Euler(0, Math.PI / 2, 0),
+    component: <Contact />,
   },
   {
     key: generateUUID(),
     title: 'Experience',
     position: centralObeliskPosition
       .clone()
-      .applyEuler(new Euler(0, Math.PI / 4, 0)),
-    rotation: new Euler(0, (3 * -Math.PI) / 4, 0),
+      .applyEuler(new Euler(0, -Math.PI / 4, 0)),
+    rotation: new Euler(0, (3 * Math.PI) / 4, 0),
     component: <Experience />,
   },
 ];

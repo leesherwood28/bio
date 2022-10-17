@@ -69,7 +69,7 @@ const Intro: React.FunctionComponent = () => {
       </p>
 
       <h2 className='text-deep-gray'>Coding Philosophies</h2>
-      <ul className='list-disc text-left'>
+      <ul className='list-disc text-left ml-4'>
         <li>
           <b>I Always try to learn new skills:</b> Dont get stuck in old
           patterns/ ways of thinking.

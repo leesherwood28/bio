@@ -41,7 +41,7 @@ const Skills: React.FunctionComponent = () => {
       </SkillChipCollection>
       <h2>Practices</h2>
       <p>I have experience with the following practises:</p>
-      <ul>
+      <ul className='list-disc text-left ml-4'>
         <li>Object Oriented Programming</li>
         <li>Functional Programming</li>
         <li>Unit Testing</li>
