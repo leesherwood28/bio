@@ -126,7 +126,8 @@ const Experience: React.FunctionComponent = () => {
         <br />I have written the front end in Ionic with the intention of the
         application being cross platform. The server is written in express JS
         and we use firestore for the data persistence, which I have found to be
-        excellent. You will find the current application at
+        excellent. You will find the current application at:
+        <br />
         <a href='https://www.brleagues.com/' className='link' target='_blank'>
           https://www.brleagues.com
         </a>
@@ -159,7 +160,8 @@ const Experience: React.FunctionComponent = () => {
         <br />
         The project has grown in scope since its origins, with my current
         intention to make it a public app for rent management. You will find the
-        current working progress at
+        current working progress at:
+        <br />
         <a href='https://landlo.web.app' className='link' target='_blank'>
           https://landlo.web.app
         </a>
@@ -178,7 +180,8 @@ const Experience: React.FunctionComponent = () => {
       <p className='mb-2'>
         This is a business site I made for my older brother for his new company.
         I wanted to both make the site SEO optimised and get some React
-        experience so I made this site with NextJs. You can view the site at
+        experience so I made this site with NextJs. You can view the site at:
+        <br />
         <a href='https://southernwalltech.com' className='link' target='_blank'>
           https://southernwalltech.com
         </a>
