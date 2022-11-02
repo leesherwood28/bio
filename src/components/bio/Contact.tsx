@@ -1,7 +1,6 @@
 const Contact: React.FunctionComponent = () => {
   return (
     <div className='flex flex-col items-center gap-4'>
-      <h2>Links</h2>
       <p>
         If you wish to contact me, my contact details are below. I have also
         linked my Github if you are interested in my code!
