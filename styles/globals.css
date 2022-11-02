@@ -11,8 +11,12 @@ body {
 }
 
 a {
-  color: inherit;
+  color: rgb(165 243 252);
   text-decoration: none;
+}
+
+a:hover {
+  color: rgb(34 211 238);
 }
 
 * {
