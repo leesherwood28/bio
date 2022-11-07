@@ -13,6 +13,7 @@ import JoystickInput from './input/JoystickInput';
 import KeyboardInput from './input/KeyboardInput';
 import Player from './player/Player';
 import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
+import { Stats } from '@react-three/drei';
 
 const DualRenderer = function (canvas: HTMLCanvasElement) {
   //@ts-ignore
@@ -75,7 +76,7 @@ const Game: React.FunctionComponent = () => {
         {/* Remove */}
         <GameCamera />
         <Obelisks />
-        {/* <Stats /> */}
+        <Stats />
         <Orbit />
       </Canvas>
       <KeyboardInput />
