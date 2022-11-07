@@ -1,21 +1,22 @@
 import { useFrame, useThree } from '@react-three/fiber';
+import { RigidBodyApi } from '@react-three/rapier';
 import { useRef } from 'react';
 import { Object3D, Vector3 } from 'three';
 import { isNil } from '../../functions/is-nil.fn';
 import { useCameraStore } from '../../store/camera.store';
 import { usePlayerStore } from '../../store/player.store';
 
-const calculateIdealOffset = (object: Object3D) => {
+const calculateIdealOffset = (object: RigidBodyApi) => {
   const idealOffset = new Vector3(-1, 2, -2.5);
-  idealOffset.applyQuaternion(object.quaternion);
-  idealOffset.add(object.position);
+  idealOffset.applyQuaternion(object.rotation());
+  idealOffset.add(object.translation());
   return idealOffset;
 };
 
-const calculateIdealLookat = (object: Object3D) => {
+const calculateIdealLookat = (object: RigidBodyApi) => {
   const idealLookat = new Vector3(0, 1, 5);
-  idealLookat.applyQuaternion(object.quaternion);
-  idealLookat.add(object.position);
+  idealLookat.applyQuaternion(object.rotation());
+  idealLookat.add(object.translation());
   return idealLookat;
 };
 
@@ -29,12 +30,12 @@ const GameCamera: React.FunctionComponent = () => {
     let { idealLookAt, idealPosition } = useCameraStore.getState();
     if (isNil(idealLookAt) || isNil(idealPosition)) {
       // By default we follow player around;
-      const playerRef = usePlayerStore.getState().playerApi?.objectRef.current;
-      if (isNil(playerRef)) {
+      const playerApi = usePlayerStore.getState().playerApi.current;
+      if (isNil(playerApi)) {
         return;
       }
-      idealPosition = calculateIdealOffset(playerRef);
-      idealLookAt = calculateIdealLookat(playerRef);
+      idealPosition = calculateIdealOffset(playerApi);
+      idealLookAt = calculateIdealLookat(playerApi);
     }
     const lerp = 1.0 - Math.pow(0.001, delta);
 

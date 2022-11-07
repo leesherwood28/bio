@@ -132,10 +132,12 @@ const Obelisk: React.FunctionComponent<ObeliskParams> = ({
   }, [position, rotation]);
 
   useFrame(() => {
-    const playerPosition =
-      usePlayerStore.getState().playerApi?.objectRef.current?.position;
-    const playerRotation =
-      usePlayerStore.getState().playerApi?.objectRef.current?.rotation;
+    const playerPosition = usePlayerStore
+      .getState()
+      .playerApi.current?.translation();
+    const playerRotation = usePlayerStore
+      .getState()
+      .playerApi.current?.rotation();
     if (isNil(playerPosition) || isNil(playerRotation)) {
       return;
     }
