@@ -1,11 +1,13 @@
-import React, { useEffect, useRef } from 'react';
-import { Group } from 'three';
+import {
+  CuboidCollider,
+  RigidBody,
+  CylinderCollider,
+} from '@react-three/rapier';
+import React from 'react';
 import { useGltfWithShadows } from '../../hooks/use-gltf-with-shadows';
-import { usePhysicsObject } from '../../hooks/use-physics-object';
 import { usePlayerStore } from '../../store/player.store';
 import PlayerCharacterStates from './PlayerCharacterStates';
 import PlayerMovement from './PlayerMovement';
-import { CuboidCollider, RigidBody, RigidBodyApi } from '@react-three/rapier';
 
 const Player: React.FunctionComponent = () => {
   const { scene, animations } = useGltfWithShadows('/player/scene.gltf');
@@ -23,8 +25,9 @@ const Player: React.FunctionComponent = () => {
         ref={playerPhysicsRef}
         friction={0}
         colliders={false}
+        enabledRotations={[0, 0, 0]}
       >
-        <CuboidCollider args={[0.4, 1, 0.4]} />
+        <CylinderCollider args={[1, 0.4]} />
         <group position={[0, -1, 0]} ref={playerObjectRef}>
           <primitive
             object={scene}
