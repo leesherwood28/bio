@@ -1,5 +1,6 @@
 import { useTexture } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
+import { RigidBody } from '@react-three/rapier';
 import { useRef } from 'react';
 import { AdditiveBlending, DoubleSide } from 'three';
 import { WORLD } from '../../contants/world.const';
@@ -58,22 +59,24 @@ const Sheild: React.FunctionComponent = () => {
   });
 
   return (
-    <mesh position={[0, 0, 0]} rotation={[0, 0, 0]}>
-      <sphereGeometry args={[WORLD.radius, 64, 64]} />
+    <RigidBody type='fixed' colliders='trimesh'>
+      <mesh position={[0, 0, 0]} rotation={[0, 0, 0]}>
+        <sphereGeometry args={[WORLD.radius, 64, 64]} />
 
-      <shaderMaterial
-        ref={textureRef}
-        vertexShader={domeVectorShader}
-        fragmentShader={domeFragmentShader}
-        blending={AdditiveBlending}
-        side={DoubleSide}
-        transparent={true}
-        uniforms={{
-          sheildTexture: { value: texture },
-          time: { value: now },
-        }}
-      />
-    </mesh>
+        <shaderMaterial
+          ref={textureRef}
+          vertexShader={domeVectorShader}
+          fragmentShader={domeFragmentShader}
+          blending={AdditiveBlending}
+          side={DoubleSide}
+          transparent={true}
+          uniforms={{
+            sheildTexture: { value: texture },
+            time: { value: now },
+          }}
+        />
+      </mesh>
+    </RigidBody>
   );
 };
 

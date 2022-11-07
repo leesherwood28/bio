@@ -69,9 +69,9 @@ const Game: React.FunctionComponent = () => {
           <Player />
           <Ground />
           <Foliage />
+          <Sheild />
           <Obelisks />
         </Physics>
-        <Sheild />
         <ambientLight intensity={0.6} />
         <Stars />
         <BlackHole />
