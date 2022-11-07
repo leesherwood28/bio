@@ -81,6 +81,8 @@ const PlayerMovement: React.FunctionComponent = () => {
     setCharacterState(mapForwardSpeedToplayerState(forwardSpeed));
   }, [controllerInput]);
 
+  console.log('here');
+
   return null;
 };
 

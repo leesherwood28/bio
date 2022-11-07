@@ -25,6 +25,9 @@ const KeyboardInput: React.FunctionComponent = () => {
   const setInput = useInputStore((s) => s.setInput);
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (e.repeat) {
+      return;
+    }
     const input = inputByKey(e.key, false);
     if (input) {
       setInput(input);
