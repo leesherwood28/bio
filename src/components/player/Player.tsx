@@ -5,7 +5,7 @@ import { usePhysicsObject } from '../../hooks/use-physics-object';
 import { usePlayerStore } from '../../store/player.store';
 import PlayerCharacterStates from './PlayerCharacterStates';
 import PlayerMovement from './PlayerMovement';
-import { RigidBody, RigidBodyApi } from '@react-three/rapier';
+import { CuboidCollider, RigidBody, RigidBodyApi } from '@react-three/rapier';
 
 const Player: React.FunctionComponent = () => {
   const { scene, animations } = useGltfWithShadows('/player/scene.gltf');
@@ -18,8 +18,14 @@ const Player: React.FunctionComponent = () => {
 
   return (
     <>
-      <RigidBody ref={playerPhysicsRef} friction={0} colliders='cuboid'>
-        <group ref={playerObjectRef} position={[0, 0, 0]}>
+      <RigidBody
+        position={[0, 1, 0]}
+        ref={playerPhysicsRef}
+        friction={0}
+        colliders={false}
+      >
+        <CuboidCollider args={[0.4, 1, 0.4]} />
+        <group position={[0, -1, 0]} ref={playerObjectRef}>
           <primitive
             object={scene}
             rotation={[0, 0, 0]}

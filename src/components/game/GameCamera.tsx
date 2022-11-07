@@ -7,7 +7,7 @@ import { useCameraStore } from '../../store/camera.store';
 import { usePlayerStore } from '../../store/player.store';
 
 const calculateIdealOffset = (object: RigidBodyApi) => {
-  const idealOffset = new Vector3(-1, 2, -2.5);
+  const idealOffset = new Vector3(-1, 1, -2.5);
   idealOffset.applyQuaternion(object.rotation());
   idealOffset.add(object.translation());
   return idealOffset;

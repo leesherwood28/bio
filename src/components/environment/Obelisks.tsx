@@ -1,6 +1,7 @@
 import { animated, useSpring } from '@react-spring/web';
 import { Center, Html, Text3D } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
+import { RigidBody } from '@react-three/rapier';
 import Image from 'next/image';
 import { MouseEventHandler, useCallback, useState } from 'react';
 import { Euler, Vector3 } from 'three';
@@ -196,15 +197,17 @@ const ObeliskTitle: React.FunctionComponent<ObeliskTitle> = ({ title }) => {
 
 const ObeliskBlock: React.FunctionComponent = () => {
   return (
-    <mesh castShadow>
-      <boxGeometry
-        args={[OBELISK_WIDTH, OBELISK_HEIGHT, OBELISK_DEPTH]}
-      ></boxGeometry>
-      <meshPhysicalMaterial
-        color={'black'}
-        clearcoat={1}
-      ></meshPhysicalMaterial>
-    </mesh>
+    <RigidBody colliders='cuboid' type='fixed'>
+      <mesh castShadow>
+        <boxGeometry
+          args={[OBELISK_WIDTH, OBELISK_HEIGHT, OBELISK_DEPTH]}
+        ></boxGeometry>
+        <meshPhysicalMaterial
+          color={'black'}
+          clearcoat={1}
+        ></meshPhysicalMaterial>
+      </mesh>
+    </RigidBody>
   );
 };
 

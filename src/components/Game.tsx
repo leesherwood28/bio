@@ -69,6 +69,7 @@ const Game: React.FunctionComponent = () => {
           <Player />
           <Ground />
           <Foliage />
+          <Obelisks />
         </Physics>
         <Sheild />
         <ambientLight intensity={0.6} />
@@ -77,7 +78,6 @@ const Game: React.FunctionComponent = () => {
         {/* <Planet /> */}
         {/* Remove */}
         <GameCamera />
-        <Obelisks />
         <Stats />
         <Orbit />
       </Canvas>
