@@ -1,5 +1,5 @@
 import { useFrame } from '@react-three/fiber';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Euler, Vector3 } from 'three';
 import { isNil } from '../../functions/is-nil.fn';
 import { useInputStore } from '../../store/input.store';
@@ -38,18 +38,27 @@ const removeBuffer = (input: number): number => {
 const PlayerMovement: React.FunctionComponent = () => {
   const setCharacterState = usePlayerStore((s) => s.setCharacterState);
   const isPaused = usePlayerStore((s) => s.isPaused);
+  const controllerInput = useInputStore((s) => s.input);
 
-  useFrame(() => {
+  useEffect(() => {
+    if (!isPaused) {
+      return;
+    }
     const playerApi = usePlayerStore.getState().playerApi;
-    const controllerInput = useInputStore.getState().input;
-
     if (isNil(playerApi.current)) {
       return;
     }
+    playerApi.current.setAngvel(new Vector3());
+    playerApi.current.setLinvel(new Vector3());
+    return;
+  }, [isPaused]);
 
+  useEffect(() => {
     if (isPaused) {
-      playerApi.current.setAngvel(new Vector3());
-      playerApi.current.setLinvel(new Vector3());
+      return;
+    }
+    const playerApi = usePlayerStore.getState().playerApi;
+    if (isNil(playerApi.current)) {
       return;
     }
 
@@ -70,7 +79,8 @@ const PlayerMovement: React.FunctionComponent = () => {
       )
     );
     setCharacterState(mapForwardSpeedToplayerState(forwardSpeed));
-  });
+  }, [controllerInput]);
+
   return null;
 };
 
