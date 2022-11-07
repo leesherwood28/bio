@@ -13,7 +13,7 @@ const Ground: React.FunctionComponent = () => {
   console.log('here');
   return (
     <>
-      <RigidBody type='fixed' colliders='cuboid'>
+      <RigidBody friction={0} type='fixed' colliders='cuboid'>
         <mesh
           receiveShadow
           rotation={[-Math.PI / 2, 0, 0]}

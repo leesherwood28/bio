@@ -18,7 +18,7 @@ const Player: React.FunctionComponent = () => {
 
   return (
     <>
-      <RigidBody ref={playerPhysicsRef}>
+      <RigidBody ref={playerPhysicsRef} friction={0} colliders='cuboid'>
         <group ref={playerObjectRef} position={[0, 0, 0]}>
           <primitive
             object={scene}
