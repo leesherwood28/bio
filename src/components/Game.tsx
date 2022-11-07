@@ -5,7 +5,6 @@ import BlackHole from './environment/BlackHole';
 import Foliage from './environment/Foliage';
 import Ground from './environment/Ground';
 import Obelisks from './environment/Obelisks';
-import Physics from './environment/Physics';
 import Sheild from './environment/Sheild';
 import Stars from './environment/Stars';
 import GameCamera from './game/GameCamera';
@@ -14,6 +13,7 @@ import KeyboardInput from './input/KeyboardInput';
 import Player from './player/Player';
 import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { Stats } from '@react-three/drei';
+import { Physics } from '@react-three/rapier';
 
 const DualRenderer = function (canvas: HTMLCanvasElement) {
   //@ts-ignore
@@ -64,14 +64,15 @@ const Game: React.FunctionComponent = () => {
         //@ts-ignore
         gl={(canvas) => new DualRenderer(canvas)}
       >
-        <Physics />
-        <Player />
-        <Ground />
+        <Physics>
+          <Player />
+          <Ground />
+          <Foliage />
+        </Physics>
         <Sheild />
         <ambientLight intensity={0.6} />
         <Stars />
         <BlackHole />
-        <Foliage />
         {/* <Planet /> */}
         {/* Remove */}
         <GameCamera />
