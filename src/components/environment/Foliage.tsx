@@ -24,7 +24,7 @@ const Foliage: React.FunctionComponent = () => {
         rigidBody
       />
 
-      <RandomFoliageSet path={'Bush'} number={5} available={2} />
+      <RandomFoliageSet path={'Bush'} number={5} available={2} rigidBody />
 
       <RandomFoliageSet
         path={'CommonTree_Autumn'}

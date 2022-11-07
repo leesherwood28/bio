@@ -64,9 +64,11 @@ const PlayerMovement: React.FunctionComponent = () => {
       forward > 0 ? SPEED_MULTIPLIER.forward : SPEED_MULTIPLIER.backward;
     const forwardSpeed = forwardMultiplier * forward;
     playerApi.current.setLinvel(
-      new Vector3(0, 0, forwardSpeed).applyQuaternion(
-        playerApi.current.rotation()
-      )
+      new Vector3(
+        0,
+        playerApi.current.linvel().y,
+        forwardSpeed
+      ).applyQuaternion(playerApi.current.rotation())
     );
     setCharacterState(mapForwardSpeedToplayerState(forwardSpeed));
   });
