@@ -1,6 +1,8 @@
 import { AnimationClip, Object3D } from 'three';
 import create from 'zustand';
 import { PhysicsApi } from '../hooks/use-physics-object';
+import { RigidBody, RigidBodyApi, RigidBodyApiRef } from '@react-three/rapier';
+import { useRef } from 'react';
 
 export type PlayerCharacterState =
   | 'running'
@@ -9,28 +11,28 @@ export type PlayerCharacterState =
   | 'walking-backwards';
 
 interface PlayerStore {
-  playerApi: PhysicsApi<Object3D> | null;
+  playerApi: RigidBodyApiRef;
   playerAnimations: AnimationClip[] | null;
   characterState: PlayerCharacterState;
   isPaused: boolean;
   isHidden: boolean;
   setIsHidden: (isHidden: boolean) => void;
   setIsPaused: (isPaused: boolean) => void;
-  setPlayerApi: (api: PhysicsApi<Object3D>) => void;
+  setPlayerApi: (api: RigidBodyApiRef) => void;
   setPlayerAnimations: (animations: AnimationClip[]) => void;
   setCharacterState: (state: PlayerCharacterState) => void;
 }
 
 export const usePlayerStore = create<PlayerStore>((set, get) => {
   return {
-    playerApi: null,
+    playerApi: useRef(null),
     playerAnimations: null,
     characterState: 'idle',
     isPaused: false,
     isHidden: false,
     setIsHidden: (isHidden) => set({ isHidden }),
     setIsPaused: (isPaused) => set({ isPaused }),
-    setPlayerApi: (api: PhysicsApi<Object3D>) =>
+    setPlayerApi: (api: RigidBodyApiRef) =>
       set((state) => ({ ...state, playerApi: api })),
 
     setPlayerAnimations: (animations: AnimationClip[]) =>
