@@ -5,6 +5,7 @@ import { usePhysicsObject } from '../../hooks/use-physics-object';
 import { usePlayerStore } from '../../store/player.store';
 import PlayerCharacterStates from './PlayerCharacterStates';
 import PlayerMovement from './PlayerMovement';
+import { RigidBody } from '@react-three/rapier';
 
 const Player: React.FunctionComponent = () => {
   const playerPhysicsApi = usePhysicsObject<Group>(1);
@@ -19,21 +20,23 @@ const Player: React.FunctionComponent = () => {
 
   return (
     <>
-      <group ref={playerPhysicsApi.objectRef} position={[0, 0, 0]}>
-        <primitive
-          object={scene}
-          rotation={[0, 0, 0]}
-          scale={[0.01, 0.01, 0.01]}
-          position={[-0.05, 2.83, 0.1]}
-          castShadow
-          receiveShadow
-          transparent={isHidden}
-          opacity={isHidden ? 0 : 1}
-        >
-          <PlayerCharacterStates />
-          <PlayerMovement />
-        </primitive>
-      </group>
+      <RigidBody>
+        <group ref={playerPhysicsApi.objectRef} position={[0, 0, 0]}>
+          <primitive
+            object={scene}
+            rotation={[0, 0, 0]}
+            scale={[0.01, 0.01, 0.01]}
+            position={[-0.05, 2.83, 0.1]}
+            castShadow
+            receiveShadow
+            transparent={isHidden}
+            opacity={isHidden ? 0 : 1}
+          >
+            <PlayerCharacterStates />
+            <PlayerMovement />
+          </primitive>
+        </group>
+      </RigidBody>
     </>
   );
 };
