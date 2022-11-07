@@ -2,7 +2,7 @@ import { AnimationClip, Object3D } from 'three';
 import create from 'zustand';
 import { PhysicsApi } from '../hooks/use-physics-object';
 import { RigidBody, RigidBodyApi, RigidBodyApiRef } from '@react-three/rapier';
-import { useRef } from 'react';
+import { createRef, useRef } from 'react';
 
 export type PlayerCharacterState =
   | 'running'
@@ -25,7 +25,7 @@ interface PlayerStore {
 
 export const usePlayerStore = create<PlayerStore>((set, get) => {
   return {
-    playerApi: useRef(null),
+    playerApi: createRef(),
     playerAnimations: null,
     characterState: 'idle',
     isPaused: false,

@@ -43,13 +43,13 @@ const PlayerMovement: React.FunctionComponent = () => {
     const playerApi = usePlayerStore.getState().playerApi;
     const controllerInput = useInputStore.getState().input;
 
-    if (isNil(playerApi)) {
+    if (isNil(playerApi.current)) {
       return;
     }
 
     if (isPaused) {
-      playerApi.setAngularVelocity(new Vector3());
-      playerApi.setVelocity(new Vector3());
+      playerApi.current.setAngvel(new Vector3());
+      playerApi.current.setLinvel(new Vector3());
       return;
     }
 
@@ -57,16 +57,16 @@ const PlayerMovement: React.FunctionComponent = () => {
     forward = removeBuffer(forward);
     sideways = removeBuffer(sideways);
 
-    playerApi.setAngularVelocity(
+    playerApi.current.setAngvel(
       new Vector3(0, -sideways * SPEED_MULTIPLIER.rotate, 0)
     );
 
     const forwardMultiplier =
       forward > 0 ? SPEED_MULTIPLIER.forward : SPEED_MULTIPLIER.backward;
     const forwardSpeed = forwardMultiplier * forward;
-    playerApi.setVelocity(
-      new Vector3(0, 0, forwardSpeed).applyEuler(
-        playerApi.objectRef.current?.rotation ?? new Euler()
+    playerApi.current.setLinvel(
+      new Vector3(0, 0, forwardSpeed).applyQuaternion(
+        playerApi.current.rotation()
       )
     );
     setCharacterState(mapForwardSpeedToplayerState(forwardSpeed));
