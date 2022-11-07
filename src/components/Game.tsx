@@ -13,7 +13,7 @@ import KeyboardInput from './input/KeyboardInput';
 import Player from './player/Player';
 import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { Stats } from '@react-three/drei';
-import { Physics } from '@react-three/rapier';
+import { Debug, Physics } from '@react-three/rapier';
 
 const DualRenderer = function (canvas: HTMLCanvasElement) {
   //@ts-ignore
@@ -65,6 +65,7 @@ const Game: React.FunctionComponent = () => {
         gl={(canvas) => new DualRenderer(canvas)}
       >
         <Physics timeStep='vary'>
+          <Debug />
           <Player />
           <Ground />
           <Foliage />
