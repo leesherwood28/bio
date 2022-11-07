@@ -8,25 +8,18 @@ import PlayerMovement from './PlayerMovement';
 import { RigidBody, RigidBodyApi } from '@react-three/rapier';
 
 const Player: React.FunctionComponent = () => {
-  const playerPhysicsApi = usePhysicsObject<Group>(1);
   const { scene, animations } = useGltfWithShadows('/player/scene.gltf');
-
-  const playerPhysicsApi2 = useRef<RigidBodyApi>(null);
-  const setPlayerApi = usePlayerStore((s) => s.setPlayerApi);
+  const playerObjectRef = usePlayerStore((s) => s.playerObjectRef);
+  const playerPhysicsRef = usePlayerStore((s) => s.playerApi);
   const setPlayerAnimations = usePlayerStore((s) => s.setPlayerAnimations);
-
   const isHidden = usePlayerStore((s) => s.isHidden);
 
   setPlayerAnimations(animations);
 
-  useEffect(() => {
-    setPlayerApi(playerPhysicsApi2);
-  }, [playerPhysicsApi2]);
-
   return (
     <>
-      <RigidBody ref={playerPhysicsApi2}>
-        <group ref={playerPhysicsApi.objectRef} position={[0, 0, 0]}>
+      <RigidBody ref={playerPhysicsRef}>
+        <group ref={playerObjectRef} position={[0, 0, 0]}>
           <primitive
             object={scene}
             rotation={[0, 0, 0]}
