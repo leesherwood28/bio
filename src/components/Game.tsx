@@ -64,7 +64,7 @@ const Game: React.FunctionComponent = () => {
         //@ts-ignore
         gl={(canvas) => new DualRenderer(canvas)}
       >
-        <Physics>
+        <Physics timeStep='vary'>
           <Player />
           <Ground />
           <Foliage />
