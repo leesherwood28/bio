@@ -25,7 +25,7 @@ const Player: React.FunctionComponent = () => {
         ref={playerPhysicsRef}
         friction={0}
         colliders={false}
-        enabledRotations={[0, 0, 0]}
+        enabledRotations={[false, false, false]}
       >
         <CylinderCollider args={[1, 0.4]} />
         <group position={[0, -1, 0]} ref={playerObjectRef}>

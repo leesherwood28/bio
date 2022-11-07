@@ -1,3 +1,4 @@
+import { RigidBody } from '@react-three/rapier';
 import { useState } from 'react';
 import { Euler, Vector3 } from 'three';
 import { generateUUID } from 'three/src/math/MathUtils';
@@ -9,19 +10,34 @@ import { useFbxWithShadows } from '../../hooks/use-fbx-with-shadows';
 const Foliage: React.FunctionComponent = () => {
   return (
     <>
-      <RandomFoliageSet path={'Willow_Autumn'} number={10} available={5} />
+      <RandomFoliageSet
+        path={'Willow_Autumn'}
+        number={10}
+        available={5}
+        rigidBody
+      />
 
-      <RandomFoliageSet path={'BirchTree_Autumn'} number={5} available={5} />
+      <RandomFoliageSet
+        path={'BirchTree_Autumn'}
+        number={5}
+        available={5}
+        rigidBody
+      />
 
       <RandomFoliageSet path={'Bush'} number={5} available={2} />
 
-      <RandomFoliageSet path={'CommonTree_Autumn'} number={5} available={5} />
+      <RandomFoliageSet
+        path={'CommonTree_Autumn'}
+        number={5}
+        available={5}
+        rigidBody
+      />
 
       <RandomFoliageSet path={'Corn'} number={5} available={2} />
 
-      <RandomFoliageSet path={'Rock'} number={5} available={7} />
+      <RandomFoliageSet path={'Rock'} number={5} available={7} rigidBody />
 
-      <RandomFoliageSet path={'Rock_Moss'} number={5} available={7} />
+      <RandomFoliageSet path={'Rock_Moss'} number={5} available={7} rigidBody />
 
       <RandomFoliageSet path={'Plant'} number={50} available={5} />
 
@@ -36,6 +52,7 @@ interface FoilageSetParams {
   path: string;
   number: number;
   available: number;
+  rigidBody?: boolean;
 }
 
 const randomFoliageDistanceGen = (): number => {
@@ -49,6 +66,7 @@ const RandomFoliageSet: React.FunctionComponent<FoilageSetParams> = ({
   path,
   available,
   number,
+  rigidBody,
 }) => {
   const [foilage] = useState<FoilageItem[]>(() => {
     return Array.from({ length: number }).map((_, i) => {
@@ -67,7 +85,7 @@ const RandomFoliageSet: React.FunctionComponent<FoilageSetParams> = ({
         id: generateUUID(),
         path: `/foilage/${path}_${randomIndex}.fbx`,
         position: position,
-        radius: 1,
+        rigidBody: rigidBody,
       };
       return foilageItem;
     });
@@ -86,17 +104,30 @@ interface FoilageItem {
   id: string;
   path: string;
   position: Vector3;
-  radius: number;
+  rigidBody?: boolean;
 }
 
 const FoilageItem: React.FunctionComponent<FoilageItem> = ({
   path,
   position,
-  radius,
+  rigidBody,
 }) => {
   const foilage = useFbxWithShadows(path).clone();
 
-  return <primitive scale={0.02} object={foilage} position={position} />;
+  const primitive = (
+    <primitive scale={0.02} object={foilage} position={position} />
+  );
+  return (
+    <>
+      {rigidBody ? (
+        <RigidBody type='fixed' colliders='hull'>
+          {primitive}
+        </RigidBody>
+      ) : (
+        primitive
+      )}
+    </>
+  );
 };
 
 export default Foliage;
