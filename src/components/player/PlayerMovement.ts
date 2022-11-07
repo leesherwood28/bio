@@ -37,28 +37,18 @@ const removeBuffer = (input: number): number => {
 
 const PlayerMovement: React.FunctionComponent = () => {
   const setCharacterState = usePlayerStore((s) => s.setCharacterState);
-  const isPaused = usePlayerStore((s) => s.isPaused);
-  const controllerInput = useInputStore((s) => s.input);
 
-  useEffect(() => {
-    if (!isPaused) {
-      return;
-    }
+  useFrame(() => {
     const playerApi = usePlayerStore.getState().playerApi;
     if (isNil(playerApi.current)) {
       return;
     }
-    playerApi.current.setAngvel(new Vector3());
-    playerApi.current.setLinvel(new Vector3());
-    return;
-  }, [isPaused]);
+    const isPaused = usePlayerStore.getState().isPaused;
+    const controllerInput = useInputStore.getState().input;
 
-  useEffect(() => {
     if (isPaused) {
-      return;
-    }
-    const playerApi = usePlayerStore.getState().playerApi;
-    if (isNil(playerApi.current)) {
+      playerApi.current.setAngvel(new Vector3());
+      playerApi.current.setLinvel(new Vector3());
       return;
     }
 
@@ -79,9 +69,7 @@ const PlayerMovement: React.FunctionComponent = () => {
       )
     );
     setCharacterState(mapForwardSpeedToplayerState(forwardSpeed));
-  }, [controllerInput]);
-
-  console.log('here');
+  });
 
   return null;
 };
