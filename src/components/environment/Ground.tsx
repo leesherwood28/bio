@@ -1,7 +1,7 @@
 import { useTexture } from '@react-three/drei';
 import { RepeatWrapping, NearestFilter } from 'three';
 import { WORLD } from '../../contants/world.const';
-import { RigidBody } from '@react-three/rapier';
+import { CuboidCollider, RigidBody } from '@react-three/rapier';
 
 const Ground: React.FunctionComponent = () => {
   const grassTexture = useTexture('/ground/grass.jpg');
@@ -13,7 +13,8 @@ const Ground: React.FunctionComponent = () => {
   console.log('here');
   return (
     <>
-      <RigidBody friction={0} type='fixed' colliders='cuboid'>
+      <RigidBody friction={0} type='fixed' colliders={false}>
+        <CuboidCollider args={[WORLD.radius, 1, WORLD.radius]} />
         <mesh
           receiveShadow
           rotation={[-Math.PI / 2, 0, 0]}
