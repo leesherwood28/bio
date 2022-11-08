@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 const Skills: React.FunctionComponent = () => {
   return (
-    <div className='text-center flex flex-col items-center gap-2'>
+    <div className='text-center flex flex-col items-center gap-4'>
       <h2>Web Technologies</h2>
       <p>I have good experience with the following web technologies:</p>
       <SkillChipCollection>
