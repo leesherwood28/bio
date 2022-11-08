@@ -10,6 +10,7 @@ const Contact: React.FunctionComponent = () => {
           <a
             className='link'
             target='_blank'
+            rel='noreferrer'
             href='https://www.linkedin.com/in/lee-sherwood-b93807ba'
           >
             LinkedIn

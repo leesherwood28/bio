@@ -128,7 +128,12 @@ const Experience: React.FunctionComponent = () => {
         and we use firestore for the data persistence, which I have found to be
         excellent. You will find the current application at:
         <br />
-        <a href='https://www.brleagues.com/' className='link' target='_blank'>
+        <a
+          href='https://www.brleagues.com/'
+          className='link'
+          target='_blank'
+          rel='noreferrer'
+        >
           https://www.brleagues.com
         </a>
         .
@@ -162,7 +167,12 @@ const Experience: React.FunctionComponent = () => {
         intention to make it a public app for rent management. You will find the
         current working progress at:
         <br />
-        <a href='https://landlo.web.app' className='link' target='_blank'>
+        <a
+          href='https://landlo.web.app'
+          className='link'
+          target='_blank'
+          rel='noreferrer'
+        >
           https://landlo.web.app
         </a>
         .
@@ -182,7 +192,12 @@ const Experience: React.FunctionComponent = () => {
         I wanted to both make the site SEO optimised and get some React
         experience so I made this site with NextJs. You can view the site at:
         <br />
-        <a href='https://southernwalltech.com' className='link' target='_blank'>
+        <a
+          href='https://southernwalltech.com'
+          className='link'
+          target='_blank'
+          rel='noreferrer'
+        >
           https://southernwalltech.com
         </a>
         .
@@ -209,6 +224,7 @@ const Experience: React.FunctionComponent = () => {
             href='https://stackblitz.com/edit/angular-hmvgzg?file=src/app/swiper-tabs/swiper-tab-group/swiper-tab-group.component.ts'
             className='underline text-blue-600 hover:text-blue-800 visited:text-purple-600 '
             target='_blank'
+            rel='noreferrer'
           >
             Stack Blitz Link
           </a>
