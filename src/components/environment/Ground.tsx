@@ -3,6 +3,8 @@ import { RepeatWrapping, NearestFilter } from 'three';
 import { WORLD } from '../../contants/world.const';
 import { CuboidCollider, RigidBody } from '@react-three/rapier';
 
+const GROUND_HEIGHT = 1000;
+
 const Ground: React.FunctionComponent = () => {
   const grassTexture = useTexture('/ground/grass.jpg');
   grassTexture.wrapS = RepeatWrapping;
@@ -13,12 +15,17 @@ const Ground: React.FunctionComponent = () => {
   console.log('here');
   return (
     <>
-      <RigidBody friction={0} type='fixed' colliders={false}>
-        <CuboidCollider args={[WORLD.radius, 1, WORLD.radius]} />
+      <RigidBody
+        position={[0, -GROUND_HEIGHT, 0]}
+        friction={0}
+        type='fixed'
+        colliders={false}
+      >
+        <CuboidCollider args={[WORLD.radius, GROUND_HEIGHT, WORLD.radius]} />
         <mesh
           receiveShadow
           rotation={[-Math.PI / 2, 0, 0]}
-          position={[0, 0, 0]}
+          position={[0, GROUND_HEIGHT, 0]}
         >
           <ringGeometry
             args={[WORLD.foilageRadiusStart, WORLD.foilageRadiusEnd, 50, 50]}
@@ -29,7 +36,7 @@ const Ground: React.FunctionComponent = () => {
         <mesh
           receiveShadow
           rotation={[-Math.PI / 2, 0, 0]}
-          position={[0, 0, 0]}
+          position={[0, GROUND_HEIGHT, 0]}
         >
           <ringGeometry args={[0, WORLD.centerRadiusEnd, 50, 50]} />
           <meshStandardMaterial color={'gray'} />
@@ -38,7 +45,7 @@ const Ground: React.FunctionComponent = () => {
         <mesh
           receiveShadow
           rotation={[-Math.PI / 2, 0, 0]}
-          position={[0, 0, 0]}
+          position={[0, GROUND_HEIGHT, 0]}
         >
           <ringGeometry
             args={[WORLD.outerRimRadiusStart, WORLD.outerRimRadiusEnd, 50, 50]}
