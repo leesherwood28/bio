@@ -31,7 +31,6 @@ const PersonalExperience: React.FunctionComponent = () => {
         </a>
         .
       </p>
-      <h4 className='mb-2 pb-0 pt-0'>Stack</h4>
       <StackCollection>
         <StackChip text='Angular' />
         <StackChip text='Ionic' />
@@ -70,7 +69,6 @@ const PersonalExperience: React.FunctionComponent = () => {
         </a>
         .
       </p>
-      <h4 className='pt-0 pb-0 mb-2'>Stack</h4>
       <StackCollection>
         <StackChip text='Angular' />
         <StackChip text='Capacitor' />
@@ -95,7 +93,6 @@ const PersonalExperience: React.FunctionComponent = () => {
         </a>
         .
       </p>
-      <h4 className='pt-0 pb-0 mb-2'>Stack</h4>
       <StackCollection>
         <StackChip text='React' />
         <StackChip text='NextJs' />

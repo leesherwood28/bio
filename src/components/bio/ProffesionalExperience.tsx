@@ -46,7 +46,6 @@ const ProffesionalExperience: React.FunctionComponent = () => {
         forward to any new future challenges that come my way.
       </p>
 
-      <h4 className='mb-2 pb-0 pt-0'>Stack</h4>
       <StackCollection>
         <StackChip text='Angular' />
         <StackChip text='NX' />
@@ -78,7 +77,6 @@ const ProffesionalExperience: React.FunctionComponent = () => {
         responsibility and leadership.
       </p>
 
-      <h4 className='mb-2 pb-0 pt-0'>Stack</h4>
       <StackCollection>
         <StackChip text='.NET Framework' />
         <StackChip text='SQL Database' />
@@ -107,7 +105,6 @@ const ProffesionalExperience: React.FunctionComponent = () => {
         <li>Identifying all breaking changes for migration and fixing them.</li>
       </ul>
 
-      <h4 className='mb-2 pb-0 pt-0'>Stack</h4>
       <StackCollection>
         <StackChip text='SQL Server' />
         <StackChip text='Powershell' />
