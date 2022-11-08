@@ -7,12 +7,17 @@ const GROUND_HEIGHT = 1000;
 
 const Ground: React.FunctionComponent = () => {
   const grassTexture = useTexture('/ground/grass.jpg');
+  const tilesTexture = useTexture('/ground/tiles.png');
   grassTexture.wrapS = RepeatWrapping;
   grassTexture.wrapT = RepeatWrapping;
   grassTexture.repeat.set(100, 100);
   grassTexture.magFilter = NearestFilter;
 
-  console.log('here');
+  tilesTexture.wrapS = RepeatWrapping;
+  tilesTexture.wrapT = RepeatWrapping;
+  tilesTexture.repeat.set(10, 10);
+  tilesTexture.magFilter = NearestFilter;
+
   return (
     <>
       <RigidBody
@@ -39,7 +44,7 @@ const Ground: React.FunctionComponent = () => {
           position={[0, GROUND_HEIGHT, 0]}
         >
           <ringGeometry args={[0, WORLD.centerRadiusEnd, 50, 50]} />
-          <meshStandardMaterial color={'gray'} />
+          <meshBasicMaterial map={tilesTexture} />
         </mesh>
 
         <mesh
@@ -50,7 +55,7 @@ const Ground: React.FunctionComponent = () => {
           <ringGeometry
             args={[WORLD.outerRimRadiusStart, WORLD.outerRimRadiusEnd, 50, 50]}
           />
-          <meshStandardMaterial color={'gray'} />
+          <meshBasicMaterial map={tilesTexture} />
         </mesh>
       </RigidBody>
     </>
