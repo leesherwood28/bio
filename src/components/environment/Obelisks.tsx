@@ -32,7 +32,8 @@ interface ObeliskDef {
   component: React.ReactNode;
 }
 
-const ObeliskDistance = WORLD.centerRadiusEnd - 3;
+const ObeliskDistanceFromEdge = 2;
+const ObeliskDistance = WORLD.centerRadiusEnd - ObeliskDistanceFromEdge;
 const centralObeliskPosition = new Vector3(
   0,
   OBELISK_HEIGHT / 2,
