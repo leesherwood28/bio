@@ -27,35 +27,31 @@ const Ground: React.FunctionComponent = () => {
         colliders={false}
       >
         <CuboidCollider args={[WORLD.radius, GROUND_HEIGHT, WORLD.radius]} />
-        <mesh
-          receiveShadow
-          rotation={[-Math.PI / 2, 0, 0]}
-          position={[0, GROUND_HEIGHT, 0]}
-        >
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, GROUND_HEIGHT, 0]}>
           <ringGeometry
             args={[WORLD.foilageRadiusStart, WORLD.foilageRadiusEnd, 50, 50]}
           />
           <meshBasicMaterial map={grassTexture} />
         </mesh>
 
-        <mesh
-          receiveShadow
-          rotation={[-Math.PI / 2, 0, 0]}
-          position={[0, GROUND_HEIGHT, 0]}
-        >
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, GROUND_HEIGHT, 0]}>
           <ringGeometry args={[0, WORLD.centerRadiusEnd, 50, 50]} />
           <meshBasicMaterial map={tilesTexture} />
         </mesh>
 
-        <mesh
-          receiveShadow
-          rotation={[-Math.PI / 2, 0, 0]}
-          position={[0, GROUND_HEIGHT, 0]}
-        >
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, GROUND_HEIGHT, 0]}>
           <ringGeometry
             args={[WORLD.outerRimRadiusStart, WORLD.outerRimRadiusEnd, 50, 50]}
           />
           <meshBasicMaterial map={tilesTexture} />
+        </mesh>
+        <mesh
+          rotation={[-Math.PI / 2, 0, 0]}
+          receiveShadow
+          position={[0, GROUND_HEIGHT + 0.1, 0]}
+        >
+          <ringGeometry args={[0, WORLD.radius, 50, 50]} />
+          <shadowMaterial color='#171717' opacity={0.5} />
         </mesh>
       </RigidBody>
     </>
