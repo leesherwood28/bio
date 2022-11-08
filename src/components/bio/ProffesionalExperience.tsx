@@ -1,7 +1,7 @@
 import StackChip from './StackChip';
 import StackCollection from './StackCollection';
 
-const Experience: React.FunctionComponent = () => {
+const ProffesionalExperience: React.FunctionComponent = () => {
   return (
     <div className='flex flex-col items-center gap-4'>
       <h2 className='text-deep-gray mb-0 pb-0'>Dorset Software</h2>
@@ -116,4 +116,4 @@ const Experience: React.FunctionComponent = () => {
   );
 };
 
-export default Experience;
+export default ProffesionalExperience;

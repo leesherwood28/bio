@@ -11,10 +11,12 @@ import { isNil } from '../../functions/is-nil.fn';
 import { useCameraStore } from '../../store/camera.store';
 import { usePlayerStore } from '../../store/player.store';
 import Contact from '../bio/Contact';
-import Experience from '../bio/Experience';
 import Intro from '../bio/Intro';
 import Skills from '../bio/Skills';
 import HtmlThreeElement from '../three-constructs/HtmlThreeElement';
+import ProffesionalExperience from '../bio/ProffesionalExperience';
+import PersonalExperience from '../bio/PersonalExperience';
+import Education from '../bio/Eduction';
 
 const OBELISK_HEIGHT = 5;
 const OBELISK_WIDTH = 2.8;
@@ -43,8 +45,8 @@ const OBELISK_DEFS: ObeliskDef[] = [
     title: 'Intro',
     position: centralObeliskPosition
       .clone()
-      .applyEuler(new Euler(0, Math.PI / 2, 0)),
-    rotation: new Euler(0, -Math.PI / 2, 0),
+      .applyEuler(new Euler(0, (1.5 * Math.PI) / 2, 0)),
+    rotation: new Euler(0, (-0.5 * Math.PI) / 2, 0),
     component: <Intro />,
   },
   {
@@ -52,9 +54,36 @@ const OBELISK_DEFS: ObeliskDef[] = [
     title: 'Skills',
     position: centralObeliskPosition
       .clone()
+      .applyEuler(new Euler(0, Math.PI / 2, 0)),
+    rotation: new Euler(0, -Math.PI / 2, 0),
+    component: <Skills />,
+  },
+  {
+    key: generateUUID(),
+    title: 'Proffesional \n Experience',
+    position: centralObeliskPosition
+      .clone()
       .applyEuler(new Euler(0, Math.PI / 4, 0)),
     rotation: new Euler(0, (3 * -Math.PI) / 4, 0),
-    component: <Skills />,
+    component: <ProffesionalExperience />,
+  },
+  {
+    key: generateUUID(),
+    title: 'Personal \n Experience',
+    position: centralObeliskPosition
+      .clone()
+      .applyEuler(new Euler(0, -Math.PI / 4, 0)),
+    rotation: new Euler(0, (3 * Math.PI) / 4, 0),
+    component: <PersonalExperience />,
+  },
+  {
+    key: generateUUID(),
+    title: 'Education',
+    position: centralObeliskPosition
+      .clone()
+      .applyEuler(new Euler(0, -Math.PI / 2, 0)),
+    rotation: new Euler(0, Math.PI / 2, 0),
+    component: <Education />,
   },
 
   {
@@ -62,18 +91,9 @@ const OBELISK_DEFS: ObeliskDef[] = [
     title: 'Contact',
     position: centralObeliskPosition
       .clone()
-      .applyEuler(new Euler(0, -Math.PI / 2, 0)),
-    rotation: new Euler(0, Math.PI / 2, 0),
+      .applyEuler(new Euler(0, (-1.5 * Math.PI) / 2, 0)),
+    rotation: new Euler(0, 0.25 * Math.PI, 0),
     component: <Contact />,
-  },
-  {
-    key: generateUUID(),
-    title: 'Experience',
-    position: centralObeliskPosition
-      .clone()
-      .applyEuler(new Euler(0, -Math.PI / 4, 0)),
-    rotation: new Euler(0, (3 * Math.PI) / 4, 0),
-    component: <Experience />,
   },
 ];
 
