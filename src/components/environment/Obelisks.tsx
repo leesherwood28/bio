@@ -121,7 +121,7 @@ export interface ObeliskParams {
   children: React.ReactNode;
 }
 
-const OBELISK_TITLE_HEIGHT = OBELISK_HEIGHT / 2 + 0.4;
+const OBELISK_TITLE_HEIGHT = 2.6;
 
 const Obelisk: React.FunctionComponent<ObeliskParams> = ({
   position,
@@ -200,12 +200,12 @@ interface ObeliskTitle {
 
 const ObeliskTitle: React.FunctionComponent<ObeliskTitle> = ({ title }) => {
   return (
-    <Center position={[0, OBELISK_TITLE_HEIGHT, 0]}>
+    <Center top position={[0, OBELISK_TITLE_HEIGHT, 0]}>
       <Text3D
         font={'/fonts/Montserrat_Thin_Regular.json'}
         bevelEnabled
         bevelSize={0.01}
-        size={0.5}
+        size={0.4}
         bevelThickness={0.001}
       >
         {title}
