@@ -15,6 +15,7 @@ const Foliage: React.FunctionComponent = () => {
         number={10}
         available={5}
         rigidBody
+        centerDistanceBuffer={3}
       />
 
       <RandomFoliageSet
@@ -22,6 +23,7 @@ const Foliage: React.FunctionComponent = () => {
         number={5}
         available={5}
         rigidBody
+        centerDistanceBuffer={3}
       />
 
       <RandomFoliageSet path={'Bush'} number={5} available={2} rigidBody />
@@ -31,6 +33,7 @@ const Foliage: React.FunctionComponent = () => {
         number={5}
         available={5}
         rigidBody
+        centerDistanceBuffer={3}
       />
 
       <RandomFoliageSet path={'Corn'} number={5} available={2} />
@@ -53,11 +56,13 @@ interface FoilageSetParams {
   number: number;
   available: number;
   rigidBody?: boolean;
+  centerDistanceBuffer?: number;
 }
 
-const randomFoliageDistanceGen = (): number => {
+const randomFoliageDistanceGen = (centerDistanceBuffer?: number): number => {
   return (
     WORLD.foilageRadiusStart +
+    (centerDistanceBuffer ?? 0) +
     Math.random() * (WORLD.foilageRadiusEnd - WORLD.foilageRadiusStart)
   );
 };
@@ -67,6 +72,7 @@ const RandomFoliageSet: React.FunctionComponent<FoilageSetParams> = ({
   available,
   number,
   rigidBody,
+  centerDistanceBuffer,
 }) => {
   const [foilage] = useState<FoilageItem[]>(() => {
     return Array.from({ length: number }).map((_, i) => {
@@ -75,9 +81,11 @@ const RandomFoliageSet: React.FunctionComponent<FoilageSetParams> = ({
         rotation = (Math.sign(rotation) * Math.PI) / 6;
       }
 
-      const position = new Vector3(0, 0, randomFoliageDistanceGen()).applyEuler(
-        new Euler(0, rotation, 0)
-      );
+      const position = new Vector3(
+        0,
+        0,
+        randomFoliageDistanceGen(centerDistanceBuffer)
+      ).applyEuler(new Euler(0, rotation, 0));
 
       const randomIndex = Math.floor(Math.random() * available) + 1;
 
