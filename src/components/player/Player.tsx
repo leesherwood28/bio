@@ -21,7 +21,7 @@ const Player: React.FunctionComponent = () => {
   return (
     <>
       <RigidBody
-        position={[0, 2, 0]}
+        position={[0, 0, 0]}
         ref={playerPhysicsRef}
         friction={0}
         colliders={false}
