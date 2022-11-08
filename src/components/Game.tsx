@@ -1,5 +1,8 @@
+import { Stats } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
+import { Physics } from '@react-three/rapier';
 import { PCFSoftShadowMap, WebGLRenderer } from 'three';
+import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import Orbit from './dev/Orbit';
 import BlackHole from './environment/BlackHole';
 import Foliage from './environment/Foliage';
@@ -11,9 +14,6 @@ import GameCamera from './game/GameCamera';
 import JoystickInput from './input/JoystickInput';
 import KeyboardInput from './input/KeyboardInput';
 import Player from './player/Player';
-import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
-import { Stats } from '@react-three/drei';
-import { Debug, Physics } from '@react-three/rapier';
 
 const DualRenderer = function (canvas: HTMLCanvasElement) {
   //@ts-ignore
@@ -65,7 +65,6 @@ const Game: React.FunctionComponent = () => {
         gl={(canvas) => new DualRenderer(canvas)}
       >
         <Physics timeStep='vary' gravity={[0, -30, 0]}>
-          <Debug />
           <Player />
           <Ground />
           <Foliage />
