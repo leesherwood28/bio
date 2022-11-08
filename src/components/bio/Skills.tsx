@@ -3,7 +3,7 @@ import Image from 'next/image';
 const Skills: React.FunctionComponent = () => {
   return (
     <div className='text-center flex flex-col items-center gap-2'>
-      <h2 className='text-lg'>Web Technologies</h2>
+      <h2>Web Technologies</h2>
       <p>I have good experience with the following web technologies:</p>
       <SkillChipCollection>
         <SkillChip text='Angular' asset='angular.svg' />
@@ -21,7 +21,7 @@ const Skills: React.FunctionComponent = () => {
         <SkillChip text='NodeJS' asset='nodejs.png' />
         <SkillChip text='NX' asset='nx.png' />
       </SkillChipCollection>
-      <h2 className='text-lg'>Backend Technologies</h2>
+      <h2>Backend Technologies</h2>
       <p>I have good experience with the following backend technologies:</p>
       <SkillChipCollection>
         <SkillChip text='Firebase' asset='firebase.svg' />
@@ -29,7 +29,7 @@ const Skills: React.FunctionComponent = () => {
         <SkillChip text='.NET Framework' asset='netframework.svg' />
         <SkillChip text='SQL Server' asset='sqlserver.png' />
       </SkillChipCollection>
-      <h2 className='text-lg'>Tools and Services</h2>
+      <h2>Tools and Services</h2>
       <p>I also have good experience with the following tools and services:</p>
       <SkillChipCollection>
         <SkillChip text='Git' asset='git.svg' />
