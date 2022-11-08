@@ -23,7 +23,6 @@ const Intro: React.FunctionComponent = () => {
   return (
     <div className='text-center flex flex-col items-center gap-8'>
       <Image
-        id='image'
         width={ImageSize}
         height={ImageSize}
         className=' rounded-full'
