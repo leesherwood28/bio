@@ -1,5 +1,6 @@
 import { useFrame, useLoader } from '@react-three/fiber';
 import { createRef } from 'react';
+import { isMobile } from 'react-device-detect';
 import {
   AdditiveBlending,
   BackSide,
@@ -82,7 +83,12 @@ const BlackHole: React.FunctionComponent = () => {
         shadow-mapSize={[2048, 2048]}
         intensity={3}
       >
-        <orthographicCamera attach='shadow-camera' args={[-25, 25, 6.5, -7]} />
+        {!isMobile && (
+          <orthographicCamera
+            attach='shadow-camera'
+            args={[-25, 25, 6.5, -7]}
+          />
+        )}
       </directionalLight>
 
       <LensFlare position={LENS_FLARE_POSITION} />

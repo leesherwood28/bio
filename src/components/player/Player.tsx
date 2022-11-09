@@ -1,12 +1,15 @@
 import { CylinderCollider, RigidBody } from '@react-three/rapier';
 import React from 'react';
-import { useGltfWithShadows } from '../../hooks/use-gltf-with-shadows';
+import { isMobile } from 'react-device-detect';
+import { useGltf } from '../../hooks/use-gltf';
 import { usePlayerStore } from '../../store/player.store';
 import PlayerCharacterStates from './PlayerCharacterStates';
 import PlayerMovement from './PlayerMovement';
 
 const Player: React.FunctionComponent = () => {
-  const { scene, animations } = useGltfWithShadows('/player/scene.gltf');
+  const { scene, animations } = useGltf('/player/scene.gltf', {
+    withShadows: !isMobile,
+  });
   const playerObjectRef = usePlayerStore((s) => s.playerObjectRef);
   const playerPhysicsRef = usePlayerStore((s) => s.playerApi);
   const isHidden = usePlayerStore((s) => s.isHidden);
