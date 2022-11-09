@@ -74,9 +74,8 @@ const Game: React.FunctionComponent = () => {
         <ambientLight intensity={0.6} />
         <Stars />
         <BlackHole />
-        {/* <Planet /> */}
-        {/* Remove */}
         <GameCamera />
+        {/* Remove */}
         <Stats />
         <Orbit />
       </Canvas>
