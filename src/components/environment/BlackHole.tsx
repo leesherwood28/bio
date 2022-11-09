@@ -1,6 +1,5 @@
 import { useFrame, useLoader } from '@react-three/fiber';
 import { createRef } from 'react';
-import { isMobile } from 'react-device-detect';
 import {
   AdditiveBlending,
   BackSide,
@@ -9,6 +8,7 @@ import {
   TextureLoader,
   Vector3,
 } from 'three';
+import { WORLD } from '../../contants/world.const';
 import { isNil } from '../../functions/is-nil.fn';
 import LensFlare from './LensFlare';
 
@@ -77,7 +77,7 @@ const BlackHole: React.FunctionComponent = () => {
 
   return (
     <>
-      {!isMobile && (
+      {WORLD.includeDirectionalLight && (
         <>
           <directionalLight
             position={BLACK_HOLE_POSITION}
