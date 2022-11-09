@@ -37,7 +37,8 @@ interface PlayerCharacterStateParams {
 const PlayerCharacterStates: React.FunctionComponent<
   PlayerCharacterStateParams
 > = ({ animations }) => {
-  const { actions } = useAnimations(animations);
+  const playerObjectRef = usePlayerStore((s) => s.playerObjectRef);
+  const { actions } = useAnimations(animations, playerObjectRef);
   const characterState = usePlayerStore((s) => s.characterState);
   const [currentAnimation, setAnimation] = useState<AnimationAction>();
 
