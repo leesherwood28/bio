@@ -139,7 +139,10 @@ const Obelisk: React.FunctionComponent<ObeliskParams> = ({
 
   const focusObelisk = useCallback(() => {
     const idealLookAt = position;
-    const idealPosition = position.clone().multiplyScalar(0.6);
+    const idealPosition = position
+      .clone()
+      .multiplyScalar(0.6)
+      .add(new Vector3(0, 0.5, 0));
     setCamera((state) => ({ idealLookAt, idealPosition }));
     setPlayerPaused(true);
     setPlayerHidden(true);
@@ -180,7 +183,7 @@ const Obelisk: React.FunctionComponent<ObeliskParams> = ({
       <ObeliskTitle title={title} />
       <ObeliskContent>{children}</ObeliskContent>
 
-      {isLookingAtObelisk && (
+      {isLookingAtObelisk && !isFocusedOnObelisk && (
         <>
           <ObeliskButton onClick={focusObelisk} icon='view.svg' />
         </>
@@ -274,13 +277,13 @@ const ObeliskButton: React.FunctionComponent<ObeliskButton> = ({
     <>
       <Html
         transform
-        position={[-1.2, 0.5 + OBELISK_TITLE_HEIGHT / 2, 0.15]}
+        position={[-1.2, 0.9 + OBELISK_TITLE_HEIGHT / 2, 0.15]}
         center
       >
         <animated.button
           style={springProps}
           onClick={onClick}
-          className='bg-slate-300  rounded-full hover:bg-slate-200 grid items-center p-1'
+          className=' bg-opacity-40 bg-slate-300  rounded-full hover:bg-slate-200 grid items-center p-1'
         >
           <Image layout='fixed' src={'/icons/' + icon} width={16} height={16} />
         </animated.button>
