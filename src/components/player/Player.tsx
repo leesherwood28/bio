@@ -21,7 +21,7 @@ const Player: React.FunctionComponent = () => {
         enabledRotations={[false, false, false]}
       >
         <CylinderCollider args={[1, 0.4]} />
-        <group position={[0, -1, 0]} ref={playerObjectRef}>
+        <group position={[0, -1, 0]} ref={playerObjectRef} visible={!isHidden}>
           <primitive
             object={scene}
             rotation={[0, 0, 0]}
@@ -29,8 +29,6 @@ const Player: React.FunctionComponent = () => {
             position={[-0.05, 2.83, 0.1]}
             castShadow
             receiveShadow
-            transparent={isHidden}
-            opacity={isHidden ? 0 : 1}
           >
             <PlayerCharacterStates animations={animations} />
             <PlayerMovement />
