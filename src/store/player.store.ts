@@ -1,6 +1,6 @@
 import { RigidBodyApi } from '@react-three/rapier/dist/declarations/src/types';
 import { createRef, MutableRefObject } from 'react';
-import { AnimationClip, Group } from 'three';
+import { AnimationAction, AnimationClip, Group } from 'three';
 import create from 'zustand';
 
 export type PlayerCharacterState =
@@ -9,16 +9,20 @@ export type PlayerCharacterState =
   | 'walking'
   | 'walking-backwards';
 
+type PlayerActions = {
+  [x: string]: AnimationAction | null;
+};
+
 interface PlayerStore {
   playerApi: MutableRefObject<RigidBodyApi | null>;
   playerObjectRef: MutableRefObject<Group | null>;
-  playerAnimations: AnimationClip[] | null;
+  playerActions: PlayerActions;
   characterState: PlayerCharacterState;
   isPaused: boolean;
   isHidden: boolean;
   setIsHidden: (isHidden: boolean) => void;
   setIsPaused: (isPaused: boolean) => void;
-  setPlayerAnimations: (animations: AnimationClip[]) => void;
+  setPlayerActions: (animations: PlayerActions) => void;
   setCharacterState: (state: PlayerCharacterState) => void;
 }
 
@@ -26,14 +30,14 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
   return {
     playerApi: createRef(),
     playerObjectRef: createRef(),
-    playerAnimations: null,
+    playerActions: {},
     characterState: 'idle',
     isPaused: false,
     isHidden: false,
     setIsHidden: (isHidden) => set({ isHidden }),
     setIsPaused: (isPaused) => set({ isPaused }),
-    setPlayerAnimations: (animations: AnimationClip[]) =>
-      set((state) => ({ ...state, playerAnimations: animations })),
+    setPlayerActions: (actions: PlayerActions) =>
+      set((state) => ({ ...state, playerActions: actions })),
     setCharacterState: (state: PlayerCharacterState) =>
       set({ characterState: state }),
   };

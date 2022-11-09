@@ -1,6 +1,6 @@
 import { useAnimations } from '@react-three/drei';
 import { useEffect, useState } from 'react';
-import { AnimationAction } from 'three';
+import { AnimationAction, AnimationClip } from 'three';
 import { isNil } from '../../functions/is-nil.fn';
 
 import { PlayerCharacterState, usePlayerStore } from '../../store/player.store';
@@ -30,12 +30,17 @@ const mapStateToAnimation = (
   return actions['Root|Idle 01 '] as AnimationAction;
 };
 
-const PlayerCharacterStates: React.FunctionComponent = () => {
-  const playerAnimations = usePlayerStore((s) => s.playerAnimations);
-  const playerObjectRef = usePlayerStore((s) => s.playerObjectRef);
-  const { actions } = useAnimations(playerAnimations ?? [], playerObjectRef);
+interface PlayerCharacterStateParams {
+  animations: AnimationClip[];
+}
+
+const PlayerCharacterStates: React.FunctionComponent<
+  PlayerCharacterStateParams
+> = ({ animations }) => {
+  const { actions } = useAnimations(animations);
   const characterState = usePlayerStore((s) => s.characterState);
   const [currentAnimation, setAnimation] = useState<AnimationAction>();
+
   useEffect(() => {
     if (isNil(actions)) {
       return;

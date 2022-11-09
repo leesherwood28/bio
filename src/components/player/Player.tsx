@@ -1,8 +1,4 @@
-import {
-  CuboidCollider,
-  RigidBody,
-  CylinderCollider,
-} from '@react-three/rapier';
+import { CylinderCollider, RigidBody } from '@react-three/rapier';
 import React from 'react';
 import { useGltfWithShadows } from '../../hooks/use-gltf-with-shadows';
 import { usePlayerStore } from '../../store/player.store';
@@ -13,10 +9,7 @@ const Player: React.FunctionComponent = () => {
   const { scene, animations } = useGltfWithShadows('/player/scene.gltf');
   const playerObjectRef = usePlayerStore((s) => s.playerObjectRef);
   const playerPhysicsRef = usePlayerStore((s) => s.playerApi);
-  const setPlayerAnimations = usePlayerStore((s) => s.setPlayerAnimations);
   const isHidden = usePlayerStore((s) => s.isHidden);
-
-  setPlayerAnimations(animations);
 
   return (
     <>
@@ -39,7 +32,7 @@ const Player: React.FunctionComponent = () => {
             transparent={isHidden}
             opacity={isHidden ? 0 : 1}
           >
-            <PlayerCharacterStates />
+            <PlayerCharacterStates animations={animations} />
             <PlayerMovement />
           </primitive>
         </group>
