@@ -3,7 +3,8 @@ import { useState } from 'react';
 import { Euler, Vector3 } from 'three';
 import { generateUUID } from 'three/src/math/MathUtils';
 import { WORLD } from '../../contants/world.const';
-import { useFbxWithShadows } from '../../hooks/use-fbx-with-shadows';
+import { useFbx } from '../../hooks/use-fbx';
+import { isMobile } from 'react-device-detect';
 
 // Models used with love from https://quaternius.com/;
 
@@ -120,7 +121,7 @@ const FoilageItem: React.FunctionComponent<FoilageItem> = ({
   position,
   rigidBody,
 }) => {
-  const foilage = useFbxWithShadows(path).clone();
+  const foilage = useFbx(path, { useShadows: !isMobile }).clone();
 
   const primitive = (
     <primitive scale={0.02} object={foilage} position={position} />
