@@ -3,6 +3,7 @@ import { Canvas } from '@react-three/fiber';
 import { Physics } from '@react-three/rapier';
 import { PCFSoftShadowMap, WebGLRenderer } from 'three';
 import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
+import { WORLD } from '../contants/world.const';
 import Orbit from './dev/Orbit';
 import BlackHole from './environment/BlackHole';
 import Foliage from './environment/Foliage';
@@ -67,12 +68,12 @@ const Game: React.FunctionComponent = () => {
         <Physics timeStep='vary' gravity={[0, -30, 0]}>
           <Player />
           <Ground />
-          <Foliage />
+          {WORLD.foilage && <Foliage />}
           <Sheild />
-          <Obelisks />
+          {/* <Obelisks /> */}
         </Physics>
         <ambientLight intensity={0.6} />
-        <Stars />
+        {/* <Stars /> */}
         <BlackHole />
         <GameCamera />
         {/* Remove */}

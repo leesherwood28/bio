@@ -64,10 +64,9 @@ const randomFoliageDistanceGen = (centerDistanceBuffer?: number): number => {
     throw new Error('No definitions for foilage');
   }
   return (
-    WORLD.foilage.radiusStart ??
-    0 +
-      (centerDistanceBuffer ?? 0) +
-      Math.random() * (WORLD.foilage.radiusEnd - WORLD.foilage.radiusStart)
+    WORLD.foilage.radiusStart +
+    (centerDistanceBuffer ?? 0) +
+    Math.random() * (WORLD.foilage.radiusEnd - WORLD.foilage.radiusStart)
   );
 };
 
