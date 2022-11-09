@@ -3,7 +3,7 @@ import { Center, Html, Text3D } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { RigidBody } from '@react-three/rapier';
 import Image from 'next/image';
-import { MouseEventHandler, useCallback, useState } from 'react';
+import { MouseEventHandler, useCallback, useMemo, useState } from 'react';
 import { Euler, Vector3 } from 'three';
 import { generateUUID } from 'three/src/math/MathUtils';
 import { WORLD } from '../../contants/world.const';
@@ -203,8 +203,8 @@ interface ObeliskTitle {
 }
 
 const ObeliskTitle: React.FunctionComponent<ObeliskTitle> = ({ title }) => {
-  return (
-    <Center top position={[0, OBELISK_TITLE_HEIGHT, 0]}>
+  const text = useMemo(
+    () => (
       <Text3D
         font={'/fonts/Montserrat_Thin_Regular.json'}
         bevelEnabled
@@ -215,6 +215,12 @@ const ObeliskTitle: React.FunctionComponent<ObeliskTitle> = ({ title }) => {
         {title}
         <meshNormalMaterial />
       </Text3D>
+    ),
+    [title]
+  );
+  return (
+    <Center top position={[0, OBELISK_TITLE_HEIGHT, 0]}>
+      {text}
     </Center>
   );
 };
