@@ -70,7 +70,7 @@ const Game: React.FunctionComponent = () => {
           <Ground />
           {WORLD.foilage && <Foliage />}
           <Sheild />
-          {/* <Obelisks /> */}
+          <Obelisks />
         </Physics>
         <ambientLight intensity={0.6} />
         <Stars />
