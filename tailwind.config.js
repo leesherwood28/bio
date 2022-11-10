@@ -3,6 +3,10 @@ module.exports = {
   content: ['./pages/**/*.{jsx,tsx}', './src/**/*.{jsx,tsx}'],
   theme: {
     extend: {
+      fontFamily: {
+        montserrat: ['Montserrat', 'sans-serif'],
+        anton: ['Anton', 'sans-serif'],
+      },
       animation: {
         wordRotate: 'wordRotate 9s linear infinite 0s',
       },
