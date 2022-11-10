@@ -1,4 +1,4 @@
-import { Stats } from '@react-three/drei';
+import { Preload, Stats } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { Physics } from '@react-three/rapier';
 import { PCFSoftShadowMap, WebGLRenderer } from 'three';
@@ -76,6 +76,7 @@ const Game: React.FunctionComponent = () => {
         <Stars />
         <BlackHole />
         <GameCamera />
+        <Preload all />
         {/* Remove */}
         <Stats />
         <Orbit />
