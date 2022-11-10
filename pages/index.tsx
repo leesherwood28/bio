@@ -1,13 +1,17 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
-import Image from 'next/image';
 import Game from '../src/components/Game';
-import styles from '../styles/Home.module.css';
+import Intro from '../src/components/Intro';
+import { useInitialisationStore } from '../src/store/initialisation.store';
 
 const Home: NextPage = () => {
+  const initialAnimationDone = useInitialisationStore(
+    (s) => s.initialAnimationDone
+  );
+
   return (
     <div className='w-screen h-screen relative overflow-hidden'>
-      <Game />
+      <Intro />
+      {initialAnimationDone && <Game />}
     </div>
   );
 };

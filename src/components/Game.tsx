@@ -58,7 +58,7 @@ DualRenderer.prototype.constructor = DualRenderer;
 
 const Game: React.FunctionComponent = () => {
   return (
-    <div id='game-container' className='w-full h-full relative'>
+    <div id='game-container' className='w-full h-full absolute'>
       <Canvas
         camera={{ far: 5000 }}
         shadows={{ type: PCFSoftShadowMap }}
