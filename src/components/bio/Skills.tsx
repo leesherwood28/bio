@@ -82,6 +82,7 @@ const SkillChip: React.FunctionComponent<SkillShipParams> = ({
         width={16}
         layout='fixed'
         src={'/icons/' + assetPath}
+        alt={`${text} Logo`}
       />
       <span className='ml-1'>{text}</span>
     </div>

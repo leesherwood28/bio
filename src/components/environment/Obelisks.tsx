@@ -185,13 +185,21 @@ const Obelisk: React.FunctionComponent<ObeliskParams> = ({
 
       {isLookingAtObelisk && !isFocusedOnObelisk && (
         <>
-          <ObeliskButton onClick={focusObelisk} icon='view.svg' />
+          <ObeliskButton
+            onClick={focusObelisk}
+            icon='view.svg'
+            imgAlt='View Icon'
+          />
         </>
       )}
 
       {isFocusedOnObelisk && (
         <>
-          <ObeliskButton onClick={stopFocusObelisk} icon='close.svg' />
+          <ObeliskButton
+            onClick={stopFocusObelisk}
+            icon='close.svg'
+            imgAlt='Stop Viewing Icon'
+          />
         </>
       )}
     </group>
@@ -268,10 +276,12 @@ const ObeliskContent: React.FunctionComponent<ObeliskContent> = ({
 interface ObeliskButton {
   onClick: MouseEventHandler<HTMLButtonElement>;
   icon: string;
+  imgAlt: string;
 }
 const ObeliskButton: React.FunctionComponent<ObeliskButton> = ({
   onClick,
   icon,
+  imgAlt,
 }) => {
   const springProps = useSpring({
     from: { scale: 0 },
@@ -291,7 +301,13 @@ const ObeliskButton: React.FunctionComponent<ObeliskButton> = ({
           onClick={onClick}
           className=' bg-opacity-40 bg-slate-300  rounded-full hover:bg-slate-200 grid items-center p-1'
         >
-          <Image layout='fixed' src={'/icons/' + icon} width={16} height={16} />
+          <Image
+            layout='fixed'
+            src={'/icons/' + icon}
+            width={16}
+            height={16}
+            alt={imgAlt}
+          />
         </animated.button>
       </Html>
     </>
