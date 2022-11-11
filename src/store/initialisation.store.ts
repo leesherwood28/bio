@@ -1,16 +1,16 @@
 import create from 'zustand';
 
 interface IntitialisationStore {
-  initialAnimationDone: boolean;
-  confirmInitialAnimationDone?: () => void;
+  loadingDone: boolean;
+  confirmLoadingDone?: () => void;
 }
 
 export const useInitialisationStore = create<IntitialisationStore>(
   (set, get) => {
     return {
-      initialAnimationDone: false,
-      confirmInitialAnimationDone() {
-        set({ initialAnimationDone: true });
+      loadingDone: false,
+      confirmLoadingDone() {
+        set({ loadingDone: true });
       },
     };
   }

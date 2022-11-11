@@ -1,5 +1,3 @@
-import { animated, useSpring } from '@react-spring/web';
-
 const Intro: React.FunctionComponent = () => {
   return (
     <div
@@ -34,13 +32,23 @@ const Intro: React.FunctionComponent = () => {
             self-start
             md:place-self-stretch md:row-start-3 md:col-start-3'
       >
-        <FadeInText className='mb-4' delay={1500}>
+        <div
+          className='
+                mb-4
+                animate__animated animate__fadeIn animate__delay-1500ms
+              '
+        >
           Lee Sherwood
-        </FadeInText>
-
-        <FadeInText className='italic text-yellow-600 text-2xl' delay={2500}>
+        </div>
+        <div
+          className='
+                animate__animated animate__fadeIn animate__delay-2500ms
+                italic
+                text-yellow-600 text-2xl
+              '
+        >
           Web Developer
-        </FadeInText>
+        </div>
       </div>
     </div>
   );
@@ -54,61 +62,25 @@ const Arrow: React.FunctionComponent<ArrowProps> = ({
   children,
   animateDirection,
 }) => {
-  const animatedStyles = useSpring({
-    from: {
-      x: animateDirection === 'left' ? -2000 : 2000,
-      scale: 0.7,
-      opacity: 0.7,
-    },
-    to: [{ x: 0 }, { scale: 1, opacity: 1 }],
-  });
-
   return (
-    <animated.span style={animatedStyles} className='text-yellow-600'>
+    <span
+      className={`text-yellow-600 animate__animated 
+                                          animateDirection${
+                                            animateDirection === 'left'
+                                              ? 'animate__backInLeft'
+                                              : 'animate__backInRight'
+                                          }`}
+    >
       {children}
-    </animated.span>
+    </span>
   );
 };
 
 const Slash: React.FunctionComponent = () => {
-  const animatedStyles = useSpring({
-    from: {
-      scale: 0.3,
-      opacity: 0,
-    },
-    to: [{ scale: 1, opacity: 1 }],
-    delay: 750,
-    config: { tension: 1000, mass: 2 },
-  });
   return (
-    <animated.span style={animatedStyles} className='px-8'>
+    <span className='px-8  animate__animated animate__bounceIn animate__delay-750ms'>
       /
-    </animated.span>
-  );
-};
-
-interface FadeInTextProps {
-  className: string;
-  children: React.ReactNode;
-  delay: number;
-}
-const FadeInText: React.FunctionComponent<FadeInTextProps> = ({
-  className,
-  children,
-  delay,
-}) => {
-  const animatedStyles = useSpring({
-    from: {
-      opacity: 0,
-    },
-    to: { opacity: 1 },
-    delay,
-  });
-
-  return (
-    <animated.div style={animatedStyles} className={className}>
-      {children}
-    </animated.div>
+    </span>
   );
 };
 

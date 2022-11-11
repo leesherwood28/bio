@@ -16,6 +16,7 @@
     "@react-three/fiber": "^8.9.1",
     "@react-three/rapier": "^0.10.0",
     "@types/three": "^0.144.0",
+    "animate.css": "^4.1.1",
     "immer": "^9.0.15",
     "maath": "^0.4.2",
     "next": "12.3.0",
