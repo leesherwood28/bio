@@ -14,7 +14,7 @@ const LoadingGame: React.FunctionComponent = () => {
       if (loaded) {
         setHasLoaded(true);
       }
-    }, 100);
+    }, 200);
     return () => clearTimeout(verifyLoadedTimeout);
   }, [progress]);
 
