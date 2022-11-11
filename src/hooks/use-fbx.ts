@@ -5,8 +5,8 @@ export function useFbx(path: string, { useShadows }: { useShadows: boolean }) {
   if (useShadows) {
     group.traverse((item: any) => {
       if (item.isMesh) {
-        item.castShadow = true;
-        // item.receiveShadow = true;
+        item.castShadow = useShadows;
+        item.receiveShadow = useShadows;
         item.needsUpdate = true;
       }
     });
