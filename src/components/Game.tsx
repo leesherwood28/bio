@@ -61,14 +61,14 @@ DualRenderer.prototype.constructor = DualRenderer;
 const Game: React.FunctionComponent = () => {
   return (
     <>
-      <Suspense fallback={null}>
-        <div id='game-container' className='w-full h-full absolute'>
-          <Canvas
-            camera={{ far: 5000 }}
-            shadows={{ type: PCFSoftShadowMap }}
-            //@ts-ignore
-            gl={(canvas) => new DualRenderer(canvas)}
-          >
+      <div id='game-container' className='w-full h-full absolute'>
+        <Canvas
+          camera={{ far: 5000 }}
+          shadows={{ type: PCFSoftShadowMap }}
+          //@ts-ignore
+          gl={(canvas) => new DualRenderer(canvas)}
+        >
+          <Suspense fallback={null}>
             <Physics timeStep='vary' gravity={[0, -30, 0]}>
               <Player />
               <Ground />
@@ -84,11 +84,11 @@ const Game: React.FunctionComponent = () => {
             {/* Remove */}
             <Stats />
             <Orbit />
-          </Canvas>
-          <KeyboardInput />
-          <JoystickInput />
-        </div>
-      </Suspense>
+          </Suspense>
+        </Canvas>
+        <KeyboardInput />
+        <JoystickInput />
+      </div>
 
       <LoadingGame />
     </>
