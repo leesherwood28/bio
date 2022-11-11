@@ -5,9 +5,7 @@ import Intro from '../src/components/Intro';
 import LoadingGameFiles from '../src/components/loading/LoadingGameFiles';
 import { useInitialisationStore } from '../src/store/initialisation.store';
 
-const Game = dynamic(() => import('../src/components/Game'), {
-  ssr: true,
-});
+const Game = dynamic(() => import('../src/components/Game'), {});
 
 const Home: NextPage = () => {
   const initialAnimationDone = useInitialisationStore(
