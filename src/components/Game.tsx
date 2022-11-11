@@ -1,6 +1,7 @@
-import { Preload, Stats } from '@react-three/drei';
+import { Preload } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { Physics } from '@react-three/rapier';
+import { Suspense } from 'react';
 import { PCFSoftShadowMap, WebGLRenderer } from 'three';
 import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { WORLD } from '../contants/world.const';
@@ -16,7 +17,6 @@ import JoystickInput from './input/JoystickInput';
 import KeyboardInput from './input/KeyboardInput';
 import LoadingGame from './loading/LoadingGame';
 import Player from './player/Player';
-import { Suspense } from 'react';
 
 const DualRenderer = function (canvas: HTMLCanvasElement) {
   //@ts-ignore
@@ -70,26 +70,26 @@ const Game: React.FunctionComponent = () => {
         >
           <Suspense fallback={null}>
             <Physics timeStep='vary' gravity={[0, -30, 0]}>
-              <Player />
               <Ground />
+              <Player />
               {WORLD.foilage && <Foliage />}
               <Sheild />
               <Obelisks />
             </Physics>
-            <ambientLight intensity={0.6} />
             <Stars />
             <BlackHole />
             <GameCamera />
+            <ambientLight intensity={0.6} />
             <Preload all />
             {/* Remove */}
             {/* <Stats />
-            <Orbit /> */}
+             */}
+            <Orbit />
           </Suspense>
         </Canvas>
         <KeyboardInput />
         <JoystickInput />
       </div>
-
       <LoadingGame />
     </>
   );
