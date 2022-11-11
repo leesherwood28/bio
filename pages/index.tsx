@@ -1,8 +1,14 @@
 import type { NextPage } from 'next';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
-// import Game from '../src/components/Game';
 import Intro from '../src/components/Intro';
 import { useInitialisationStore } from '../src/store/initialisation.store';
+import { Suspense } from 'react';
+import LoadingGameFiles from '../src/components/loading/LoadingGameFiles';
+
+const Game = dynamic(() => import('../src/components/Game'), {
+  suspense: true,
+});
 
 const Home: NextPage = () => {
   const initialAnimationDone = useInitialisationStore(
@@ -27,9 +33,10 @@ const Home: NextPage = () => {
           rel='stylesheet'
         />
       </Head>
-
-      {/* <Game /> */}
       <Intro />
+      <Suspense fallback={<LoadingGameFiles />}>
+        <Game />
+      </Suspense>
     </div>
   );
 };

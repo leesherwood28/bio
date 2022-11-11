@@ -14,6 +14,7 @@ import Stars from './environment/Stars';
 import GameCamera from './game/GameCamera';
 import JoystickInput from './input/JoystickInput';
 import KeyboardInput from './input/KeyboardInput';
+import LoadingGame from './loading/LoadingGame';
 import Player from './player/Player';
 
 const DualRenderer = function (canvas: HTMLCanvasElement) {
@@ -58,32 +59,35 @@ DualRenderer.prototype.constructor = DualRenderer;
 
 const Game: React.FunctionComponent = () => {
   return (
-    <div id='game-container' className='w-full h-full absolute'>
-      <Canvas
-        camera={{ far: 5000 }}
-        shadows={{ type: PCFSoftShadowMap }}
-        //@ts-ignore
-        gl={(canvas) => new DualRenderer(canvas)}
-      >
-        <Physics timeStep='vary' gravity={[0, -30, 0]}>
-          <Player />
-          <Ground />
-          {WORLD.foilage && <Foliage />}
-          <Sheild />
-          <Obelisks />
-        </Physics>
-        <ambientLight intensity={0.6} />
-        <Stars />
-        <BlackHole />
-        <GameCamera />
-        <Preload all />
-        {/* Remove */}
-        <Stats />
-        <Orbit />
-      </Canvas>
-      <KeyboardInput />
-      <JoystickInput />
-    </div>
+    <>
+      <div id='game-container' className='w-full h-full absolute'>
+        <Canvas
+          camera={{ far: 5000 }}
+          shadows={{ type: PCFSoftShadowMap }}
+          //@ts-ignore
+          gl={(canvas) => new DualRenderer(canvas)}
+        >
+          <Physics timeStep='vary' gravity={[0, -30, 0]}>
+            <Player />
+            <Ground />
+            {WORLD.foilage && <Foliage />}
+            <Sheild />
+            <Obelisks />
+          </Physics>
+          <ambientLight intensity={0.6} />
+          <Stars />
+          <BlackHole />
+          <GameCamera />
+          <Preload all />
+          {/* Remove */}
+          <Stats />
+          <Orbit />
+        </Canvas>
+        <KeyboardInput />
+        <JoystickInput />
+      </div>
+      <LoadingGame />
+    </>
   );
 };
 
