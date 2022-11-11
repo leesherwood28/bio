@@ -1,13 +1,6 @@
-import { useFrame, useLoader } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 import { createRef } from 'react';
-import {
-  AdditiveBlending,
-  BackSide,
-  DoubleSide,
-  Mesh,
-  TextureLoader,
-  Vector3,
-} from 'three';
+import { AdditiveBlending, BackSide, DoubleSide, Mesh, Vector3 } from 'three';
 import { WORLD } from '../../contants/world.const';
 import { isNil } from '../../functions/is-nil.fn';
 import LensFlare from './LensFlare';
@@ -51,9 +44,6 @@ const LENS_FLARE_POSITION = BLACK_HOLE_POSITION.clone().multiplyScalar(0.5);
 const BlackHole: React.FunctionComponent = () => {
   const accretionRef = createRef<Mesh>();
   const accretionRefTwo = createRef<Mesh>();
-  const planetTexture = useLoader(TextureLoader, 'jupiter/jupiter.jpg');
-
-  planetTexture.anisotropy = 16;
 
   useFrame((state, time) => {
     if (isNil(accretionRef.current) || isNil(accretionRefTwo.current)) {
