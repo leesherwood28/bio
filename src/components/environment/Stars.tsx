@@ -39,7 +39,7 @@ const Stars: React.FunctionComponent = () => {
 
   return (
     <mesh>
-      <sphereBufferGeometry args={[2500, 0, 0]} />
+      <sphereGeometry args={[2500, 0, 0]} />
       <shaderMaterial
         uniforms={{ background: { value: envMap } }}
         side={BackSide}
