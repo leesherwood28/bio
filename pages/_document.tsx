@@ -3,7 +3,6 @@ const Document: React.FunctionComponent = () => {
   return (
     <Html>
       <Head>
-        <title>Lee Sherwood</title>
         <link rel='preconnect' href='https://fonts.gstatic.com' />
         <link
           href='https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap'
