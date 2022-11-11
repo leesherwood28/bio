@@ -82,8 +82,8 @@ const Game: React.FunctionComponent = () => {
             <GameCamera />
             <Preload all />
             {/* Remove */}
-            <Stats />
-            <Orbit />
+            {/* <Stats />
+            <Orbit /> */}
           </Suspense>
         </Canvas>
         <KeyboardInput />
