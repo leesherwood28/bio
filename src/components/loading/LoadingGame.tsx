@@ -1,10 +1,11 @@
 import { useSpring, animated } from '@react-spring/web';
 import { useProgress } from '@react-three/drei';
 import { useEffect, useState, useRef } from 'react';
+import { useInitialisationStore } from '../../store/initialisation.store';
 
 const LoadingGame: React.FunctionComponent = () => {
   const { progress, loaded } = useProgress();
-  const [hasLoaded, setHasLoaded] = useState(false);
+  const { loadingDone, confirmLoadingDone } = useInitialisationStore();
 
   const previousLoadedAmount = useRef(0);
 
@@ -12,7 +13,7 @@ const LoadingGame: React.FunctionComponent = () => {
     previousLoadedAmount.current = progress;
     const verifyLoadedTimeout = setTimeout(() => {
       if (loaded) {
-        setHasLoaded(true);
+        confirmLoadingDone();
       }
     }, 200);
     return () => clearTimeout(verifyLoadedTimeout);
@@ -25,7 +26,7 @@ const LoadingGame: React.FunctionComponent = () => {
 
   return (
     <>
-      {!hasLoaded && (
+      {!loadingDone && (
         <div className='absolute bottom-4 py-2 flex flex-col items-center gap-2 w-full'>
           <span className='text-white text-xl'>Loading...</span>
           <div className='h-2 w-3/5'>

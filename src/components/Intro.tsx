@@ -1,13 +1,15 @@
+import { useInitialisationStore } from '../store/initialisation.store';
+
 const Intro: React.FunctionComponent = () => {
+  const { loadingDone } = useInitialisationStore();
   return (
     <div
-      className='
-        w-full h-full absolute
-        bg-black
-        grid grid-cols-1 grid-rows-2
-        md:grid-rows-3 md:grid-cols-3
-        place-items-center
-        text-white'
+      className={`w-full h-full absolute
+      bg-black
+      grid grid-cols-1 grid-rows-2
+      md:grid-rows-3 md:grid-cols-3
+      place-items-center
+      text-white ${loadingDone && ' animate__animated animate__slideOutUp'}`}
     >
       <div
         className='

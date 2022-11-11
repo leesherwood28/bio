@@ -2,7 +2,7 @@ import create from 'zustand';
 
 interface IntitialisationStore {
   loadingDone: boolean;
-  confirmLoadingDone?: () => void;
+  confirmLoadingDone: () => void;
 }
 
 export const useInitialisationStore = create<IntitialisationStore>(
