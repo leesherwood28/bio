@@ -24,22 +24,28 @@ function inputByKey(key: string, isKeyUp: boolean): Partial<Input> {
 const KeyboardInput: React.FunctionComponent = () => {
   const setInput = useInputStore((s) => s.setInput);
 
-  const handleKeyDown = useCallback((e: KeyboardEvent) => {
-    if (e.repeat) {
-      return;
-    }
-    const input = inputByKey(e.key, false);
-    if (input) {
-      setInput(input);
-    }
-  }, []);
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.repeat) {
+        return;
+      }
+      const input = inputByKey(e.key, false);
+      if (input) {
+        setInput(input);
+      }
+    },
+    [setInput]
+  );
 
-  const handleKeyUp = useCallback((e: KeyboardEvent) => {
-    const input = inputByKey(e.key, true);
-    if (input) {
-      setInput(input);
-    }
-  }, []);
+  const handleKeyUp = useCallback(
+    (e: KeyboardEvent) => {
+      const input = inputByKey(e.key, true);
+      if (input) {
+        setInput(input);
+      }
+    },
+    [setInput]
+  );
 
   useEffect(() => {
     document.addEventListener('keydown', handleKeyDown);

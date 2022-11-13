@@ -147,14 +147,20 @@ const Obelisk: React.FunctionComponent<ObeliskParams> = ({
     setPlayerPaused(true);
     setPlayerHidden(true);
     setIsFocusedOnObelisk(true);
-  }, [position, rotation]);
+  }, [
+    position,
+    setCamera,
+    setPlayerPaused,
+    setPlayerHidden,
+    setIsFocusedOnObelisk,
+  ]);
 
   const stopFocusObelisk = useCallback(() => {
     setCamera((state) => ({ idealLookAt: null, idealPosition: null }));
     setPlayerPaused(false);
     setPlayerHidden(false);
     setIsFocusedOnObelisk(false);
-  }, [position, rotation]);
+  }, [setCamera, setPlayerPaused, setPlayerHidden, setIsFocusedOnObelisk]);
 
   useFrame(() => {
     const playerPosition = usePlayerStore
