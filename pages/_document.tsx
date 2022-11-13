@@ -1,7 +1,7 @@
 import { Html, Head, Main, NextScript } from 'next/document';
 const Document: React.FunctionComponent = () => {
   return (
-    <Html>
+    <Html lang='en'>
       <Head>
         <link rel='preconnect' href='https://fonts.gstatic.com' />
         <link
