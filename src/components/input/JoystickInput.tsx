@@ -76,6 +76,29 @@ const JoystickInput: React.FunctionComponent = () => {
   const joystickRef = useRef<HTMLButtonElement>(null);
   const stateRef = useRef<State>({ isMoving: false, startPosition: null });
 
+  const updateJoystickPosition = useCallback(
+    (input: JoystickMovement) => {
+      if (isNil(joystickRef.current)) {
+        return;
+      }
+      input = {
+        x: clampJoystickDisplayMovement(input.x),
+        y: clampJoystickDisplayMovement(input.y),
+      };
+      joystickRef.current.style.transform = `translate(${input.x}px, ${input.y}px)`;
+    },
+    [joystickRef]
+  );
+
+  const updateJoystick = useCallback(
+    (input: JoystickMovement) => {
+      updateJoystickPosition(input);
+
+      setInput(convertJoystickMovementIntoInput(input));
+    },
+    [updateJoystickPosition, setInput]
+  );
+
   const handleJoystickStart = useCallback(
     (event: JoystickEvent) => {
       if (isNil(stateRef.current) || stateRef.current.isMoving) {
@@ -88,7 +111,7 @@ const JoystickInput: React.FunctionComponent = () => {
       };
       updateJoystick({ x: 0, y: 0 });
     },
-    [joystickRef, stateRef]
+    [joystickRef, stateRef, updateJoystick]
   );
   const handleJoystickEnd = useCallback(
     (event: JoystickEvent) => {
@@ -101,7 +124,7 @@ const JoystickInput: React.FunctionComponent = () => {
       };
       updateJoystick({ x: 0, y: 0 });
     },
-    [joystickRef, stateRef]
+    [joystickRef, stateRef, updateJoystick]
   );
 
   const handleJoystickMove = useCallback(
@@ -124,29 +147,6 @@ const JoystickInput: React.FunctionComponent = () => {
       updateJoystick(joystickMovement);
     },
     [joystickRef, stateRef]
-  );
-
-  const updateJoystickPosition = useCallback(
-    (input: JoystickMovement) => {
-      if (isNil(joystickRef.current)) {
-        return;
-      }
-      input = {
-        x: clampJoystickDisplayMovement(input.x),
-        y: clampJoystickDisplayMovement(input.y),
-      };
-      joystickRef.current.style.transform = `translate(${input.x}px, ${input.y}px)`;
-    },
-    [joystickRef]
-  );
-
-  const updateJoystick = useCallback(
-    (input: JoystickMovement) => {
-      updateJoystickPosition(input);
-
-      setInput(convertJoystickMovementIntoInput(input));
-    },
-    [updateJoystickPosition, setInput]
   );
 
   useEffect(() => {

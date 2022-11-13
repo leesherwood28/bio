@@ -28,7 +28,7 @@ export const LensFlare: React.FunctionComponent<LensFlareArguments> = ({
     ref.current.addElement(new LensflareElement(lensflare3, 70, 0.7));
     ref.current.addElement(new LensflareElement(lensflare3, 120, 0.9));
     ref.current.addElement(new LensflareElement(lensflare3, 70, 1));
-  }, [ref]);
+  }, [ref, lensflare3]);
 
   return (
     <>
