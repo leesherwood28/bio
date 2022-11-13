@@ -19,6 +19,7 @@ import KeyboardInput from './input/KeyboardInput';
 import GameLoadedDetector from './loading/GameLoadedDetector';
 import LoadingGameBar from './loading/LoadingGameBar';
 import Player from './player/Player';
+import WelcomeInfo from './welcome/WelcomeInfo';
 
 const DualRenderer = function (canvas: HTMLCanvasElement) {
   //@ts-ignore
@@ -61,8 +62,7 @@ DualRenderer.prototype = WebGLRenderer.prototype;
 DualRenderer.prototype.constructor = DualRenderer;
 
 const Game: React.FunctionComponent = () => {
-  const { loadingDone, confirmLoadingDone } = useInitialisationStore();
-
+  const { loadingDone, showWelcome } = useInitialisationStore();
   return (
     <>
       <div id='game-container' className='w-full h-full absolute'>
@@ -87,7 +87,6 @@ const Game: React.FunctionComponent = () => {
             <Preload all />
             {!loadingDone && <GameLoadedDetector />}
             {/* Remove */}
-            <TestLoad />
             {/* <Stats />
              */}
             <Orbit />
@@ -96,14 +95,10 @@ const Game: React.FunctionComponent = () => {
         <KeyboardInput />
         <JoystickInput />
       </div>
+      {showWelcome && <WelcomeInfo />}
       <LoadingGameBar />
     </>
   );
-};
-
-const TestLoad: React.FunctionComponent = () => {
-  useFrame(() => {});
-  return null;
 };
 
 export default Game;
