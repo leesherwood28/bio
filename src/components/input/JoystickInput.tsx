@@ -111,7 +111,7 @@ const JoystickInput: React.FunctionComponent = () => {
       };
       updateJoystick({ x: 0, y: 0 });
     },
-    [joystickRef, stateRef, updateJoystick]
+    [stateRef, updateJoystick]
   );
   const handleJoystickEnd = useCallback(
     (event: JoystickEvent) => {
@@ -124,7 +124,7 @@ const JoystickInput: React.FunctionComponent = () => {
       };
       updateJoystick({ x: 0, y: 0 });
     },
-    [joystickRef, stateRef, updateJoystick]
+    [stateRef, updateJoystick]
   );
 
   const handleJoystickMove = useCallback(
@@ -146,7 +146,7 @@ const JoystickInput: React.FunctionComponent = () => {
       };
       updateJoystick(joystickMovement);
     },
-    [joystickRef, stateRef]
+    [joystickRef, stateRef, updateJoystick]
   );
 
   useEffect(() => {
