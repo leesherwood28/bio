@@ -21,7 +21,7 @@ const LoadingGameBar: React.FunctionComponent = () => {
     <>
       {!loadingDone && (
         <div className='absolute bottom-4 py-2 flex flex-col items-center gap-2 w-full z-10'>
-          <span className='text-white text-xl'>Loading.Resources..</span>
+          <span className='text-white text-xl'>Loading Resources..</span>
           <div className='h-2 w-3/5'>
             <animated.div
               style={{
