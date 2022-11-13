@@ -16,6 +16,7 @@ import Stars from './environment/Stars';
 import GameCamera from './game/GameCamera';
 import JoystickInput from './input/JoystickInput';
 import KeyboardInput from './input/KeyboardInput';
+import FirstMovementDetector from './loading/FirstMovementDetector';
 import GameLoadedDetector from './loading/GameLoadedDetector';
 import LoadingGameBar from './loading/LoadingGameBar';
 import Player from './player/Player';
@@ -86,6 +87,7 @@ const Game: React.FunctionComponent = () => {
             <ambientLight intensity={0.6} />
             <Preload all />
             {!loadingDone && <GameLoadedDetector />}
+            {showWelcome && <FirstMovementDetector />}
             {/* Remove */}
             {/* <Stats />
              */}
