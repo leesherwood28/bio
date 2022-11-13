@@ -6,6 +6,7 @@ import LoadingGameFiles from '../src/components/loading/LoadingGameFiles';
 
 const Game = dynamic(() => import('../src/components/Game'), {
   suspense: true,
+  ssr: false,
 });
 
 const Home: NextPage = () => {
