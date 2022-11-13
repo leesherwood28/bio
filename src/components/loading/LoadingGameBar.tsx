@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useInitialisationStore } from '../../store/initialisation.store';
 
 const LoadingGameBar: React.FunctionComponent = () => {
-  const { progress, loaded, active } = useProgress();
+  const { progress } = useProgress();
   const { loadingDone } = useInitialisationStore();
   const previousLoadedAmount = useRef(0);
 
@@ -21,7 +21,7 @@ const LoadingGameBar: React.FunctionComponent = () => {
     <>
       {!loadingDone && (
         <div className='absolute bottom-4 py-2 flex flex-col items-center gap-2 w-full z-10'>
-          <span className='text-white text-xl'>Loading...</span>
+          <span className='text-white text-xl'>Loading.Resources..</span>
           <div className='h-2 w-3/5'>
             <animated.div
               style={{
