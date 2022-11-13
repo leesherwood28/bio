@@ -67,7 +67,7 @@ const Arrow: React.FunctionComponent<ArrowProps> = ({
   return (
     <span
       className={`text-yellow-600 animate__animated 
-                                          animateDirection${
+                                          ${
                                             animateDirection === 'left'
                                               ? 'animate__backInLeft'
                                               : 'animate__backInRight'
