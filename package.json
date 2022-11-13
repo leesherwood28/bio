@@ -13,11 +13,7 @@
     "@react-spring/web": "^9.5.5",
     "@react-three/drei": "^9.29.1",
     "@react-three/fiber": "^8.9.1",
-    "@react-three/rapier": "^0.10.0",
-    "@types/three": "^0.144.0",
     "animate.css": "^4.1.1",
-    "immer": "^9.0.15",
-    "maath": "^0.4.2",
     "next": "12.3.0",
     "react": "18.2.0",
     "react-device-detect": "^2.2.2",
@@ -29,12 +25,14 @@
     "@types/node": "18.7.16",
     "@types/react": "18.0.19",
     "@types/react-dom": "18.0.6",
+    "@types/three": "^0.144.0",
     "autoprefixer": "^10.4.8",
     "eslint": "8.23.0",
     "eslint-config-next": "12.3.0",
     "next-transpile-modules": "^9.0.0",
     "postcss": "^8.4.16",
     "tailwindcss": "^3.1.8",
-    "typescript": "4.8.3"
+    "typescript": "4.8.3",
+    "@react-three/rapier": "^0.10.0"
   }
 }
