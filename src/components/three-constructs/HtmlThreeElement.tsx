@@ -18,7 +18,7 @@ const HtmlThreeElement: React.FunctionComponent<
   const { gl } = useThree();
 
   const rootEl = useMemo(() => document.createElement('div'), []);
-  const root = useMemo(() => createRoot(rootEl), []);
+  const root = useMemo(() => createRoot(rootEl), [rootEl]);
   const [{ width, height }, setWidthHeight] = useState({ width: 0, height: 0 });
   const resizeObserver = useMemo(() => {
     return new ResizeObserver((entries) => {
@@ -44,7 +44,7 @@ const HtmlThreeElement: React.FunctionComponent<
     root.render(children);
     resizeObserver.observe(rootEl);
     return () => resizeObserver.unobserve(rootEl);
-  }, [root, children]);
+  }, [root, children, rootEl, resizeObserver]);
 
   return (
     <>
