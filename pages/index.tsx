@@ -5,7 +5,6 @@ import Intro from '../src/components/Intro';
 import LoadingGameFiles from '../src/components/loading/LoadingGameFiles';
 
 const Game = dynamic(() => import('../src/components/Game'), {
-  suspense: true,
   ssr: false,
 });
 
