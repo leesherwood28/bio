@@ -1,10 +1,11 @@
 import { Preload } from '@react-three/drei';
-import { Canvas } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { Physics } from '@react-three/rapier';
 import { Suspense } from 'react';
 import { PCFSoftShadowMap, WebGLRenderer } from 'three';
 import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { WORLD } from '../contants/world.const';
+import { useInitialisationStore } from '../store/initialisation.store';
 import Orbit from './dev/Orbit';
 import BlackHole from './environment/BlackHole';
 import Foliage from './environment/Foliage';
@@ -15,7 +16,8 @@ import Stars from './environment/Stars';
 import GameCamera from './game/GameCamera';
 import JoystickInput from './input/JoystickInput';
 import KeyboardInput from './input/KeyboardInput';
-import LoadingGame from './loading/LoadingGame';
+import GameLoadedDetector from './loading/GameLoadedDetector';
+import LoadingGameBar from './loading/LoadingGameBar';
 import Player from './player/Player';
 
 const DualRenderer = function (canvas: HTMLCanvasElement) {
@@ -59,6 +61,8 @@ DualRenderer.prototype = WebGLRenderer.prototype;
 DualRenderer.prototype.constructor = DualRenderer;
 
 const Game: React.FunctionComponent = () => {
+  const { loadingDone, confirmLoadingDone } = useInitialisationStore();
+
   return (
     <>
       <div id='game-container' className='w-full h-full absolute'>
@@ -81,7 +85,9 @@ const Game: React.FunctionComponent = () => {
             <GameCamera />
             <ambientLight intensity={0.6} />
             <Preload all />
+            {!loadingDone && <GameLoadedDetector />}
             {/* Remove */}
+            <TestLoad />
             {/* <Stats />
              */}
             <Orbit />
@@ -90,9 +96,14 @@ const Game: React.FunctionComponent = () => {
         <KeyboardInput />
         <JoystickInput />
       </div>
-      <LoadingGame />
+      <LoadingGameBar />
     </>
   );
+};
+
+const TestLoad: React.FunctionComponent = () => {
+  useFrame(() => {});
+  return null;
 };
 
 export default Game;

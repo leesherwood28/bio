@@ -1,7 +1,19 @@
+import { useEffect, useState } from 'react';
 import { useInitialisationStore } from '../store/initialisation.store';
+
+const HideIntroDelay = 200;
 
 const Intro: React.FunctionComponent = () => {
   const { loadingDone } = useInitialisationStore();
+  const [hideIntro, setHideIntro] = useState(false);
+
+  useEffect(() => {
+    if (loadingDone) {
+      setTimeout(() => {
+        setHideIntro(true);
+      }, HideIntroDelay);
+    }
+  }, [loadingDone]);
   return (
     <div
       className={`w-full h-full absolute
@@ -9,7 +21,7 @@ const Intro: React.FunctionComponent = () => {
       grid grid-cols-1 grid-rows-2
       md:grid-rows-3 md:grid-cols-3
       place-items-center
-      text-white ${loadingDone && ' animate__animated animate__slideOutUp'}`}
+      text-white ${hideIntro && ' animate__animated animate__slideOutUp'}`}
     >
       <div
         className='
