@@ -4,8 +4,65 @@ import StackCollection from './StackCollection';
 const ProffesionalExperience: React.FunctionComponent = () => {
   return (
     <div className='flex flex-col items-center gap-4'>
+      <h2 className='text-deep-gray mb-0 pb-0'>Distributed Avionics</h2>
+      <span className='text-sm italic '>2021-2022</span>
+      <p>
+        <a
+          href='https://distributed-avionics.com/'
+          className='link'
+          target='_blank'
+          rel='noreferrer'
+        >
+          Distributed Avionics
+        </a>{' '}
+        designs and builds automated flight control systems for drones. I joined
+        as a consultant to provide my UI knowledge to redesign and implement a
+        new user interface.
+      </p>
+      <p>Within the role I:</p>
+      <ul className='list-disc ml-4'>
+        <li>
+          Completely redesigned the user interface from scratch , consulting
+          with users and business experts to implement a solution that was
+          considerably simpler and more elegant.
+        </li>
+        <li>Architected and coded the whole new user interface in Angular.</li>
+        <li>
+          Provided guidance and architectural suggestions for the backend
+          systems.
+        </li>
+        <li>
+          Helped modernise work management with suggestions of tools, services
+          and practices.
+        </li>
+      </ul>
+      <p>
+        The company is uniquely positioned as a path finder in a new industry,
+        resulting in many novel and complex requirements to consider for my
+        redesign of the user interface. Solving these challenges greatly
+        improved my fundamental understanding and problem solving skills within
+        the UX space.
+        <br />
+        <br />
+        Similarly, implementing the new user interface from scratch was an
+        amazing chance to establish solid coding patterns and optimal
+        architecture in Angular that I am confident will have significant code
+        utility and business value going forward.
+      </p>
+
+      <StackCollection>
+        <StackChip text='Angular' />
+        <StackChip text='Angular Material' />
+        <StackChip text='Deck.gl' />
+        <StackChip text='Mapbox' />
+        <StackChip text='D3' />
+        <StackChip text='Chart.js' />
+        <StackChip text='SignalR' />
+        <StackChip text='.NET Core' />
+      </StackCollection>
+
       <h2 className='text-deep-gray mb-0 pb-0'>Dorset Software</h2>
-      <span className='text-sm italic mb-4'>2015 - Present</span>
+      <span className='text-sm italic '>2015 - 2021</span>
 
       <p>
         Dorset Software provides IT consultancy as a service to clients. During
@@ -16,7 +73,7 @@ const ProffesionalExperience: React.FunctionComponent = () => {
 
       <h3 className='text-deep-gray mb-0 pb-0'>Front End Developer</h3>
 
-      <p className='mb-4'>
+      <p className=''>
         This role has involved me working as a front end developer on a complex
         traffic management system. The project has involved many facets
         including:
@@ -56,7 +113,7 @@ const ProffesionalExperience: React.FunctionComponent = () => {
 
       <h3 className='text-deep-gray mb-0 pb-0'>Programming Mentor</h3>
 
-      <p className='mb-4'>
+      <p className=''>
         This role involved training new starters to the organisation to the
         level of full stack developers and professional consultants over a
         training period. The role included:
