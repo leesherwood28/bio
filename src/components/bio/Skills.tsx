@@ -7,8 +7,8 @@ const Skills: React.FunctionComponent = () => {
       <p>I have good experience with the following web technologies:</p>
       <SkillChipCollection>
         <SkillChip text='Angular' asset='angular.svg' />
-        <SkillChip text='Angular Material' asset='angular.svg' />
         <SkillChip text='Typescript' asset='typescript.svg' />
+        <SkillChip text='Angular Material' asset='angular.svg' />
         <SkillChip text='Deck.gl' asset='angular.svg' />
         <SkillChip text='Mapbox' asset='angular.svg' />
         <SkillChip text='Akita' asset='akita.svg' />
