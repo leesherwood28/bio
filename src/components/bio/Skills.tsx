@@ -8,9 +8,9 @@ const Skills: React.FunctionComponent = () => {
       <SkillChipCollection>
         <SkillChip text='Angular' asset='angular.svg' />
         <SkillChip text='Typescript' asset='typescript.svg' />
-        <SkillChip text='Angular Material' asset='angular.svg' />
-        <SkillChip text='Deck.gl' asset='angular.svg' />
-        <SkillChip text='Mapbox' asset='angular.svg' />
+        <SkillChip text='Angular Material' asset='angular-material.svg' />
+        <SkillChip text='Deck.gl' asset='deckgl.png' />
+        <SkillChip text='Mapbox' asset='mapbox.svg' />
         <SkillChip text='Akita' asset='akita.svg' />
         <SkillChip text='NGXS' asset='ngxs.png' />
         <SkillChip text='D3' asset='d3.svg' />
@@ -23,7 +23,7 @@ const Skills: React.FunctionComponent = () => {
         <SkillChip text='Leaflet' asset='leaflet.svg' />
         <SkillChip text='NodeJS' asset='nodejs.png' />
         <SkillChip text='NX' asset='nx.png' />
-        <SkillChip text='Three.js' asset='nx.png' />
+        <SkillChip text='Three.js' asset='threejs.svg' />
       </SkillChipCollection>
       <h2>Backend Technologies</h2>
       <p>I have good experience with the following backend technologies:</p>
@@ -39,6 +39,7 @@ const Skills: React.FunctionComponent = () => {
         <SkillChip text='Git' asset='git.svg' />
         <SkillChip text='Azure' asset='azure.svg' />
         <SkillChip text='Azure Devops' asset='azure-devops.svg' />
+        <SkillChip text='Jira' asset='jira.ico' />
         <SkillChip text='Github' asset='github.png' />
         <SkillChip text='Gitlab' asset='gitlab.svg' />
         <SkillChip text='npm' asset='npm.svg' />
