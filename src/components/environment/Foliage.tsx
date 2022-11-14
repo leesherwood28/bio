@@ -59,14 +59,25 @@ interface FoilageSetParams {
   centerDistanceBuffer?: number;
 }
 
-const randomFoliageDistanceGen = (centerDistanceBuffer?: number): number => {
+const clamp = (value: number, min: number, max: number): number => {
+  if (value < min) {
+    return min;
+  }
+  if (value > max) {
+    return max;
+  }
+  return value;
+};
+
+const randomFoliageDistanceGen = (buffer?: number): number => {
   if (!WORLD.foilage) {
     throw new Error('No definitions for foilage');
   }
-  return (
+  return clamp(
     WORLD.foilage.radiusStart +
-    (centerDistanceBuffer ?? 0) +
-    Math.random() * (WORLD.foilage.radiusEnd - WORLD.foilage.radiusStart)
+      Math.random() * (WORLD.foilage.radiusEnd - WORLD.foilage.radiusStart),
+    WORLD.foilage.radiusStart + (buffer ?? 0),
+    WORLD.foilage.radiusEnd - (buffer ?? 0)
   );
 };
 
