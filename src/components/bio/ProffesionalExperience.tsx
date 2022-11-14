@@ -32,8 +32,8 @@ const ProffesionalExperience: React.FunctionComponent = () => {
           systems.
         </li>
         <li>
-          Helped modernise work management with suggestions of tools, services
-          and practices.
+          Helped improve work management with suggestions of tools, services and
+          practices.
         </li>
       </ul>
       <p>
