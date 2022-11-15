@@ -11,7 +11,10 @@ const Game = dynamic(() => import('../src/components/Game'), {
 
 const Home: NextPage = () => {
   return (
-    <div className='w-screen h-full relative overflow-hidden'>
+    <div
+      onScroll={(e) => e.stopPropagation()}
+      className='w-screen h-full relative overflow-hidden'
+    >
       <Game />
       <Intro />
     </div>
