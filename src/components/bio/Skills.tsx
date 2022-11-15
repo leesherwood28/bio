@@ -25,6 +25,7 @@ const Skills: React.FunctionComponent = () => {
         <SkillChip text='NX' asset='nx.png' />
         <SkillChip text='Three.js' asset='threejs.svg' />
         <SkillChip text='Chart.js' asset='chartjs.svg' />
+        <SkillChip text='Storybook' asset='storybook.png' />
       </SkillChipCollection>
       <h2>Backend Technologies</h2>
       <p>I have good experience with the following backend technologies:</p>
