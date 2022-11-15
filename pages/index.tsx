@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import dynamic from 'next/dynamic';
+import { useEffect } from 'react';
 import Intro from '../src/components/Intro';
 import LoadingGameFiles from '../src/components/loading/LoadingGameFiles';
 
@@ -10,7 +11,7 @@ const Game = dynamic(() => import('../src/components/Game'), {
 
 const Home: NextPage = () => {
   return (
-    <div className='w-screen h-screen relative overflow-hidden'>
+    <div className='w-screen h-full relative overflow-hidden'>
       <Game />
       <Intro />
     </div>

@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name='publisher' content={author} />
         <meta name='description' content={`Lee Sherwood's CV site`} />
       </Head>
-      <Component {...pageProps} />
+      <Component className='h-full' {...pageProps} />
     </>
   );
 }
