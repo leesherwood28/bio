@@ -57,7 +57,7 @@ const Intro: React.FunctionComponent = () => {
       <h2 className='text-deep-gray'>About Me</h2>
 
       <p className='text-sm mb-8'>
-        Hello I&apos;m Lee. A freelance Front End Developer based in Dorset.
+        Hello I&apos;m Lee. A freelance Front End Developer based in London.
         <br />
         <br />
         I specialise in Angular, but I have full stack experience with a range
